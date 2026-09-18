@@ -1,0 +1,217 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PhotoBlock from '../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../data/site.js';
+---
+<Layout title={`${site.doctorName} — ${site.specialty}`}>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy" data-reveal>
+        <span class="eyebrow">Consulta de fertilidad, obstetricia y ginecología</span>
+        <h1>Acompañamos cada etapa del camino hacia tu familia.</h1>
+        <p class="lede">
+          {site.doctorName} atiende en Cuenca con un enfoque médico riguroso y un trato
+          cercano, desde la primera consulta hasta el seguimiento de tu embarazo.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera agendar una cita.')} target="_blank" rel="noopener">
+            Agendar cita por WhatsApp
+          </a>
+          <a class="btn btn--ghost" href="/servicios">Ver servicios</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-ring spin-slow" aria-hidden="true"></div>
+        <div class="hero-ring hero-ring--inner spin-slow-reverse" aria-hidden="true"></div>
+        <div class="hero-photo">
+          <PhotoBlock seed="delgado-hero" alt="Consulta médica en un ambiente cálido y cercano" aspect="square" width={640} reveal={false} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIEN SOY -->
+  <section class="section">
+    <div class="container grid-2">
+      <div data-reveal>
+        <span class="eyebrow">Quién soy</span>
+        <h2>{site.doctorName}</h2>
+        <p class="lede">{site.specialty}.</p>
+        <p>
+          Médico graduado de la Universidad de Cuenca, con especialización en
+          Ginecología y Obstetricia y una subespecialidad en Medicina Reproductiva
+          cursada en Bogotá, Colombia. Cuenta con más de 12 años de práctica clínica
+          y quirúrgica, y forma parte de la Sociedad Ecuatoriana de Medicina
+          Reproductiva.
+        </p>
+        <a class="btn btn--ghost" href="/nosotros">Conocer más sobre nosotros</a>
+      </div>
+      <div class="panel" data-reveal>
+        <h3>Horario de atención</h3>
+        <ul class="hours-list">
+          {site.hours.map((h) => (
+            <li><span>{h.day}</span><span>{h.time}</span></li>
+          ))}
+        </ul>
+        <hr class="divider" />
+        <h3>Ubicación</h3>
+        <p>{site.address.line1}<br />{site.address.city}</p>
+        <a href={site.address.mapsUrl} target="_blank" rel="noopener">Ver en el mapa →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALACIONES (foto) -->
+  <section class="section section--soft">
+    <div class="container facility-grid">
+      <PhotoBlock seed="delgado-facility" alt="Instalaciones del consultorio" aspect="wide" width={960} caption="Nuestras instalaciones en Cuenca" />
+      <div data-reveal>
+        <span class="eyebrow">Instalaciones</span>
+        <h2>Un espacio pensado para tu tranquilidad</h2>
+        <p class="lede">
+          Consultorios, quirófano propio y laboratorio de reproducción asistida,
+          diseñados para que cada visita sea cómoda y privada.
+        </p>
+        <a class="btn btn--ghost" href="/nosotros#instalaciones">Ver instalaciones →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS DE SERVICIO -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Áreas de atención</span>
+      <h2>Un consultorio, todas las etapas de tu salud reproductiva</h2>
+      <div class="areas-grid" data-reveal-group>
+        <a class="area-card" href="/servicios/fertilidad">
+          <h3>Fertilidad</h3>
+          <p>Inseminación artificial, fecundación in vitro, ICSI, vitrificación de óvulos y más.</p>
+        </a>
+        <a class="area-card" href="/servicios/donantes">
+          <h3>Donantes y bancos</h3>
+          <p>Óvulos, esperma y embriones, con procesos de donación seguros y acompañados.</p>
+        </a>
+        <a class="area-card" href="/servicios/obstetricia">
+          <h3>Obstetricia</h3>
+          <p>Seguimiento de embarazo normal y de alto riesgo, parto humanizado y cesárea.</p>
+        </a>
+        <a class="area-card" href="/servicios/cirugia">
+          <h3>Cirugía de mínima invasión</h3>
+          <p>Laparoscopia, histeroscopia y cirugía robótica para distintas condiciones ginecológicas.</p>
+        </a>
+        <a class="area-card" href="/servicios/ginecologia">
+          <h3>Ginecología</h3>
+          <p>Papanicolaou, colposcopia, control ginecológico y planificación familiar.</p>
+        </a>
+        <a class="area-card" href="/pacientes">
+          <h3>Para pacientes</h3>
+          <p>Qué esperar en tu primera consulta y qué pruebas diagnósticas podrías necesitar.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Tienes dudas sobre tu tratamiento?</h2>
+        <p>Escríbenos por WhatsApp y coordinamos tu cita en el horario que te convenga.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .hero { padding: 76px 0 84px; overflow: hidden; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 40px;
+  }
+  .hero-actions { display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+
+  .hero-visual { position: relative; height: 380px; display: flex; align-items: center; justify-content: center; }
+  .hero-photo {
+    width: 260px;
+    height: 260px;
+    box-shadow: 0 24px 50px -20px rgba(28, 51, 47, 0.35);
+  }
+  .hero-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--rose);
+    opacity: 0.6;
+    width: 340px;
+    height: 340px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .hero-ring--inner {
+    width: 220px;
+    height: 220px;
+    border-color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .facility-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .hours-list { list-style: none; padding: 0; margin: 0 0 1em; }
+  .hours-list li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.95rem; }
+  .hours-list li span:first-child { color: var(--ink-soft); }
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 32px;
+  }
+  .area-card {
+    background: var(--bg-soft);
+    padding: 28px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+    position: relative;
+  }
+  .area-card:hover {
+    background: var(--white);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 28px -18px rgba(28, 51, 47, 0.28);
+    z-index: 1;
+  }
+  .area-card h3 { margin-bottom: 0.4em; color: var(--teal-dark); }
+  .area-card p { color: var(--ink-soft); font-size: 0.94rem; margin: 0; }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cta-inner h2 { margin-bottom: 0.3em; }
+  .cta-inner p { margin: 0; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .areas-grid { grid-template-columns: 1fr; }
+    .facility-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

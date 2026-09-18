@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PhotoBlock from '../../components/PhotoBlock.astro';
+import { site } from '../../data/site.js';
+
+const categories = [
+  {
+    href: '/servicios/fertilidad',
+    title: 'Fertilidad',
+    description: 'Tratamientos de reproducción asistida, desde la inseminación artificial hasta la fecundación in vitro y el estudio genético preimplantacional.',
+    seed: 'delgado-cat-fertilidad',
+  },
+  {
+    href: '/servicios/donantes',
+    title: 'Donantes y bancos',
+    description: 'Programas de donación de óvulos, esperma y embriones, además de banco de semen y banco de óvulos.',
+    seed: 'delgado-cat-donantes',
+  },
+  {
+    href: '/servicios/obstetricia',
+    title: 'Obstetricia',
+    description: 'Control de embarazo normal y de alto riesgo, parto humanizado, cesárea y procedimientos relacionados.',
+    seed: 'delgado-cat-obstetricia',
+  },
+  {
+    href: '/servicios/cirugia',
+    title: 'Cirugía de mínima invasión',
+    description: 'Cirugía laparoscópica, histeroscopia oficinal y quirúrgica, cirugía robótica y cirugía abierta cuando es necesaria.',
+    seed: 'delgado-cat-cirugia',
+  },
+  {
+    href: '/servicios/ginecologia',
+    title: 'Ginecología',
+    description: 'Papanicolaou, colposcopia, control ginecológico, anticoncepción y manejo de condiciones ginecológicas frecuentes.',
+    seed: 'delgado-cat-ginecologia',
+  },
+];
+---
+<Layout title={`Servicios — ${site.doctorName}`} description="Fertilidad, donantes, obstetricia, cirugía de mínima invasión y ginecología.">
+
+  <section class="section page-hero">
+    <div class="container" data-reveal>
+      <span class="eyebrow">Servicios</span>
+      <h1>Atención integral en salud reproductiva y ginecología</h1>
+      <p class="lede">
+        Explora cada área para conocer los procedimientos disponibles y resolver tus
+        primeras dudas antes de tu consulta.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cat-grid" data-reveal-group>
+      {categories.map((cat) => (
+        <a class="cat-card" href={cat.href}>
+          <PhotoBlock seed={cat.seed} alt={cat.title} aspect="wide" width={520} reveal={false} />
+          <div class="cat-card__body">
+            <h2>{cat.title}</h2>
+            <p>{cat.description}</p>
+            <span class="cat-card__link">Ver servicios →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .cat-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 220ms ease;
+  }
+  .cat-card:hover { transform: translateY(-5px); }
+  .cat-card__body { padding-top: 18px; }
+  .cat-card h2 { margin: 0 0 0.35em; font-size: 1.25rem; }
+  .cat-card p { margin: 0 0 0.6em; color: var(--ink-soft); font-size: 0.92rem; }
+  .cat-card__link { color: var(--rose-dark); font-weight: 600; font-size: 0.88rem; }
+
+  @media (max-width: 900px) {
+    .cat-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .cat-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PhotoBlock from '../components/PhotoBlock.astro';
+import { site } from '../data/site.js';
+---
+<Layout title={`Nosotros — ${site.doctorName}`} description="Quiénes somos, nuestras instalaciones, horario de atención y tasas de embarazo.">
+
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Nosotros</span>
+      <h1>Un equipo dedicado a tu salud reproductiva</h1>
+      <p class="lede">
+        Conoce quiénes somos, cómo son nuestras instalaciones y qué puedes esperar
+        de tu proceso con nosotros.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="quienes-somos">
+    <div class="container grid-2">
+      <div data-reveal>
+        <h2>Quiénes somos</h2>
+        <p>
+          Centro de Fertilidad Delgado Ponce nació en 2013 con un objetivo claro:
+          ofrecer a las familias de Cuenca y el austro ecuatoriano acceso a medicina
+          reproductiva de alto nivel, sin tener que viajar a Quito o Guayaquil. Desde
+          entonces hemos acompañado a cientos de familias, combinando protocolos
+          basados en evidencia con un trato cercano y personalizado en cada etapa
+          del tratamiento.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-team" alt="Equipo médico del consultorio" aspect="wide" width={720} />
+    </div>
+  </section>
+
+  <section class="section section--soft" id="instalaciones">
+    <div class="container facility-grid">
+      <PhotoBlock seed="delgado-quirofano" alt="Quirófano del consultorio" aspect="wide" width={720} caption="Quirófano equipado para cirugía de mínima invasión" />
+      <div data-reveal>
+        <h2>Instalaciones</h2>
+        <p>
+          Contamos con consultorios de ginecología y obstetricia, sala de
+          ecografía, quirófano propio equipado para cirugía laparoscópica e
+          histeroscópica, laboratorio de reproducción asistida con criopreservación
+          de óvulos y embriones, y una sala de espera pensada para brindar
+          privacidad y tranquilidad a nuestras pacientes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="horario">
+    <div class="container grid-2">
+      <div class="panel" data-reveal>
+        <h3>Horario de atención</h3>
+        <ul class="hours-list">
+          {site.hours.map((h) => (
+            <li><span>{h.day}</span><span>{h.time}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="panel" data-reveal>
+        <h3>Ubicación</h3>
+        <p>{site.address.line1}<br />{site.address.city}</p>
+        <a href={site.address.mapsUrl} target="_blank" rel="noopener">Ver en el mapa →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="tasas-embarazo">
+    <div class="container">
+      <span class="eyebrow">Resultados</span>
+      <h2>Tasas de embarazo</h2>
+      <p class="lede">
+        Estas son nuestras tasas de embarazo por ciclo, correspondientes al último
+        año registrado, en pacientes menores de 35 años. Los resultados varían
+        según edad, diagnóstico y tipo de tratamiento, y se explican en detalle
+        durante la consulta.
+      </p>
+      <div class="stats-grid" data-reveal-group>
+        <div class="stat"><strong><span data-count-to="58" data-count-suffix="%">0%</span></strong><span>Fecundación in vitro</span></div>
+        <div class="stat"><strong><span data-count-to="22" data-count-suffix="%">0%</span></strong><span>Inseminación artificial</span></div>
+        <div class="stat"><strong><span data-count-to="63" data-count-suffix="%">0%</span></strong><span>Transferencia de blastocistos</span></div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .facility-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hours-list { list-style: none; padding: 0; margin: 0; }
+  .hours-list li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.95rem; }
+  .hours-list li span:first-child { color: var(--ink-soft); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 32px;
+  }
+  .stat {
+    background: var(--white);
+    padding: 32px;
+    text-align: center;
+  }
+  .stat strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--rose-dark);
+    margin-bottom: 0.2em;
+  }
+  .stat span { color: var(--ink-soft); font-size: 0.92rem; }
+
+  @media (max-width: 780px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .facility-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

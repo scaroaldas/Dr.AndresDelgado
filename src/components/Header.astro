@@ -1,0 +1,329 @@
+---
+import { site, nav, whatsappLink } from '../data/site.js';
+const { pathname } = Astro.url;
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="mark">
+      <span class="mark__ring" aria-hidden="true">
+        <span class="mark__ring-inner"></span>
+      </span>
+      <span class="mark__text">
+        <strong>{site.doctorName}</strong>
+        <small>{site.specialty}</small>
+      </span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+      <div class="site-nav__links">
+        {nav.map((item) => (
+          item.children ? (
+            <details class="dropdown" name="main-nav">
+              <summary
+                class={pathname === item.href || pathname.startsWith(item.href + '/') || pathname.startsWith(item.href + '#') ? 'active' : ''}
+              >
+                {item.label}
+              </summary>
+              <ul class="dropdown-panel">
+                {item.children.map((child) => (
+                  <li><a href={child.href}>{child.label}</a></li>
+                ))}
+              </ul>
+            </details>
+          ) : (
+            <a
+              href={item.href}
+              class={pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href)) ? 'active' : ''}
+            >
+              {item.label}
+            </a>
+          )
+        ))}
+      </div>
+
+      <a class="site-nav__cta" href={whatsappLink('Hola, quisiera agendar una cita.')} target="_blank" rel="noopener">
+        <svg viewBox="0 0 32 32" width="16" height="16" aria-hidden="true" fill="currentColor">
+          <path d="M16 3C9.4 3 4 8.4 4 15c0 2.4.7 4.6 1.9 6.5L4 29l7.7-2c1.8 1 3.9 1.5 6.3 1.5 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-2.1 0-4.1-.6-5.8-1.6l-.4-.2-4.6 1.2 1.2-4.5-.3-.5C4.9 17.7 4.2 16.4 4.2 15 4.2 9.5 9.5 5.2 16 5.2S27.8 9.5 27.8 15 22.5 24.8 16 24.8zm6.1-8.2c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.7.2s-.8 1.1-1 1.3c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.3-.1-.1-.3-.2-.6-.3z"/>
+        </svg>
+        Agendar cita
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Cierra los desplegables del menú al hacer clic fuera o al presionar Escape,
+  // y añade sombra al header cuando la página tiene scroll.
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('.site-nav details[open]').forEach((el) => {
+      if (!(el as HTMLElement).contains(event.target as Node)) {
+        el.removeAttribute('open');
+      }
+    });
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      document.querySelectorAll('.site-nav details[open]').forEach((el) => el.removeAttribute('open'));
+    }
+  });
+
+  const header = document.querySelector('.site-header');
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(251, 248, 243, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 220ms ease, box-shadow 220ms ease;
+  }
+  .site-header.is-scrolled {
+    border-bottom-color: var(--line);
+    box-shadow: 0 8px 24px -18px rgba(28, 51, 47, 0.35);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  /* Marca / logo */
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .mark__ring {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--rose);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mark__ring-inner {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--rose);
+    transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mark:hover .mark__ring { transform: rotate(90deg); border-color: var(--teal); }
+  .mark:hover .mark__ring-inner { background: var(--teal); transform: scale(1.25); }
+  .mark__text { display: flex; flex-direction: column; line-height: 1.2; }
+  .mark__text strong {
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--teal-dark);
+  }
+  .mark__text small { font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.01em; }
+
+  /* Navegación */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .site-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .site-nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .site-nav__links > a {
+    position: relative;
+    padding-bottom: 3px;
+  }
+  .site-nav__links > a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1.5px;
+    background: var(--rose);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .site-nav__links > a:hover::after,
+  .site-nav__links > a.active::after { transform: scaleX(1); }
+  .site-nav a.active, .site-nav a:hover { color: var(--teal-dark); }
+
+  .site-nav__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--rose);
+    color: #FBF8F3 !important;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    white-space: nowrap;
+    transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  }
+  .site-nav__cta:hover {
+    background: var(--rose-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px -10px rgba(173, 111, 99, 0.6);
+  }
+
+  /* Desplegables */
+  .dropdown { position: relative; }
+  .dropdown summary {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    font-weight: 500;
+    list-style: none;
+    white-space: nowrap;
+  }
+  .dropdown summary::-webkit-details-marker { display: none; }
+  .dropdown summary.active, .dropdown summary:hover { color: var(--teal-dark); }
+  .dropdown summary::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dropdown[open] summary::after { transform: rotate(-135deg); margin-top: 3px; }
+
+  .dropdown-panel {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: calc(100% + 16px);
+    left: -18px;
+    min-width: 250px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 20px 40px -20px rgba(28, 51, 47, 0.35);
+    padding: 10px 0;
+    z-index: 60;
+    animation: dropdownIn 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .dropdown-panel li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 0.92rem;
+    color: var(--ink);
+    border-left: 2px solid transparent;
+    transition: background-color 160ms ease, border-color 160ms ease, padding-left 160ms ease;
+  }
+  .dropdown-panel li a:hover {
+    background: var(--bg-soft);
+    color: var(--teal-dark);
+    border-left-color: var(--rose);
+    padding-left: 24px;
+  }
+
+  .nav-toggle, .nav-toggle-label { display: none; }
+
+  @media (max-width: 1040px) {
+    .nav-toggle-label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-toggle-label span {
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      transition: transform 200ms ease, opacity 200ms ease;
+    }
+    .nav-toggle:checked ~ .site-nav .nav-toggle-label,
+    .nav-toggle:checked + .nav-toggle-label span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .site-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px 28px 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 260ms ease;
+      box-shadow: 0 16px 30px -20px rgba(28, 51, 47, 0.3);
+    }
+    .site-nav__links {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      width: 100%;
+    }
+    .site-nav__links > a { padding: 12px 0; width: 100%; }
+    .site-nav__links > a::after { display: none; }
+    .site-nav__cta {
+      margin-top: 14px;
+      justify-content: center;
+      border-radius: var(--radius);
+    }
+    .nav-toggle:checked ~ .site-nav {
+      max-height: 640px;
+      overflow-y: auto;
+    }
+
+    /* En móvil, el desplegable se expande en línea dentro del menú */
+    .dropdown { width: 100%; }
+    .dropdown summary { padding: 12px 0; width: 100%; justify-content: space-between; }
+    .dropdown-panel {
+      position: static;
+      border: none;
+      box-shadow: none;
+      background: var(--bg-soft);
+      margin: 0 0 6px;
+      padding: 4px 0;
+      border-radius: 0;
+      animation: none;
+    }
+    .dropdown-panel li a { padding: 9px 14px; }
+    .dropdown-panel li a:hover { padding-left: 18px; }
+  }
+</style>

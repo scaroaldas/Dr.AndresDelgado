@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, whatsappLink } from '../data/site.js';
+
+// Nota: nombres y especialidades de ejemplo (ficticios). Reemplazar con los
+// médicos asociados reales. El avatar usa las iniciales a propósito, en vez de
+// una fotografía de stock, para no atribuir por error la imagen de una persona
+// real a un nombre inventado; reemplázalo por la fotografía real de cada médico.
+const medicos = [
+  { nombre: 'Dra. María José Cabrera', especialidad: 'Embrióloga clínica', iniciales: 'MC' },
+  { nombre: 'Dr. Juan Pablo Torres', especialidad: 'Urología y andrología', iniciales: 'JT' },
+  { nombre: 'Lcda. Daniela Ochoa', especialidad: 'Psicología en fertilidad', iniciales: 'DO' },
+];
+---
+<Layout title={`Médicos asociados — ${site.doctorName}`} description="Conoce al equipo médico asociado del consultorio.">
+
+  <section class="section page-hero">
+    <div class="container" data-reveal>
+      <span class="eyebrow">Nuestros médicos asociados</span>
+      <h1>Un equipo médico en el que puedes confiar</h1>
+      <p class="lede">
+        Trabajamos junto a especialistas de distintas áreas para ofrecerte una
+        atención completa.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container medicos-grid" data-reveal-group>
+      {medicos.map((m) => (
+        <div class="medico-card">
+          <div class="medico-avatar" aria-hidden="true">{m.iniciales}</div>
+          <h3>{m.nombre}</h3>
+          <p>{m.especialidad}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Necesitas una referencia con un especialista?</h2>
+        <p>Coordinamos tu interconsulta directamente con nuestro equipo asociado.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .medicos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .medico-card { text-align: left; }
+  .medico-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(155deg, var(--teal-dark), var(--rose));
+    color: #FBF8F3;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+    transition: transform 220ms ease;
+  }
+  .medico-card:hover .medico-avatar { transform: scale(1.06); }
+  .medico-card h3 { margin-bottom: 0.2em; }
+  .medico-card p { color: var(--ink-soft); margin: 0; }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 780px) {
+    .medicos-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, whatsappLink } from '../data/site.js';
+
+// Nota: testimonios de ejemplo (ficticios), solo para mostrar el diseño de esta
+// sección. Reemplazar por testimonios reales, siempre con autorización explícita
+// de cada paciente para publicar su nombre e historia.
+const testimonios = [
+  {
+    nombre: 'Gabriela T.',
+    texto: 'Después de dos años buscando embarazo, el equipo nos explicó cada paso con calma y claridad. Hoy nuestra hija tiene ocho meses.',
+  },
+  {
+    nombre: 'Andrea y Pablo M.',
+    texto: 'Llegamos desde Loja para el tratamiento de FIV. La atención fue muy cercana, siempre sentimos que nos escuchaban antes de decidir cualquier paso.',
+  },
+  {
+    nombre: 'Verónica C.',
+    texto: 'Mi cirugía de endometriosis fue laparoscópica y la recuperación fue mucho más rápida de lo que esperaba. Muy agradecida con todo el equipo.',
+  },
+];
+---
+<Layout title={`Testimonios — ${site.doctorName}`} description="Historias de pacientes que han confiado en nosotros.">
+
+  <section class="section page-hero">
+    <div class="container" data-reveal>
+      <span class="eyebrow">Testimonios</span>
+      <h1>Historias de quienes ya vivieron este camino</h1>
+      <p class="lede">
+        Compartimos, con autorización de nuestras pacientes, algunas de sus experiencias.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container testi-grid" data-reveal-group>
+      {testimonios.map((t) => (
+        <div class="testi-card">
+          <span class="testi-mark" aria-hidden="true">"</span>
+          <p class="testi-quote">{t.texto}</p>
+          <p class="testi-name">{t.nombre}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>Queremos acompañarte también a ti</h2>
+        <p>Escríbenos y conversemos sobre tu situación particular.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .testi-card { background: var(--white); padding: 30px; position: relative; transition: transform 220ms ease; }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 3rem;
+    color: var(--rose);
+    opacity: 0.5;
+    line-height: 1;
+    display: block;
+    margin-bottom: -10px;
+  }
+  .testi-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .testi-name { color: var(--rose-dark); font-weight: 600; font-size: 0.9rem; margin: 0; }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .testi-grid { grid-template-columns: 1fr; }
+  }
+</style>

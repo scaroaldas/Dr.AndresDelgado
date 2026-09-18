@@ -1,0 +1,22 @@
+---
+interface Props {
+  seed: string;
+  alt: string;
+  aspect?: 'tall' | 'wide' | 'square';
+  caption?: string;
+  width?: number;
+  reveal?: boolean;
+}
+const { seed, alt, aspect = 'wide', caption, width = 900, reveal = true } = Astro.props as Props;
+const height = aspect === 'tall' ? Math.round(width * 1.25) : aspect === 'square' ? width : Math.round(width * 0.62);
+---
+<div class={`photo photo--${aspect}`} data-reveal={reveal ? 'scale' : undefined}>
+  <img
+    src={`https://picsum.photos/seed/${seed}/${width}/${height}`}
+    alt={alt}
+    loading="lazy"
+    width={width}
+    height={height}
+  />
+  {caption && <p class="photo__caption">{caption}</p>}
+</div>

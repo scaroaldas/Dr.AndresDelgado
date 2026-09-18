@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceBlock from '../../components/ServiceBlock.astro';
+import PhotoBlock from '../../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../../data/site.js';
+---
+<Layout title={`Ginecología — Servicios — ${site.doctorName}`} description="Papanicolaou, colposcopia, control ginecológico y planificación familiar.">
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Servicios / Ginecología</span>
+        <h1>Salud ginecológica en cada etapa de la vida</h1>
+        <p class="lede">
+          Controles preventivos y manejo de condiciones ginecológicas frecuentes, con
+          un enfoque claro sobre tus opciones de tratamiento y sin apuros durante
+          la consulta.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-ginecologia" alt="Consultorio de control ginecológico" aspect="square" width={560} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ServiceBlock
+        title="Controles y prevención"
+        description="Recomendamos un control ginecológico anual desde el inicio de la vida sexual activa, o antes si existen síntomas o antecedentes familiares relevantes."
+        items={[
+          'Papanicolaou',
+          'Colposcopia',
+          'Control ginecológico',
+          'Anticoncepción y planificación familiar',
+        ]}
+      />
+      <ServiceBlock
+        title="Condiciones frecuentes"
+        description="Diagnosticamos y tratamos las causas más comunes de consulta ginecológica, con un plan que va desde el manejo médico hasta la cirugía cuando es necesario."
+        items={[
+          'Endometriosis',
+          'Sangrado uterino anormal',
+          'Síndrome ovárico endócrino polimetabólico',
+          'Quistes de ovario',
+          'Dismenorrea',
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <span class="eyebrow">Tu control anual</span>
+      <h2>Qué incluye una consulta ginecológica completa</h2>
+      <div class="process" data-reveal-group>
+        <div class="process__step">
+          <h4>Historia clínica</h4>
+          <p>Revisamos tus antecedentes personales y familiares, y los síntomas que te motivan a consultar.</p>
+        </div>
+        <div class="process__step">
+          <h4>Examen físico</h4>
+          <p>Examen ginecológico y, si corresponde, toma de Papanicolaou en el mismo día.</p>
+        </div>
+        <div class="process__step">
+          <h4>Ecografía</h4>
+          <p>Evaluación de útero y ovarios cuando el caso lo requiere, con equipo propio en el consultorio.</p>
+        </div>
+        <div class="process__step">
+          <h4>Plan de seguimiento</h4>
+          <p>Conversamos los resultados y definimos juntos los siguientes pasos o controles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Es momento de tu control anual?</h2>
+        <p>Agenda tu cita de control ginecológico en el horario que prefieras.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera agendar un control ginecológico.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceBlock from '../../components/ServiceBlock.astro';
+import PhotoBlock from '../../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../../data/site.js';
+---
+<Layout title={`Fertilidad — Servicios — ${site.doctorName}`} description="Inseminación artificial, fecundación in vitro, ICSI, vitrificación de óvulos y más.">
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Servicios / Fertilidad</span>
+        <h1>Tratamientos de reproducción asistida</h1>
+        <p class="lede">
+          Acompañamos cada tratamiento con seguimiento médico y apoyo psicológico,
+          adaptando el plan a tu diagnóstico, tu edad reproductiva y tus tiempos.
+          Nuestro laboratorio de reproducción asistida trabaja bajo protocolos de
+          alta seguridad, con trazabilidad completa de óvulos, espermatozoides y
+          embriones en cada etapa.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-fertilidad" alt="Laboratorio de reproducción asistida" aspect="square" width={560} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ServiceBlock
+        title="Inseminación artificial"
+        description="Un tratamiento de baja complejidad en el que se coloca semen previamente procesado directamente en el útero, coincidiendo con la ovulación. Es una buena primera opción para parejas jóvenes con causas leves de infertilidad."
+        items={[
+          'Inseminación artificial con semen de la pareja',
+          'Inseminación artificial con semen de donante',
+        ]}
+      />
+      <ServiceBlock
+        title="Fecundación in vitro (FIV) e ICSI"
+        description="Los óvulos se fecundan en el laboratorio y los embriones resultantes se cultivan antes de transferirlos al útero. Es el tratamiento con mayores tasas de éxito para la mayoría de diagnósticos de infertilidad."
+        items={[
+          'Fecundación in vitro convencional',
+          'Microinyección espermática (ICSI), para factor masculino severo',
+          'Cultivo embrionario y transferencia de blastocistos',
+        ]}
+      />
+      <ServiceBlock
+        title="Preservación de la fertilidad"
+        description="Útil para quienes desean posponer la maternidad o paternidad por razones médicas o personales, o antes de tratamientos oncológicos que puedan afectar la fertilidad."
+        items={[
+          'Vitrificación de óvulos',
+          'Congelación de embriones',
+        ]}
+      />
+      <ServiceBlock
+        title="Estudio genético y acompañamiento"
+        description="Complementamos el tratamiento médico con estudios genéticos y apoyo emocional, para que tomes decisiones informadas en cada etapa."
+        items={[
+          'Screening genético preimplantacional (PGT-A, PGT-M, PGT-SR)',
+          'Apoyo psicológico durante el proceso',
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="section section--soft">
+    <div class="container">
+      <span class="eyebrow">¿Cómo es el proceso?</span>
+      <h2>Un ciclo de fecundación in vitro, paso a paso</h2>
+      <div class="process" data-reveal-group>
+        <div class="process__step">
+          <h4>Estimulación ovárica</h4>
+          <p>Medicación diaria durante 8 a 12 días para favorecer el desarrollo de varios óvulos, con control ecográfico frecuente.</p>
+        </div>
+        <div class="process__step">
+          <h4>Punción folicular</h4>
+          <p>Extracción de los óvulos bajo sedación, un procedimiento ambulatorio de corta duración.</p>
+        </div>
+        <div class="process__step">
+          <h4>Fecundación y cultivo</h4>
+          <p>Los óvulos se fecundan en el laboratorio y los embriones se cultivan entre 3 y 5 días bajo condiciones controladas.</p>
+        </div>
+        <div class="process__step">
+          <h4>Transferencia embrionaria</h4>
+          <p>Se coloca el embrión seleccionado en el útero, un procedimiento breve y sin necesidad de anestesia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Por dónde empezar?</h2>
+        <p>Visita la sección de pacientes para conocer las primeras pruebas diagnósticas, o escríbenos directamente.</p>
+      </div>
+      <div class="cta-buttons">
+        <a class="btn btn--ghost-inverse" href="/pacientes">Ver información para pacientes</a>
+        <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera más información sobre tratamientos de fertilidad.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
+</style>

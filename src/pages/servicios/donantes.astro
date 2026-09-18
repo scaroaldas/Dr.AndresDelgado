@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceBlock from '../../components/ServiceBlock.astro';
+import PhotoBlock from '../../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../../data/site.js';
+---
+<Layout title={`Donantes — Servicios — ${site.doctorName}`} description="Óvulos, espermas, embriones, banco de semen y banco de óvulos.">
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Servicios / Donantes</span>
+        <h1>Programas de donación</h1>
+        <p class="lede">
+          Cuando el tratamiento lo requiere, contamos con programas de donación
+          confidenciales y con respaldo médico, siguiendo criterios estrictos de
+          selección y compatibilidad para cada pareja o paciente.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-donantes" alt="Banco de criopreservación" aspect="square" width={560} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ServiceBlock
+        title="Donación de óvulos"
+        description="Indicada en casos de baja reserva ovárica, fallo ovárico prematuro o riesgo de transmisión de enfermedades genéticas. Las donantes pasan por una evaluación médica, genética y psicológica completa."
+        items={[
+          'Selección de donante por características físicas compatibles',
+          'Sincronización del ciclo con la donante',
+        ]}
+      />
+      <ServiceBlock
+        title="Donación de esperma"
+        description="Una alternativa para parejas con factor masculino severo, mujeres solas o parejas del mismo sexo que desean iniciar una familia."
+        items={[
+          'Semen de donantes con estudios genéticos y de enfermedades infecciosas',
+        ]}
+      />
+      <ServiceBlock
+        title="Donación de embriones"
+        description="Embriones criopreservados donados por otras parejas que ya completaron su proceso reproductivo, disponibles para quienes requieren tanto óvulo como espermatozoide donados."
+        items={[
+          'Embriones evaluados y con historial genético disponible',
+        ]}
+      />
+      <ServiceBlock
+        title="Bancos de criopreservación"
+        description="Nuestro laboratorio mantiene un banco propio con protocolos de vitrificación de alta supervivencia."
+        items={[
+          'Banco de semen',
+          'Banco de óvulos',
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <span class="eyebrow">¿Cómo funciona?</span>
+      <h2>El proceso de donación, en cuatro pasos</h2>
+      <div class="process" data-reveal-group>
+        <div class="process__step">
+          <h4>Consulta inicial</h4>
+          <p>Evaluamos tu diagnóstico y te explicamos si un programa de donación es la opción adecuada.</p>
+        </div>
+        <div class="process__step">
+          <h4>Selección de donante</h4>
+          <p>Elegimos un perfil compatible según características físicas y compatibilidad médica.</p>
+        </div>
+        <div class="process__step">
+          <h4>Preparación del ciclo</h4>
+          <p>Sincronizamos tu ciclo o el de tu pareja con el material donado, con seguimiento médico cercano.</p>
+        </div>
+        <div class="process__step">
+          <h4>Transferencia</h4>
+          <p>Se realiza la fecundación o transferencia embrionaria, con el mismo cuidado que un ciclo propio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Tienes preguntas sobre estos programas?</h2>
+        <p>Conversemos en consulta sobre la opción que mejor se ajusta a tu caso.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera información sobre los programas de donación.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
+</style>

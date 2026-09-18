@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, whatsappLink } from '../data/site.js';
+---
+<Layout title={`Contacto — ${site.doctorName}`} description="Teléfono, WhatsApp, correo, dirección y horario de atención.">
+
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Contacto</span>
+      <h1>Hablemos</h1>
+      <p class="lede">
+        La vía más rápida para agendar una cita es WhatsApp. También puedes
+        llamarnos o escribirnos por correo.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2" data-reveal-group>
+      <div class="panel">
+        <h3>Medios de contacto</h3>
+        <ul class="contact-list">
+          <li>
+            <span>WhatsApp / Citas</span>
+            <a href={whatsappLink()} target="_blank" rel="noopener">{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <span>Teléfono</span>
+            <a href={`tel:${site.phoneDisplay.replace(/\s/g, '')}`}>{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <span>Correo</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+        </ul>
+        <a class="btn btn--whatsapp contact-cta" href={whatsappLink('Hola, quisiera agendar una cita.')} target="_blank" rel="noopener">
+          Agendar cita por WhatsApp
+        </a>
+      </div>
+
+      <div class="panel">
+        <h3>Ubicación y horario</h3>
+        <p>{site.address.line1}<br />{site.address.city}</p>
+        <a href={site.address.mapsUrl} target="_blank" rel="noopener">Ver en el mapa →</a>
+        <hr class="divider" />
+        <ul class="hours-list">
+          {site.hours.map((h) => (
+            <li><span>{h.day}</span><span>{h.time}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="map-embed">
+        <!-- Dirección de ejemplo: reemplazar por la ubicación exacta del consultorio -->
+        <iframe
+          title="Ubicación del consultorio"
+          src={`https://www.google.com/maps?q=${encodeURIComponent(site.address.line1 + ', ' + site.address.city)}&output=embed`}
+          width="100%"
+          height="420"
+          style="border:0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .contact-list { list-style: none; padding: 0; margin: 0 0 24px; }
+  .contact-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .contact-list li span { color: var(--ink-soft); }
+  .contact-cta { width: 100%; justify-content: center; }
+
+  .hours-list { list-style: none; padding: 0; margin: 0; }
+  .hours-list li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.95rem; }
+  .hours-list li span:first-child { color: var(--ink-soft); }
+
+  .map-embed {
+    border: 1px solid var(--line);
+    line-height: 0;
+  }
+  .map-embed iframe { display: block; }
+</style>

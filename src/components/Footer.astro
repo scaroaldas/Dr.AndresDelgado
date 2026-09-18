@@ -1,0 +1,101 @@
+---
+import { site, nav } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div>
+      <p class="foot-name">{site.doctorName}</p>
+      <p class="foot-specialty">{site.specialty}</p>
+      <p class="foot-address">
+        {site.address.line1}<br />
+        {site.address.city}
+      </p>
+    </div>
+
+    <div>
+      <p class="foot-heading">Navegación</p>
+      <ul class="foot-list">
+        {nav.slice(0, 5).map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <p class="foot-heading">Contacto</p>
+      <ul class="foot-list">
+        <li><a href={`tel:${site.phoneDisplay.replace(/\s/g, '')}`}>{site.phoneDisplay}</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href={site.address.mapsUrl} target="_blank" rel="noopener">Cómo llegar</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="foot-heading">Horario de atención</p>
+      <ul class="foot-list">
+        {site.hours.map((h) => (
+          <li>{h.day}: {h.time}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container foot-bottom">
+    <p>© {year} {site.doctorName}. Todos los derechos reservados.</p>
+    <div class="foot-social">
+      <a href={site.social.instagram} target="_blank" rel="noopener">Instagram</a>
+      <a href={site.social.facebook} target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--teal-dark);
+    color: #C9D6D2;
+    padding: 56px 0 0;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+  .foot-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: #FBF8F3;
+    margin-bottom: 0.2em;
+  }
+  .foot-specialty { font-size: 0.9rem; margin-bottom: 1em; }
+  .foot-address { font-size: 0.9rem; }
+  .foot-heading {
+    color: #FBF8F3;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.9em;
+  }
+  .foot-list { list-style: none; padding: 0; margin: 0; }
+  .foot-list li { margin-bottom: 0.6em; font-size: 0.9rem; }
+  .foot-list a { color: #C9D6D2; text-decoration: none; }
+  .foot-list a:hover { color: #FBF8F3; }
+
+  .foot-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.82rem;
+  }
+  .foot-social { display: flex; gap: 18px; }
+  .foot-social a { color: #C9D6D2; text-decoration: none; }
+  .foot-social a:hover { color: #FBF8F3; }
+
+  @media (max-width: 780px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>

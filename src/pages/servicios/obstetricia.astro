@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceBlock from '../../components/ServiceBlock.astro';
+import PhotoBlock from '../../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../../data/site.js';
+---
+<Layout title={`Obstetricia — Servicios — ${site.doctorName}`} description="Supervisión de embarazo normal y de alto riesgo, parto humanizado y cesárea.">
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Servicios / Obstetricia</span>
+        <h1>Seguimiento de tu embarazo, en cada etapa</h1>
+        <p class="lede">
+          Desde el primer control hasta el nacimiento, con protocolos claros para
+          embarazos normales y de alto riesgo, y un plan de parto que respeta tus
+          decisiones.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-obstetricia" alt="Control ecográfico de embarazo" aspect="square" width={560} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ServiceBlock
+        title="Control de embarazo normal"
+        description="Controles periódicos con ecografía, monitoreo de peso, presión arterial y exámenes de laboratorio según cada trimestre."
+        items={[
+          'Ecografías de control por trimestre',
+          'Perfil biofísico y monitoreo fetal',
+        ]}
+      />
+      <ServiceBlock
+        title="Embarazo de alto riesgo"
+        description="Seguimiento más frecuente para embarazos con hipertensión, diabetes gestacional, embarazo múltiple u otras condiciones que requieren vigilancia estrecha."
+        items={[
+          'Manejo conjunto con especialistas cuando es necesario',
+          'Plan de parto individualizado según el riesgo',
+        ]}
+      />
+      <ServiceBlock
+        title="Parto"
+        description="Acompañamos la decisión informada entre parto vaginal y cesárea, priorizando siempre la seguridad de la madre y el bebé."
+        items={[
+          'Parto humanizado',
+          'Cesárea programada o de urgencia',
+        ]}
+      />
+      <ServiceBlock
+        title="Otros procedimientos"
+        items={[
+          'Legrado uterino — Aspiración Manual Endouterina (AMEU)',
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <span class="eyebrow">Tu embarazo con nosotros</span>
+      <h2>Un acompañamiento por trimestre</h2>
+      <div class="process" data-reveal-group>
+        <div class="process__step">
+          <h4>Primer trimestre</h4>
+          <p>Confirmación del embarazo, ecografía inicial y exámenes de laboratorio basales.</p>
+        </div>
+        <div class="process__step">
+          <h4>Segundo trimestre</h4>
+          <p>Ecografía estructural, tamizaje de diabetes gestacional y controles mensuales.</p>
+        </div>
+        <div class="process__step">
+          <h4>Tercer trimestre</h4>
+          <p>Controles cada dos o tres semanas, monitoreo fetal y definición del plan de parto.</p>
+        </div>
+        <div class="process__step">
+          <h4>Parto y posparto</h4>
+          <p>Atención del parto según lo planificado y control posparto para madre y recién nacido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Buscas control prenatal?</h2>
+        <p>Agenda tu primera cita y conversamos sobre el plan de seguimiento adecuado para ti.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera agendar un control de embarazo.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
+</style>

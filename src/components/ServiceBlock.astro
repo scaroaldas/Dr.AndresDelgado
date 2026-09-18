@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  items: string[];
+  description?: string;
+}
+const { title, items, description } = Astro.props as Props;
+---
+<div class="service-block" data-reveal>
+  <h3>{title}</h3>
+  {description && <p class="service-block__intro">{description}</p>}
+  <ul>
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+</div>

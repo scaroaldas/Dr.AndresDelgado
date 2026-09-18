@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, whatsappLink } from '../data/site.js';
+
+const faqs = [
+  {
+    q: '¿Cuándo debo buscar ayuda?',
+    a: 'Si tienes menos de 35 años y llevas 12 meses buscando embarazo sin éxito, o más de 35 años y llevas 6 meses, es momento de consultar. También si tienes ciclos muy irregulares, dolor pélvico intenso, o antecedentes de endometriosis, cirugías pélvicas o abortos recurrentes.',
+  },
+  {
+    q: '¿Cuáles son las principales causas de infertilidad?',
+    a: 'Aproximadamente en un tercio de los casos el origen es femenino (trastornos ovulatorios, endometriosis, factor tubárico), en otro tercio es masculino (alteraciones en la calidad espermática), y en el resto se trata de una combinación de ambos factores o de causas no explicadas.',
+  },
+  {
+    q: '¿Qué tratamientos existen para la infertilidad?',
+    a: 'Van desde el seguimiento de ciclo y la inducción de ovulación, hasta la inseminación artificial y la fecundación in vitro con o sin ICSI. El tratamiento adecuado depende del diagnóstico de cada pareja; puedes revisar el detalle en la sección de Servicios.',
+  },
+  {
+    q: '¿Qué probabilidad de embarazo me da un tratamiento?',
+    a: 'La probabilidad varía según la edad, el diagnóstico y el tipo de tratamiento. En consulta, con base en tus estudios, te damos una estimación personalizada en lugar de una cifra genérica.',
+  },
+  {
+    q: '¿Puede existir embarazo luego de una ligadura de trompas?',
+    a: 'Sí, es posible mediante recanalización de trompas en casos seleccionados, o mediante fecundación in vitro, que evita el paso por las trompas. La mejor opción se evalúa según cada caso.',
+  },
+  {
+    q: '¿Puede existir embarazo luego de una vasectomía?',
+    a: 'Sí. Las opciones incluyen la reversión de vasectomía o la extracción quirúrgica de espermatozoides para su uso en fecundación in vitro con ICSI. Un urólogo del equipo puede orientarte sobre la mejor alternativa.',
+  },
+  {
+    q: '¿Qué debo saber sobre embarazos múltiples?',
+    a: 'Algunos tratamientos de fertilidad aumentan la probabilidad de embarazo múltiple. Por eso priorizamos protocolos y transferencias que reducen ese riesgo, y damos seguimiento especializado a los embarazos múltiples que sí se presentan.',
+  },
+];
+---
+<Layout title={`Preguntas frecuentes — ${site.doctorName}`} description="Respuestas a las dudas más comunes sobre fertilidad y tratamientos.">
+
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h1>Dudas comunes antes de empezar</h1>
+      <p class="lede">
+        Si tu pregunta no está aquí, escríbenos directamente por WhatsApp.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-list">
+      {faqs.map((item, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿No encontraste tu respuesta?</h2>
+        <p>Escríbenos y con gusto te orientamos.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink('Hola, tengo una pregunta.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .faq-list { max-width: 780px; }
+  .faq-item {
+    border-top: 1px solid var(--line);
+    padding: 22px 0;
+  }
+  .faq-list details:last-child { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--teal-dark);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-family: var(--font-body);
+    color: var(--rose-dark);
+    font-size: 1.4rem;
+    margin-left: 16px;
+  }
+  .faq-item[open] summary::after { content: '–'; }
+  .faq-item p { margin-top: 14px; color: var(--ink-soft); }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+</style>

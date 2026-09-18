@@ -1,0 +1,70 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Consulta de fertilidad, obstetricia y ginecología en Cuenca, Ecuador.' } = Astro.props as Props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+
+    <script>
+      // Anima elementos marcados con data-reveal / data-reveal-group cuando
+      // entran en el viewport, y hace un conteo ascendente en data-count-to.
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              const counters = entry.target.hasAttribute('data-count-to')
+                ? [entry.target]
+                : entry.target.querySelectorAll('[data-count-to]');
+              counters.forEach((el) => {
+                if (el.dataset.counted) return;
+                el.dataset.counted = 'true';
+                const target = parseFloat(el.getAttribute('data-count-to') || '0');
+                const suffix = el.getAttribute('data-count-suffix') || '';
+                const duration = 1100;
+                const start = performance.now();
+                const step = (now: number) => {
+                  const progress = Math.min((now - start) / duration, 1);
+                  const eased = 1 - Math.pow(1 - progress, 3);
+                  el.textContent = Math.round(target * eased) + suffix;
+                  if (progress < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+              });
+              io.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -60px 0px' }
+      );
+
+      document.querySelectorAll('[data-reveal], [data-reveal-group]').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PhotoBlock from '../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../data/site.js';
+---
+<Layout title={`Pacientes — ${site.doctorName}`} description="Nuestro objetivo, cuándo realizar tu primera consulta y qué pruebas diagnósticas esperar.">
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Pacientes</span>
+        <h1>Lo que debes saber antes de tu primera consulta</h1>
+        <p class="lede">
+          Resolvemos aquí las preguntas más comunes de quienes están por comenzar su
+          proceso con nosotros.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-pacientes" alt="Sala de espera del consultorio" aspect="square" width={560} />
+    </div>
+  </section>
+
+  <section class="section" id="objetivo">
+    <div class="container grid-2">
+      <div data-reveal>
+        <h2>Nuestro objetivo</h2>
+        <p>
+          Acompañar a cada paciente con información clara, un diagnóstico oportuno
+          y un plan de tratamiento personalizado, respetando sus tiempos y
+          resolviendo sus dudas en cada etapa del proceso.
+        </p>
+      </div>
+      <div data-reveal>
+        <h2>¿Cuándo realizar la primera consulta de fertilidad?</h2>
+        <p>
+          En general, se recomienda consultar si no se logra un embarazo tras 12
+          meses de búsqueda activa en mujeres menores de 35 años, o tras 6 meses
+          en mujeres mayores de 35 años. Si existen antecedentes como ciclos
+          irregulares, endometriosis o cirugías pélvicas previas, es recomendable
+          consultar antes, sin esperar ese plazo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="pruebas">
+    <div class="container">
+      <h2>Principales pruebas diagnósticas en fertilidad</h2>
+      <div class="grid-2" data-reveal-group>
+        <div class="panel">
+          <h3>Exámenes para la mujer</h3>
+          <p>
+            Perfil hormonal (FSH, LH, estradiol, AMH), ecografía transvaginal con
+            conteo de folículos antrales, histerosalpingografía o
+            histerosonografía, y perfil tiroideo. Según el caso, se pueden
+            solicitar estudios genéticos complementarios.
+          </p>
+        </div>
+        <div class="panel">
+          <h3>Exámenes para el hombre</h3>
+          <p>
+            Espermatograma con capacitación espermática, perfil hormonal
+            masculino y, cuando es necesario, fragmentación de ADN espermático o
+            estudio genético complementario.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿List@ para dar el primer paso?</h2>
+        <p>Escríbenos y te orientamos sobre cómo agendar tu primera consulta.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera agendar mi primera consulta.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
+</style>

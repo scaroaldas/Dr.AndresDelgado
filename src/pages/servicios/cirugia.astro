@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceBlock from '../../components/ServiceBlock.astro';
+import PhotoBlock from '../../components/PhotoBlock.astro';
+import { site, whatsappLink } from '../../data/site.js';
+---
+<Layout title={`Cirugía de mínima invasión — Servicios — ${site.doctorName}`} description="Cirugía laparoscópica, histeroscopia, cirugía robótica y cirugía abierta.">
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Servicios / Cirugía de mínima invasión</span>
+        <h1>Cirugía ginecológica con técnicas de mínima invasión</h1>
+        <p class="lede">
+          Priorizamos abordajes laparoscópicos, histeroscópicos y robóticos cuando son
+          apropiados para el diagnóstico, con incisiones más pequeñas, menor dolor
+          postoperatorio y un tiempo de recuperación considerablemente más corto que
+          la cirugía abierta tradicional.
+        </p>
+      </div>
+      <PhotoBlock seed="delgado-cirugia" alt="Quirófano de cirugía laparoscópica" aspect="square" width={560} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ServiceBlock
+        title="Cirugía laparoscópica"
+        description="Se realiza a través de pequeñas incisiones en el abdomen, con una cámara de alta definición que permite operar con gran precisión."
+        items={[
+          'Quistes de ovario',
+          'Embarazo ectópico',
+          'Ligadura de trompas',
+          'Miomectomía laparoscópica',
+          'Endometriosis',
+          'Histerectomía laparoscópica',
+          'Recanalización de trompas',
+          'Salpingectomía',
+        ]}
+      />
+      <ServiceBlock
+        title="Histeroscopia oficinal y quirúrgica"
+        description="Permite explorar y tratar el interior del útero sin incisiones externas, entrando a través del cuello uterino."
+        items={[
+          'Estudio de fertilidad',
+          'Remoción de miomas',
+          'Remoción de pólipos',
+          'Síndrome adherencial',
+          'Malformaciones uterinas (tabiques, útero en T)',
+        ]}
+      />
+      <ServiceBlock
+        title="Cirugía robótica"
+        description="Ofrece mayor precisión y visión tridimensional para casos complejos, con la misma filosofía de mínima invasión."
+        items={[
+          'Cirugía de endometriosis',
+          'Miomectomía',
+          'Histerectomía',
+        ]}
+      />
+      <ServiceBlock
+        title="Cirugía abierta"
+        description="Se reserva para casos donde el abordaje mínimamente invasivo no es la opción más segura, siempre explicando las razones al detalle."
+        items={[
+          'Histerectomía',
+          'Miomectomía',
+          'Quistes de ovario',
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <span class="eyebrow">¿Qué esperar?</span>
+      <h2>El camino hacia tu cirugía</h2>
+      <div class="process" data-reveal-group>
+        <div class="process__step">
+          <h4>Valoración</h4>
+          <p>Revisamos tu diagnóstico y estudios previos para definir el abordaje más adecuado y seguro.</p>
+        </div>
+        <div class="process__step">
+          <h4>Preparación</h4>
+          <p>Exámenes prequirúrgicos, valoración anestésica y una explicación clara de cada paso.</p>
+        </div>
+        <div class="process__step">
+          <h4>Cirugía</h4>
+          <p>Procedimiento realizado en nuestro quirófano, con técnicas de mínima invasión siempre que sea posible.</p>
+        </div>
+        <div class="process__step">
+          <h4>Recuperación</h4>
+          <p>Seguimiento postoperatorio cercano, con indicaciones claras para una recuperación segura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Necesitas una valoración quirúrgica?</h2>
+        <p>Cada procedimiento se decide en consulta, según tu diagnóstico y estudios previos.</p>
+      </div>
+      <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera una valoración para un procedimiento quirúrgico.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
+</style>
