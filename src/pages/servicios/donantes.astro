@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ServiceBlock from '../../components/ServiceBlock.astro';
-import PhotoBlock from '../../components/PhotoBlock.astro';
+import RealPhoto from '../../components/RealPhoto.astro';
 import { site, whatsappLink } from '../../data/site.js';
 ---
 <Layout title={`Donantes — Servicios — ${site.doctorName}`} description="Óvulos, espermas, embriones, banco de semen y banco de óvulos.">
@@ -17,7 +17,7 @@ import { site, whatsappLink } from '../../data/site.js';
           selección y compatibilidad para cada pareja o paciente.
         </p>
       </div>
-      <PhotoBlock seed="delgado-donantes" alt="Banco de criopreservación" aspect="square" width={560} />
+      <RealPhoto src="/images/team/hospital-del-rio.jpg" alt="Dr. Andrés Delgado, respaldo hospitalario" aspect="square" focal="50% 15%" />
     </div>
   </section>
 

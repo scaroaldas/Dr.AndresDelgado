@@ -30,8 +30,9 @@ export const site = {
   ],
 
   social: {
-    instagram: 'https://instagram.com/drdelgadoponce',
-    facebook: 'https://facebook.com/drdelgadoponce',
+    instagram: 'https://www.instagram.com/drandresdelgadop/',
+    facebook: 'https://www.facebook.com/DrAndresDelgadoFertilidadGinecologiaObstetricia/',
+    tiktok: 'https://www.tiktok.com/@drandresdelgadop',
   },
 };
 

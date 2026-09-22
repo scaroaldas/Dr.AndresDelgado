@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ServiceBlock from '../../components/ServiceBlock.astro';
-import PhotoBlock from '../../components/PhotoBlock.astro';
+import RealPhoto from '../../components/RealPhoto.astro';
 import { site, whatsappLink } from '../../data/site.js';
 ---
 <Layout title={`Obstetricia — Servicios — ${site.doctorName}`} description="Supervisión de embarazo normal y de alto riesgo, parto humanizado y cesárea.">
@@ -17,7 +17,7 @@ import { site, whatsappLink } from '../../data/site.js';
           decisiones.
         </p>
       </div>
-      <PhotoBlock seed="delgado-obstetricia" alt="Control ecográfico de embarazo" aspect="square" width={560} />
+      <RealPhoto src="/images/team/patient-ultrasound.jpg" alt="Control ecográfico de embarazo" aspect="square" focal="50% 30%" />
     </div>
   </section>
 

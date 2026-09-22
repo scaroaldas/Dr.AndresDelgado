@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import RealPhoto from '../components/RealPhoto.astro';
 import { site, whatsappLink } from '../data/site.js';
 
 // Nota: testimonios de ejemplo (ficticios), solo para mostrar el diseño de esta
@@ -23,12 +24,15 @@ const testimonios = [
 <Layout title={`Testimonios — ${site.doctorName}`} description="Historias de pacientes que han confiado en nosotros.">
 
   <section class="section page-hero">
-    <div class="container" data-reveal>
-      <span class="eyebrow">Testimonios</span>
-      <h1>Historias de quienes ya vivieron este camino</h1>
-      <p class="lede">
-        Compartimos, con autorización de nuestras pacientes, algunas de sus experiencias.
-      </p>
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Testimonios</span>
+        <h1>Historias de quienes ya vivieron este camino</h1>
+        <p class="lede">
+          Compartimos, con autorización de nuestras pacientes, algunas de sus experiencias.
+        </p>
+      </div>
+      <RealPhoto src="/images/team/portrait-studio.jpg" alt={site.doctorName} aspect="square" focal="50% 20%" />
     </div>
   </section>
 
@@ -58,6 +62,12 @@ const testimonios = [
 
 <style>
   .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
   .testi-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -88,5 +98,6 @@ const testimonios = [
 
   @media (max-width: 860px) {
     .testi-grid { grid-template-columns: 1fr; }
+    .hero-split { grid-template-columns: 1fr; }
   }
 </style>

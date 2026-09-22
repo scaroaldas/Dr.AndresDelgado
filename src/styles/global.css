@@ -1,17 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Color */
-  --ink: #1E2B28;
-  --ink-soft: #45564F;
-  --bg: #FBF8F3;
-  --bg-soft: #F1EAE0;
-  --teal: #2F4F4A;
-  --teal-dark: #1C332F;
-  --rose: #C98A7D;
-  --rose-dark: #AD6F63;
+  /* Color — paleta oficial de marca del doctor (3 colores: turquesa, turquesa
+     claro y azul marino). Nota: las variables --rose/--rose-dark se
+     mantienen por compatibilidad con el resto del CSS, pero ahora apuntan
+     a los turquesas de marca en vez de un rosa — así todo el sitio queda
+     fiel a los 3 colores oficiales, sin inventar un cuarto tono. */
+  --ink: #232048;
+  --ink-soft: #55527A;
+  --bg: #FBFDFD;
+  --bg-soft: #EAF6F7;
+  --teal: #5BBEC5;
+  --teal-dark: #29265B;
+  --teal-light: #90CFD5;
+  --rose: #90CFD5;
+  --rose-dark: #5BBEC5;
   --gold: #B8935A;
-  --line: #DED6C7;
+  --line: #DCE7EA;
   --white: #FFFFFF;
 
   /* Type */

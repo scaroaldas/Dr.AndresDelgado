@@ -1,0 +1,48 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  aspect?: 'tall' | 'wide' | 'square' | 'portrait';
+  caption?: string;
+  reveal?: boolean;
+  focal?: string;
+}
+const { src, alt, aspect = 'wide', caption, reveal = true, focal = '50% 25%' } = Astro.props as Props;
+---
+<div class={`real-photo real-photo--${aspect}`} data-reveal={reveal ? 'scale' : undefined}>
+  <img src={src} alt={alt} loading="lazy" style={`object-position: ${focal};`} />
+  {caption && <p class="real-photo__caption">{caption}</p>}
+</div>
+
+<style is:global>
+  .real-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+  .real-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .real-photo:hover img { transform: scale(1.04); }
+  .real-photo--tall { aspect-ratio: 3 / 4; }
+  .real-photo--portrait { aspect-ratio: 4 / 5; }
+  .real-photo--wide { aspect-ratio: 4 / 3; }
+  .real-photo--square { aspect-ratio: 1 / 1; }
+  .real-photo__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 16px 18px;
+    font-size: 0.82rem;
+    color: #FBFDFD;
+    background: linear-gradient(to top, rgba(35, 32, 72, 0.65), transparent);
+    margin: 0;
+  }
+</style>

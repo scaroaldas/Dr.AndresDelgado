@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PhotoBlock from '../components/PhotoBlock.astro';
+import RealPhoto from '../components/RealPhoto.astro';
 import { site } from '../data/site.js';
 ---
 <Layout title={`Nosotros — ${site.doctorName}`} description="Quiénes somos, nuestras instalaciones, horario de atención y tasas de embarazo.">
@@ -29,13 +29,13 @@ import { site } from '../data/site.js';
           del tratamiento.
         </p>
       </div>
-      <PhotoBlock seed="delgado-team" alt="Equipo médico del consultorio" aspect="wide" width={720} />
+      <RealPhoto src="/images/team/office-desk.jpg" alt="Dr. Andrés Delgado en su consultorio" aspect="wide" />
     </div>
   </section>
 
   <section class="section section--soft" id="instalaciones">
     <div class="container facility-grid">
-      <PhotoBlock seed="delgado-quirofano" alt="Quirófano del consultorio" aspect="wide" width={720} caption="Quirófano equipado para cirugía de mínima invasión" />
+      <RealPhoto src="/images/team/surgery-or.jpg" alt="Quirófano del consultorio" aspect="wide" caption="Quirófano equipado para cirugía de mínima invasión" />
       <div data-reveal>
         <h2>Instalaciones</h2>
         <p>

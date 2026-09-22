@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import PhotoBlock from '../../components/PhotoBlock.astro';
+import RealPhoto from '../../components/RealPhoto.astro';
 import { site } from '../../data/site.js';
 
 const categories = [
@@ -8,31 +8,36 @@ const categories = [
     href: '/servicios/fertilidad',
     title: 'Fertilidad',
     description: 'Tratamientos de reproducción asistida, desde la inseminación artificial hasta la fecundación in vitro y el estudio genético preimplantacional.',
-    seed: 'delgado-cat-fertilidad',
+    photo: '/images/team/consult-model.jpg',
+    focal: '50% 20%',
   },
   {
     href: '/servicios/donantes',
     title: 'Donantes y bancos',
     description: 'Programas de donación de óvulos, esperma y embriones, además de banco de semen y banco de óvulos.',
-    seed: 'delgado-cat-donantes',
+    photo: '/images/team/hospital-del-rio.jpg',
+    focal: '50% 10%',
   },
   {
     href: '/servicios/obstetricia',
     title: 'Obstetricia',
     description: 'Control de embarazo normal y de alto riesgo, parto humanizado, cesárea y procedimientos relacionados.',
-    seed: 'delgado-cat-obstetricia',
+    photo: '/images/team/patient-ultrasound.jpg',
+    focal: '50% 25%',
   },
   {
     href: '/servicios/cirugia',
     title: 'Cirugía de mínima invasión',
     description: 'Cirugía laparoscópica, histeroscopia oficinal y quirúrgica, cirugía robótica y cirugía abierta cuando es necesaria.',
-    seed: 'delgado-cat-cirugia',
+    photo: '/images/team/surgery-instrument.jpg',
+    focal: '50% 10%',
   },
   {
     href: '/servicios/ginecologia',
     title: 'Ginecología',
     description: 'Papanicolaou, colposcopia, control ginecológico, anticoncepción y manejo de condiciones ginecológicas frecuentes.',
-    seed: 'delgado-cat-ginecologia',
+    photo: '/images/team/office-desk.jpg',
+    focal: '50% 20%',
   },
 ];
 ---
@@ -53,7 +58,7 @@ const categories = [
     <div class="container cat-grid" data-reveal-group>
       {categories.map((cat) => (
         <a class="cat-card" href={cat.href}>
-          <PhotoBlock seed={cat.seed} alt={cat.title} aspect="wide" width={520} reveal={false} />
+          <RealPhoto src={cat.photo} alt={cat.title} aspect="wide" reveal={false} focal={cat.focal} />
           <div class="cat-card__body">
             <h2>{cat.title}</h2>
             <p>{cat.description}</p>

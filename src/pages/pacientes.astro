@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PhotoBlock from '../components/PhotoBlock.astro';
+import RealPhoto from '../components/RealPhoto.astro';
 import { site, whatsappLink } from '../data/site.js';
 ---
 <Layout title={`Pacientes — ${site.doctorName}`} description="Nuestro objetivo, cuándo realizar tu primera consulta y qué pruebas diagnósticas esperar.">
@@ -15,7 +15,7 @@ import { site, whatsappLink } from '../data/site.js';
           proceso con nosotros.
         </p>
       </div>
-      <PhotoBlock seed="delgado-pacientes" alt="Sala de espera del consultorio" aspect="square" width={560} />
+      <RealPhoto src="/images/team/patient-ultrasound.jpg" alt="Consulta con paciente" aspect="square" focal="50% 30%" />
     </div>
   </section>
 

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ServiceBlock from '../../components/ServiceBlock.astro';
-import PhotoBlock from '../../components/PhotoBlock.astro';
+import RealPhoto from '../../components/RealPhoto.astro';
 import { site, whatsappLink } from '../../data/site.js';
 ---
 <Layout title={`Cirugía de mínima invasión — Servicios — ${site.doctorName}`} description="Cirugía laparoscópica, histeroscopia, cirugía robótica y cirugía abierta.">
@@ -18,7 +18,7 @@ import { site, whatsappLink } from '../../data/site.js';
           la cirugía abierta tradicional.
         </p>
       </div>
-      <PhotoBlock seed="delgado-cirugia" alt="Quirófano de cirugía laparoscópica" aspect="square" width={560} />
+      <RealPhoto src="/images/team/surgery-instrument.jpg" alt="Dr. Andrés Delgado con instrumental laparoscópico" aspect="square" focal="50% 15%" />
     </div>
   </section>
 

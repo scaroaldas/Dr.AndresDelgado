@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import RealPhoto from '../components/RealPhoto.astro';
 import { site, whatsappLink } from '../data/site.js';
 
 // Nota: nombres y especialidades de ejemplo (ficticios). Reemplazar con los
@@ -15,13 +16,16 @@ const medicos = [
 <Layout title={`Médicos asociados — ${site.doctorName}`} description="Conoce al equipo médico asociado del consultorio.">
 
   <section class="section page-hero">
-    <div class="container" data-reveal>
-      <span class="eyebrow">Nuestros médicos asociados</span>
-      <h1>Un equipo médico en el que puedes confiar</h1>
-      <p class="lede">
-        Trabajamos junto a especialistas de distintas áreas para ofrecerte una
-        atención completa.
-      </p>
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Nuestros médicos asociados</span>
+        <h1>Un equipo médico en el que puedes confiar</h1>
+        <p class="lede">
+          Trabajamos junto a especialistas de distintas áreas para ofrecerte una
+          atención completa.
+        </p>
+      </div>
+      <RealPhoto src="/images/team/portrait-crossed.jpg" alt={site.doctorName} aspect="square" focal="50% 15%" />
     </div>
   </section>
 
@@ -51,6 +55,12 @@ const medicos = [
 
 <style>
   .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
   .medicos-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -65,7 +75,7 @@ const medicos = [
     align-items: center;
     justify-content: center;
     background: linear-gradient(155deg, var(--teal-dark), var(--rose));
-    color: #FBF8F3;
+    color: #FBFDFD;
     font-family: var(--font-display);
     font-size: 1.6rem;
     margin-bottom: 18px;
@@ -78,5 +88,8 @@ const medicos = [
 
   @media (max-width: 780px) {
     .medicos-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
   }
 </style>

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ServiceBlock from '../../components/ServiceBlock.astro';
-import PhotoBlock from '../../components/PhotoBlock.astro';
+import RealPhoto from '../../components/RealPhoto.astro';
 import { site, whatsappLink } from '../../data/site.js';
 ---
 <Layout title={`Ginecología — Servicios — ${site.doctorName}`} description="Papanicolaou, colposcopia, control ginecológico y planificación familiar.">
@@ -17,7 +17,7 @@ import { site, whatsappLink } from '../../data/site.js';
           la consulta.
         </p>
       </div>
-      <PhotoBlock seed="delgado-ginecologia" alt="Consultorio de control ginecológico" aspect="square" width={560} />
+      <RealPhoto src="/images/team/office-desk.jpg" alt="Consultorio de control ginecológico" aspect="square" />
     </div>
   </section>
 

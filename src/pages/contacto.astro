@@ -1,17 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import RealPhoto from '../components/RealPhoto.astro';
 import { site, whatsappLink } from '../data/site.js';
 ---
 <Layout title={`Contacto — ${site.doctorName}`} description="Teléfono, WhatsApp, correo, dirección y horario de atención.">
 
   <section class="section page-hero">
-    <div class="container">
-      <span class="eyebrow">Contacto</span>
-      <h1>Hablemos</h1>
-      <p class="lede">
-        La vía más rápida para agendar una cita es WhatsApp. También puedes
-        llamarnos o escribirnos por correo.
-      </p>
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Contacto</span>
+        <h1>Hablemos</h1>
+        <p class="lede">
+          La vía más rápida para agendar una cita es WhatsApp. También puedes
+          llamarnos o escribirnos por correo.
+        </p>
+      </div>
+      <RealPhoto src="/images/team/hallway.jpg" alt={site.doctorName} aspect="square" focal="50% 15%" />
     </div>
   </section>
 
@@ -73,6 +77,12 @@ import { site, whatsappLink } from '../data/site.js';
 
 <style>
   .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 48px;
+    align-items: center;
+  }
   .contact-list { list-style: none; padding: 0; margin: 0 0 24px; }
   .contact-list li {
     display: flex;
@@ -94,4 +104,8 @@ import { site, whatsappLink } from '../data/site.js';
     line-height: 0;
   }
   .map-embed iframe { display: block; }
+
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; }
+  }
 </style>
