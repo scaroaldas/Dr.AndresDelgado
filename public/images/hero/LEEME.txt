@@ -1,0 +1,9 @@
+FOTOS DEL INICIO (HERO)
+=======================
+Por defecto el inicio usa 5 fotos gratuitas de familias de Unsplash (Unsplash License:
+uso comercial libre, sin atribución obligatoria). Créditos: Jennifer Kalenberg, Reba Spike,
+Philip White, Mieke Campbell. Se cargan directo desde el CDN de Unsplash.
+
+Para usar TUS fotos (por ejemplo, de pacientes con autorización): copia aquí archivos
+hero-1.jpg, hero-2.jpg, hero-3.jpg ... (horizontales, 1920x1080, ~300-500 KB).
+Si hay archivos hero-N, se usan esos en vez de las de Unsplash. No hay que editar código.

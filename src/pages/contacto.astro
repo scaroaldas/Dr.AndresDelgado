@@ -62,7 +62,7 @@ import { site, whatsappLink } from '../data/site.js';
         <!-- Dirección de ejemplo: reemplazar por la ubicación exacta del consultorio -->
         <iframe
           title="Ubicación del consultorio"
-          src={`https://www.google.com/maps?q=${encodeURIComponent(site.address.line1 + ', ' + site.address.city)}&output=embed`}
+          src={`https://www.google.com/maps?q=${encodeURIComponent(site.address.mapsQuery)}&output=embed`}
           width="100%"
           height="420"
           style="border:0"

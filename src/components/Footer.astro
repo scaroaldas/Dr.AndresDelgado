@@ -5,8 +5,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container foot-grid">
     <div>
-      <p class="foot-name">{site.doctorName}</p>
-      <p class="foot-specialty">{site.specialty}</p>
+      <img class="foot-logo" src="/images/logo-light.png" alt={site.doctorName} width="640" height="422" loading="lazy" />
       <p class="foot-address">
         {site.address.line1}<br />
         {site.address.city}
@@ -63,6 +62,7 @@ const year = new Date().getFullYear();
     gap: 32px;
     padding-bottom: 40px;
   }
+  .foot-logo { height: 118px; width: auto; margin-bottom: 14px; display: block; }
   .foot-name {
     font-family: var(--font-display);
     font-size: 1.2rem;

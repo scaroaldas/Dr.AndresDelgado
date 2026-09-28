@@ -18,9 +18,10 @@ export const site = {
   email: 'citas@delgadoponcefertilidad.com',
 
   address: {
-    line1: 'Av. Solano 5-38 y Av. Loja, Edificio Conquistador del Cajas, piso 3',
+    line1: 'Av. de las Américas y 24 de Mayo — Hospital Universitario del Río, Consultorio 401',
     city: 'Cuenca, Ecuador',
-    mapsUrl: 'https://maps.google.com/?q=Av.+Solano+y+Av.+Loja,+Cuenca,+Ecuador',
+    mapsQuery: 'Hospital Universitario del Río, Cuenca, Ecuador',
+    mapsUrl: 'https://maps.google.com/?q=Hospital+Universitario+del+R%C3%ADo,+Cuenca,+Ecuador',
   },
 
   hours: [
