@@ -37,17 +37,26 @@ const year = new Date().getFullYear();
           <li>{h.day}: {h.time}</li>
         ))}
       </ul>
+      {site.hoursNote && <p class="foot-note">{site.hoursNote}</p>}
     </div>
   </div>
 
   <div class="container foot-bottom">
-    <p>© {year} {site.doctorName}. Todos los derechos reservados.</p>
+    <p class="foot-copy">© {year} {site.doctorName}. Todos los derechos reservados.</p>
+
     <div class="foot-social">
-      <a href={site.social.instagram} target="_blank" rel="noopener">Instagram</a>
-      <a href={site.social.facebook} target="_blank" rel="noopener">Facebook</a>
-      <a href={site.social.tiktok} target="_blank" rel="noopener">TikTok</a>
+      <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1"/></svg>
+      </a>
+      <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3H13.5V8.4c0-.9.3-1.5 1.6-1.5h1.7V4.2C16.5 4.1 15.5 4 14.4 4c-2.3 0-3.9 1.4-3.9 4v2.4H8v3h2.5V21h3Z"/></svg>
+      </a>
+      <a href={site.social.tiktok} target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16.6 5.1c.7.9 1.7 1.5 2.9 1.6v2.6c-1.2 0-2.3-.4-3.2-1v6.4c0 2.7-2.1 4.8-4.8 4.8S6.7 17.4 6.7 14.7c0-2.6 2-4.7 4.6-4.8v2.7c-1.1.1-2 1-2 2.1 0 1.2 1 2.2 2.2 2.2s2.2-1 2.2-2.2V3.5h2.7c0 .6.1 1.1.2 1.6Z"/></svg>
+      </a>
     </div>
   </div>
+  <div class="foot-bottom-spacer" aria-hidden="true"></div>
 </footer>
 
 <style>
@@ -56,6 +65,11 @@ const year = new Date().getFullYear();
     color: #AFD6D8;
     padding: 56px 0 0;
   }
+  .foot-bottom-spacer {
+    /* Deja aire debajo del pie para que el botón flotante de WhatsApp
+       nunca quede encima del copyright al llegar al final de la página. */
+    height: 78px;
+  }
   .foot-grid {
     display: grid;
     grid-template-columns: 1.3fr 1fr 1fr 1fr;
@@ -63,13 +77,6 @@ const year = new Date().getFullYear();
     padding-bottom: 40px;
   }
   .foot-logo { height: 118px; width: auto; margin-bottom: 14px; display: block; }
-  .foot-name {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: #FBFDFD;
-    margin-bottom: 0.2em;
-  }
-  .foot-specialty { font-size: 0.9rem; margin-bottom: 1em; }
   .foot-address { font-size: 0.9rem; }
   .foot-heading {
     color: #FBFDFD;
@@ -81,22 +88,73 @@ const year = new Date().getFullYear();
   .foot-list li { margin-bottom: 0.6em; font-size: 0.9rem; }
   .foot-list a { color: #AFD6D8; text-decoration: none; }
   .foot-list a:hover { color: #FBFDFD; }
+  .foot-note {
+    margin: 0.8em 0 0;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #90CFD5;
+  }
 
   .foot-bottom {
-    border-top: 1px solid rgba(255,255,255,0.12);
-    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 22px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 24px;
     font-size: 0.82rem;
   }
-  .foot-social { display: flex; gap: 18px; }
-  .foot-social a { color: #AFD6D8; text-decoration: none; }
-  .foot-social a:hover { color: #FBFDFD; }
+  .foot-copy { margin: 0; }
+
+  .foot-social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .foot-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #DCEFF1;
+    flex-shrink: 0;
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+  .foot-social a:hover {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #FBFDFD;
+    transform: translateY(-2px);
+  }
 
   @media (max-width: 780px) {
     .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 520px) {
+    .foot-grid { grid-template-columns: 1fr; gap: 0; }
+    /* Cada bloque (Navegación, Contacto, Horario...) con su propia línea
+       divisoria, para que no se vea como texto suelto sin agrupar. */
+    .foot-grid > div {
+      padding: 22px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .foot-grid > div:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+    .foot-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      padding-top: 26px;
+    }
+    .foot-social { align-self: center; }
   }
 </style>

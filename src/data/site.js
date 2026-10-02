@@ -1,21 +1,14 @@
-// Datos centrales del sitio.
-// EDITA ESTE ARCHIVO con los datos reales del consultorio: número de WhatsApp,
-// teléfono fijo, dirección exacta, horarios y enlaces de redes sociales.
-// Todo el sitio lee de aquí, así que un solo cambio se refleja en todas las páginas.
-
 export const site = {
   doctorName: 'Dr. Andrés Delgado Ponce',
   specialty: 'Ginecología, Obstetricia y Medicina Reproductiva',
   clinicName: 'Centro de Fertilidad Delgado Ponce',
   tagline: 'Fertilidad, obstetricia y ginecología con acompañamiento cercano',
 
-  // Nota: dirección y correo aún son de ejemplo (ficticios). El WhatsApp/teléfono
-  // ya es el número real proporcionado por el doctor.
   whatsappNumber: '593999800061',
   whatsappDefaultMessage: 'Hola, quisiera agendar una cita.',
 
   phoneDisplay: '+593 999 800 061',
-  email: 'citas@delgadoponcefertilidad.com',
+  email: 'dr.andresdelgadoponce@gmail.com',
 
   address: {
     line1: 'Av. de las Américas y 24 de Mayo — Hospital Universitario del Río, Consultorio 401',
@@ -24,11 +17,13 @@ export const site = {
     mapsUrl: 'https://maps.google.com/?q=Hospital+Universitario+del+R%C3%ADo,+Cuenca,+Ecuador',
   },
 
+  // Nota: "nota" se muestra como una línea aparte, en cursiva, debajo del
+  // horario (footer, Nosotros y Contacto) — no es un día más.
   hours: [
-    { day: 'Lunes a viernes', time: '09:00 – 13:00 y 15:00 – 19:00' },
-    { day: 'Sábados', time: '09:00 – 12:00 (previa cita)' },
-    { day: 'Domingos', time: 'Cerrado' },
+    { day: 'Lunes a viernes', time: '09:00 – 12:00 y 15:30 – 18:30' },
+    { day: 'Sábados', time: '10:00 – 12:30' },
   ],
+  hoursNote: 'Todas las citas deben agendarse previamente.',
 
   social: {
     instagram: 'https://www.instagram.com/drandresdelgadop/',
