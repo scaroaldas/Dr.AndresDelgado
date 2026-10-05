@@ -1,0 +1,126 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LabGallery from '../../components/LabGallery.astro';
+import { site, whatsappLink } from '../../data/site.js';
+// Nota: los textos de esta página describen lo que se ve en las fotos (cabinas de flujo,
+// incubadores, microscopio con micromanipuladores). Que el doctor los revise y ajuste.
+---
+<Layout
+  title={`Laboratorio de reproducción asistida — ${site.doctorName}`}
+  description="Conoce el laboratorio de reproducción asistida: estaciones de trabajo para FIV, incubadores y equipo de micromanipulación."
+>
+
+  <section class="section page-hero">
+    <div class="container hero-split">
+      <div data-reveal>
+        <span class="eyebrow">Nosotros / Laboratorio</span>
+        <h1>Laboratorio de reproducción asistida</h1>
+        <p class="lede">
+          Un espacio dedicado al trabajo con óvulos, espermatozoides y embriones: ambiente
+          controlado, equipamiento especializado y un flujo de trabajo pensado para cuidar
+          cada etapa de tu tratamiento.
+        </p>
+        <div class="lab-hero__actions">
+          <a class="btn btn--whatsapp" href={whatsappLink('Hola, quisiera información sobre los tratamientos de fertilidad.')} target="_blank" rel="noopener">Agendar cita por WhatsApp</a>
+          <a class="btn btn--ghost" href="/servicios/fertilidad">Ver tratamientos</a>
+        </div>
+      </div>
+      <div class="lab-hero__photo" data-reveal="scale">
+        <img src="/images/lab/lab-workstation-1.jpg" width="1086" height="1448" alt="Cabina de flujo laminar con microscopio, incubador e instrumental dentro del laboratorio" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Equipamiento</span>
+      <h2>Lo que hay detrás de cada tratamiento</h2>
+      <div class="lab-features" data-reveal-group>
+        <div class="lab-feature">
+          <h3>Estaciones de trabajo para FIV</h3>
+          <p>Cabinas de flujo laminar con microscopio estereoscópico para manipular óvulos, espermatozoides y embriones en un entorno protegido.</p>
+        </div>
+        <div class="lab-feature">
+          <h3>Incubadores</h3>
+          <p>Incubadores de CO₂ y de sobremesa multicámara para el cultivo embrionario en condiciones estables.</p>
+        </div>
+        <div class="lab-feature">
+          <h3>Micromanipulación</h3>
+          <p>Microscopio invertido con micromanipuladores y monitor, para procedimientos de precisión como la ICSI.</p>
+        </div>
+        <div class="lab-feature">
+          <h3>Bioseguridad</h3>
+          <p>Señalización de evacuación, extintores y contenedores para residuos biológicos en cada área de trabajo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="galeria">
+    <div class="container">
+      <div class="lab-gallery__head" data-reveal>
+        <div>
+          <span class="eyebrow">Galería</span>
+          <h2>Conoce el laboratorio por dentro</h2>
+        </div>
+        <p class="lab-gallery__hint">Toca una foto para ampliarla.</p>
+      </div>
+      <LabGallery variant="full" />
+    </div>
+  </section>
+
+  <section class="section section--teal cta">
+    <div class="container cta-inner">
+      <div>
+        <h2>¿Quieres conocer el proceso?</h2>
+        <p>Agenda una consulta y te explicamos cada etapa de tu tratamiento.</p>
+      </div>
+      <div class="cta-buttons">
+        <a class="btn btn--ghost-inverse" href="/servicios/fertilidad">Ver tratamientos de fertilidad</a>
+        <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-hero { padding-top: 52px; padding-bottom: 44px; border-bottom: 1px solid var(--line); }
+  .hero-split { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 56px; align-items: center; }
+  .lab-hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .lab-hero__photo {
+    aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius);
+    border: 1px solid var(--line); max-height: 560px; justify-self: end; width: 100%;
+  }
+  .lab-hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 55%; display: block; }
+
+  .lab-features {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); margin-top: 32px; counter-reset: feat;
+  }
+  .lab-feature { counter-increment: feat; background: var(--white); padding: 26px 22px; }
+  .lab-feature::before {
+    content: counter(feat, decimal-leading-zero);
+    font-family: var(--font-display); font-style: italic; font-size: 1.4rem;
+    color: var(--rose-dark); display: block; margin-bottom: 10px;
+  }
+  .lab-feature h3 { font-size: 1.1rem; margin-bottom: 0.4em; }
+  .lab-feature p { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+
+  .lab-gallery__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+  .lab-gallery__head h2 { margin: 0; }
+  .lab-gallery__hint { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero-split { grid-template-columns: 1fr; gap: 32px; }
+    .lab-hero__photo { aspect-ratio: 4 / 3; max-height: none; justify-self: stretch; }
+    .lab-hero__photo img { object-position: 40% 48%; }
+    .lab-features { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .lab-features { grid-template-columns: 1fr; }
+  }
+</style>

@@ -45,6 +45,7 @@ export const nav = [
     children: [
       { label: 'Quiénes somos', href: '/nosotros#quienes-somos' },
       { label: 'Instalaciones', href: '/nosotros#instalaciones' },
+      { label: 'Laboratorio', href: '/nosotros/laboratorio' },
       { label: 'Horario de atención', href: '/nosotros#horario' },
       { label: 'Tasas de embarazo', href: '/nosotros#tasas-embarazo' },
     ],

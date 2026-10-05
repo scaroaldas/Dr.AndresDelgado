@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import ServiceBlock from '../../components/ServiceBlock.astro';
 import RealPhoto from '../../components/RealPhoto.astro';
+import LabGallery from '../../components/LabGallery.astro';
 import { site, whatsappLink } from '../../data/site.js';
 ---
 <Layout title={`Fertilidad — Servicios — ${site.doctorName}`} description="Inseminación artificial, fecundación in vitro, ICSI, vitrificación de óvulos y más.">
@@ -86,6 +87,9 @@ import { site, whatsappLink } from '../../data/site.js';
       </div>
     </div>
   </section>
+
+  <!-- LABORATORIO -->
+  <LabGallery variant="compact" />
 
   <section class="section section--teal cta">
     <div class="container cta-inner">

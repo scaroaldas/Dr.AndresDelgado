@@ -3,14 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import RealPhoto from '../components/RealPhoto.astro';
 import { site, whatsappLink } from '../data/site.js';
 
-// Nota: nombres y especialidades de ejemplo (ficticios). Reemplazar con los
-// médicos asociados reales. El avatar usa las iniciales a propósito, en vez de
-// una fotografía de stock, para no atribuir por error la imagen de una persona
-// real a un nombre inventado; reemplázalo por la fotografía real de cada médico.
-const medicos = [
-  { nombre: 'Dra. María José Cabrera', especialidad: 'Embrióloga clínica', iniciales: 'MC' },
-  { nombre: 'Dr. Juan Pablo Torres', especialidad: 'Urología y andrología', iniciales: 'JT' },
-  { nombre: 'Lcda. Daniela Ochoa', especialidad: 'Psicología en fertilidad', iniciales: 'DO' },
+// Integrantes del equipo asociado (fotos individuales). Cuando tengas el nombre y el
+// cargo de cada persona, escríbelos en "nombre" y "cargo": se muestran debajo de la foto.
+// Para agregar a alguien más, copia un bloque y cambia la foto (en /public/images/team/).
+const integrantes = [
+  {
+    foto: '/images/team/cerhvalencia-retrato.jpg',
+    alt: 'Integrante del equipo asociado, Clínica CERHVALENCIA',
+    nombre: '',
+    cargo: '',
+  },
 ];
 ---
 <Layout title={`Médicos asociados — ${site.doctorName}`} description="Conoce al equipo médico asociado del consultorio.">
@@ -29,15 +31,38 @@ const medicos = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="container medicos-grid" data-reveal-group>
-      {medicos.map((m) => (
-        <div class="medico-card">
-          <div class="medico-avatar" aria-hidden="true">{m.iniciales}</div>
-          <h3>{m.nombre}</h3>
-          <p>{m.especialidad}</p>
+  <section class="section section--soft">
+    <div class="container">
+      <span class="eyebrow">Equipo asociado</span>
+      <div class="equipo-grid">
+        <div class="equipo-main">
+          <figure class="equipo-foto" data-reveal>
+            <img src="/images/team/cerhvalencia-equipo.jpg" width="1800" height="1012" alt="Equipo de la Clínica CERHVALENCIA, Cuenca" loading="lazy" />
+          </figure>
+          <div class="equipo-text" data-reveal>
+            <h2>Clínica CERHVALENCIA</h2>
+            <p>
+              Profesionales con quienes colaboramos en el laboratorio de reproducción
+              asistida y en el seguimiento de tu tratamiento.
+            </p>
+            <a class="btn btn--ghost" href="/nosotros/laboratorio">Conocer el laboratorio →</a>
+          </div>
         </div>
-      ))}
+
+        <div class="equipo-side">
+          {integrantes.map((p) => (
+            <figure class="integrante" data-reveal>
+              <div class="integrante__foto">
+                <img src={p.foto} width="1000" height="1777" alt={p.alt} loading="lazy" />
+              </div>
+              <figcaption>
+                <strong>{p.nombre || 'Equipo CERHVALENCIA'}</strong>
+                {p.cargo && <span>{p.cargo}</span>}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
@@ -55,39 +80,28 @@ const medicos = [
 
 <style>
   .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
-  .hero-split {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 48px;
-    align-items: center;
-  }
-  .medicos-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
-  .medico-card { text-align: left; }
-  .medico-avatar {
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(155deg, var(--teal-dark), var(--rose));
-    color: #FBFDFD;
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    margin-bottom: 18px;
-    transition: transform 220ms ease;
-  }
-  .medico-card:hover .medico-avatar { transform: scale(1.06); }
-  .medico-card h3 { margin-bottom: 0.2em; }
-  .medico-card p { color: var(--ink-soft); margin: 0; }
+  .hero-split { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 48px; align-items: center; }
+
+  .equipo-grid { display: grid; grid-template-columns: 1.55fr 0.9fr; gap: 40px; align-items: start; margin-top: 8px; }
+  .equipo-foto { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  .equipo-foto img { width: 100%; height: auto; display: block; }
+  .equipo-text { margin-top: 26px; }
+  .equipo-text h2 { margin-bottom: 0.3em; }
+  .equipo-text p { color: var(--ink-soft); }
+
+  .equipo-side { display: flex; flex-direction: column; gap: 24px; }
+  .integrante { margin: 0; }
+  .integrante__foto { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: #fff; }
+  .integrante__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
+  .integrante figcaption { padding-top: 14px; display: flex; flex-direction: column; gap: 2px; }
+  .integrante figcaption strong { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; color: var(--teal-dark); }
+  .integrante figcaption span { font-size: 0.9rem; color: var(--ink-soft); }
+
   .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 
-  @media (max-width: 780px) {
-    .medicos-grid { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 900px) {
+    .equipo-grid { grid-template-columns: 1fr; gap: 32px; }
+    .equipo-side { max-width: 420px; }
   }
   @media (max-width: 860px) {
     .hero-split { grid-template-columns: 1fr; }

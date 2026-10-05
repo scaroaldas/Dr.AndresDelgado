@@ -1,0 +1,246 @@
+---
+// Galería del laboratorio de reproducción asistida.
+//  - variant="full":    foto panorámica destacada + mosaico (para /nosotros/laboratorio)
+//  - variant="compact": sección corta con 3 fotos y enlace al laboratorio (para Servicios > Fertilidad)
+// Todas las fotos se pueden ampliar con clic (visor con flechas, teclado y deslizamiento).
+interface Props { variant?: 'full' | 'compact'; }
+const { variant = 'full' } = Astro.props as Props;
+
+type Photo = { src: string; w: number; h: number; alt: string; cap: string; pos?: string };
+const B = '/images/lab';
+
+const pano1: Photo = { src: `${B}/lab-panoramica-1.jpg`, w: 1900, h: 635, cap: 'Vista general del laboratorio',
+  alt: 'Vista panorámica del laboratorio con incubadores, microscopios y cabinas de flujo laminar' };
+const pano2: Photo = { src: `${B}/lab-panoramica-2.jpg`, w: 1600, h: 780, cap: 'Incubadores, cabina de flujo y área de trabajo',
+  alt: 'Incubadores, refrigerador y cabina de flujo laminar dentro del laboratorio' };
+const pano3: Photo = { src: `${B}/lab-panoramica-3.jpg`, w: 1900, h: 635, cap: 'Áreas de trabajo del laboratorio',
+  alt: 'Áreas de trabajo del laboratorio: cabinas de flujo, microscopios e incubadores' };
+const fiv: Photo = { src: `${B}/lab-estacion-fiv.jpg`, w: 1479, h: 480, cap: 'Estación de trabajo para FIV',
+  alt: 'Estación de trabajo para FIV con microscopio estereoscópico e incubador multicámara', pos: '40% 50%' };
+const ws2: Photo = { src: `${B}/lab-workstation-2.jpg`, w: 1086, h: 1448, cap: 'Cabina de flujo laminar e incubador',
+  alt: 'Cabina de flujo laminar con microscopio y un incubador de sobremesa' };
+const ivftech: Photo = { src: `${B}/lab-ivftech.jpg`, w: 1086, h: 1449, cap: 'Estación de trabajo y monitor',
+  alt: 'Estación de trabajo con microscopio, monitor e incubador en primer plano' };
+const incub: Photo = { src: `${B}/lab-incubadores.jpg`, w: 1086, h: 1448, cap: 'Incubadores de cultivo',
+  alt: 'Incubadores de CO₂ sobre mesón de acero y cabina de flujo al fondo' };
+
+// Mosaico en 3 columnas con alturas parecidas (en móvil se acomoda solo)
+const cols: Photo[][] = [[ivftech, fiv], [incub, pano3], [ws2, pano2]];
+const compact: Photo[] = [pano3, ws2, fiv];
+---
+
+{variant === 'full' ? (
+  <div class="lab-full">
+    <figure class="lab-item lab-item--feature" data-reveal>
+      <button type="button" class="lab-item__btn" data-lab-item data-full={pano1.src} data-alt={pano1.alt} data-cap={pano1.cap} aria-label={`Ampliar: ${pano1.cap}`}>
+        <img src={pano1.src} width={pano1.w} height={pano1.h} alt={pano1.alt} loading="lazy" decoding="async" />
+        <span class="lab-item__zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M11 8.5v5M8.5 11h5"/></svg></span>
+      </button>
+    </figure>
+
+    <div class="lab-masonry">
+      {cols.map((col) => (
+        <div class="lab-col">
+          {col.map((p) => (
+            <figure class="lab-item" data-reveal>
+              <button type="button" class="lab-item__btn" data-lab-item data-full={p.src} data-alt={p.alt} data-cap={p.cap} aria-label={`Ampliar: ${p.cap}`}>
+                <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" style={p.pos ? `object-position:${p.pos}` : undefined} />
+                <span class="lab-item__zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M11 8.5v5M8.5 11h5"/></svg></span>
+              </button>
+            </figure>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+) : (
+  <section class="section lab-compact">
+    <div class="container">
+      <div class="lab-compact__head" data-reveal>
+        <div>
+          <span class="eyebrow">Laboratorio</span>
+          <h2>Un laboratorio pensado para cuidar cada paso</h2>
+          <p class="lede">Estaciones de trabajo para FIV, incubadores y equipo de micromanipulación, en un ambiente controlado.</p>
+        </div>
+        <a class="btn btn--ghost" href="/nosotros/laboratorio">Conocer el laboratorio →</a>
+      </div>
+      <div class="lab-compact__grid">
+        {compact.map((p, i) => (
+          <figure class={`lab-item${i === 0 ? ' lab-item--big' : ''}`} data-reveal>
+            <button type="button" class="lab-item__btn" data-lab-item data-full={p.src} data-alt={p.alt} data-cap={p.cap} aria-label={`Ampliar: ${p.cap}`}>
+              <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" style={`object-position:${p.pos ?? '50% 40%'}`} />
+              <span class="lab-item__zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M11 8.5v5M8.5 11h5"/></svg></span>
+            </button>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  .lab-item { margin: 0; position: relative; }
+  .lab-item__btn {
+    display: block; position: relative; width: 100%; padding: 0; border: 0;
+    background: var(--bg-soft); cursor: zoom-in; overflow: hidden;
+    border-radius: var(--radius); line-height: 0;
+  }
+  .lab-item__btn img {
+    width: 100%; height: auto; display: block;
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lab-item__btn::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(41, 38, 91, 0.32), transparent 55%);
+    opacity: 0; transition: opacity 300ms ease;
+  }
+  .lab-item__btn:hover img, .lab-item__btn:focus-visible img { transform: scale(1.04); }
+  .lab-item__btn:hover::after, .lab-item__btn:focus-visible::after { opacity: 1; }
+  .lab-item__zoom {
+    position: absolute; right: 12px; bottom: 12px; z-index: 2;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, 0.92); color: var(--teal-dark);
+    box-shadow: 0 6px 16px -6px rgba(41, 38, 91, 0.45);
+    transition: transform 250ms ease, background-color 250ms ease, color 250ms ease;
+  }
+  .lab-item__btn:hover .lab-item__zoom { transform: scale(1.1); background: var(--teal); color: #fff; }
+
+  /* full */
+  .lab-full { display: flex; flex-direction: column; gap: 18px; }
+  .lab-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
+  .lab-col { display: flex; flex-direction: column; gap: 18px; }
+
+  /* compact */
+  .lab-compact__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 30px; }
+  .lab-compact__head h2 { margin-bottom: 0.3em; }
+  .lab-compact__head .lede { margin: 0; }
+  .lab-compact__grid { display: grid; grid-template-columns: 2fr 1fr; grid-auto-rows: 215px; gap: 18px; }
+  .lab-compact__grid .lab-item, .lab-compact__grid .lab-item__btn { height: 100%; }
+  .lab-compact__grid .lab-item__btn img { height: 100%; object-fit: cover; }
+  .lab-item--big { grid-row: span 2; }
+
+  @media (max-width: 900px) {
+    .lab-masonry { display: block; column-count: 2; column-gap: 14px; }
+    .lab-col { display: contents; }
+    .lab-masonry .lab-item { break-inside: avoid; margin-bottom: 14px; }
+  }
+  @media (max-width: 640px) {
+    .lab-masonry { column-count: 1; }
+    .lab-compact__grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+    .lab-item--big { grid-row: auto; }
+  }
+
+  /* Visor ampliado */
+  .lab-lb {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(24, 21, 62, 0.95);
+    visibility: hidden; opacity: 0; pointer-events: none;
+    transition: opacity 260ms ease, visibility 0s linear 260ms;
+  }
+  .lab-lb.is-open { visibility: visible; opacity: 1; pointer-events: auto; transition: opacity 260ms ease, visibility 0s; }
+  .lab-lb__fig { margin: 0; max-width: min(92vw, 1500px); display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .lab-lb__img { max-width: 100%; max-height: 80vh; width: auto; height: auto; border-radius: var(--radius); box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7); animation: labLbIn 320ms cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes labLbIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+  .lab-lb__cap { color: #DCEFF1; font-size: 0.95rem; text-align: center; margin: 0; }
+  .lab-lb__count { position: absolute; left: 24px; top: 26px; color: #AFD6D8; font-size: 0.85rem; letter-spacing: 0.04em; }
+  .lab-lb__close, .lab-lb__nav {
+    position: absolute; width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.08);
+    color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem; line-height: 1; padding: 0;
+    transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+  }
+  .lab-lb__close:hover, .lab-lb__nav:hover { background: var(--teal); border-color: var(--teal); transform: scale(1.08); }
+  .lab-lb__close { top: 18px; right: 18px; }
+  .lab-lb__prev { left: 18px; top: 50%; margin-top: -24px; }
+  .lab-lb__next { right: 18px; top: 50%; margin-top: -24px; }
+  @media (max-width: 640px) {
+    .lab-lb__prev, .lab-lb__next { top: auto; bottom: 22px; margin-top: 0; }
+    .lab-lb__prev { left: calc(50% - 62px); }
+    .lab-lb__next { right: calc(50% - 62px); }
+    .lab-lb__img { max-height: 70vh; }
+  }
+</style>
+
+<script>
+  const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-lab-item]'));
+  if (triggers.length) {
+    const items = triggers.map((t) => ({ src: t.dataset.full || '', alt: t.dataset.alt || '', cap: t.dataset.cap || '' }));
+    let current = 0;
+    let lastFocus: HTMLElement | null = null;
+
+    const lb = document.createElement('div');
+    lb.className = 'lab-lb';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Galería del laboratorio');
+    lb.innerHTML = `
+      <span class="lab-lb__count" aria-live="polite"></span>
+      <button type="button" class="lab-lb__close" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <button type="button" class="lab-lb__nav lab-lb__prev" aria-label="Foto anterior">‹</button>
+      <figure class="lab-lb__fig"><img class="lab-lb__img" alt="" /><figcaption class="lab-lb__cap"></figcaption></figure>
+      <button type="button" class="lab-lb__nav lab-lb__next" aria-label="Foto siguiente">›</button>`;
+    document.body.appendChild(lb);
+
+    const img = lb.querySelector<HTMLImageElement>('.lab-lb__img')!;
+    const cap = lb.querySelector<HTMLElement>('.lab-lb__cap')!;
+    const count = lb.querySelector<HTMLElement>('.lab-lb__count')!;
+    const closeBtn = lb.querySelector<HTMLElement>('.lab-lb__close')!;
+    const prevBtn = lb.querySelector<HTMLElement>('.lab-lb__prev')!;
+    const nextBtn = lb.querySelector<HTMLElement>('.lab-lb__next')!;
+    const single = items.length < 2;
+    if (single) { prevBtn.style.display = 'none'; nextBtn.style.display = 'none'; }
+
+    const show = (i: number) => {
+      current = (i + items.length) % items.length;
+      const it = items[current];
+      img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
+      img.src = it.src; img.alt = it.alt;
+      cap.textContent = it.cap;
+      count.textContent = `${current + 1} / ${items.length}`;
+      [1, -1].forEach((d) => { const n = new Image(); n.src = items[(current + d + items.length) % items.length].src; });
+    };
+    const open = (i: number) => {
+      lastFocus = document.activeElement as HTMLElement;
+      show(i);
+      lb.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      closeBtn.focus();
+    };
+    const close = () => {
+      lb.classList.remove('is-open');
+      document.documentElement.style.overflow = '';
+      lastFocus?.focus();
+    };
+
+    triggers.forEach((t, i) => t.addEventListener('click', () => open(i)));
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', () => show(current - 1));
+    nextBtn.addEventListener('click', () => show(current + 1));
+    lb.addEventListener('click', (e) => { if (e.target === lb || (e.target as HTMLElement).classList.contains('lab-lb__fig')) close(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight' && !single) show(current + 1);
+      else if (e.key === 'ArrowLeft' && !single) show(current - 1);
+      else if (e.key === 'Tab') {
+        const f = [closeBtn, ...(single ? [] : [prevBtn, nextBtn])];
+        const idx = f.indexOf(document.activeElement as HTMLElement);
+        e.preventDefault();
+        f[(idx + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
+
+    let x0 = 0;
+    lb.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (!single && Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+</script>
