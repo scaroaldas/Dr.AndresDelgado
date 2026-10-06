@@ -1,0 +1,99 @@
+---
+// Sección "Áreas de atención" del inicio, con un ícono por área.
+// Para cambiar textos o enlaces, edita la lista "areas".
+const areas = [
+  { href: '/servicios/fertilidad', title: 'Fertilidad', text: 'Inseminación artificial, fecundación in vitro, ICSI, vitrificación de óvulos y más.', icon: 'fertilidad' },
+  { href: '/servicios/donantes', title: 'Donantes y bancos', text: 'Óvulos, esperma y embriones, con procesos de donación seguros y acompañados.', icon: 'bancos' },
+  { href: '/servicios/obstetricia', title: 'Obstetricia', text: 'Seguimiento de embarazo normal y de alto riesgo, parto humanizado y cesárea.', icon: 'obstetricia' },
+  { href: '/servicios/cirugia', title: 'Cirugía de mínima invasión', text: 'Laparoscopia, histeroscopia y cirugía robótica para distintas condiciones ginecológicas.', icon: 'cirugia' },
+  { href: '/servicios/ginecologia', title: 'Ginecología', text: 'Papanicolaou, colposcopia, control ginecológico y planificación familiar.', icon: 'ginecologia' },
+  { href: '/pacientes', title: 'Para pacientes', text: 'Qué esperar en tu primera consulta y qué pruebas diagnósticas podrías necesitar.', icon: 'pacientes' },
+];
+---
+<section class="section areas">
+  <div class="container">
+    <span class="eyebrow">Áreas de atención</span>
+    <h2>Un consultorio, todas las etapas de tu salud reproductiva</h2>
+
+    <div class="areas__grid" data-reveal-group>
+      {areas.map((a) => (
+        <a class="areas__card" href={a.href}>
+          <span class="areas__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              {a.icon === 'fertilidad' && (<>
+                <circle cx="14" cy="9.5" r="6"/>
+                <circle cx="6.8" cy="17.2" r="1.7"/>
+                <path d="M5.6 18.6c-1.2 1-1.9 1.7-3 1.7"/>
+                <path d="M8.3 15.8l2-1.7"/>
+              </>)}
+              {a.icon === 'bancos' && (<>
+                <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/>
+                <path d="M9.6 4.9L12 7.2l2.4-2.3M9.6 19.1L12 16.8l2.4 2.3"/>
+              </>)}
+              {a.icon === 'obstetricia' && (
+                <path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/>
+              )}
+              {a.icon === 'cirugia' && (<>
+                <path d="M4 20L15.5 8.5"/>
+                <circle cx="18" cy="6" r="2.8"/>
+                <path d="M7.5 14.5l2 2M10.5 11.5l2 2"/>
+              </>)}
+              {a.icon === 'ginecologia' && (<>
+                <circle cx="12" cy="8.6" r="4.8"/>
+                <path d="M12 13.4V21M8.6 17.4h6.8"/>
+              </>)}
+              {a.icon === 'pacientes' && (<>
+                <rect x="5" y="4.5" width="14" height="16.5" rx="2"/>
+                <path d="M9 4.5V3h6v1.5"/>
+                <path d="M8.6 13.2l2.4 2.4 4.4-4.8"/>
+              </>)}
+            </svg>
+          </span>
+          <h3>{a.title}</h3>
+          <p>{a.text}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .areas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 32px;
+  }
+  .areas__card {
+    background: var(--bg-soft);
+    padding: 30px 28px;
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+    transition: background-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  }
+  .areas__card:hover, .areas__card:focus-visible {
+    background: var(--white);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 28px -18px rgba(41, 38, 91, 0.3);
+    z-index: 1;
+  }
+  .areas__icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--white); color: var(--teal-dark);
+    border: 1px solid var(--line);
+    margin-bottom: 18px;
+    transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, transform 220ms ease;
+  }
+  .areas__card:hover .areas__icon, .areas__card:focus-visible .areas__icon {
+    background: var(--teal); color: #fff; border-color: var(--teal); transform: scale(1.06);
+  }
+  .areas__card h3 { margin: 0 0 0.4em; color: var(--teal-dark); }
+  .areas__card p { margin: 0; color: var(--ink-soft); font-size: 0.94rem; }
+
+  @media (max-width: 900px) { .areas__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .areas__grid { grid-template-columns: 1fr; } }
+</style>

@@ -37,41 +37,118 @@ export function whatsappLink(message = site.whatsappDefaultMessage) {
   return `https://wa.me/${site.whatsappNumber}?text=${text}`;
 }
 
+// Menú principal. Los elementos con "groups" abren un panel grande dividido por secciones
+// (como un menú de clínica). "cols" es el número de columnas del panel (por defecto, una por grupo).
 export const nav = [
   { label: 'Inicio', href: '/' },
   {
     label: 'Nosotros',
     href: '/nosotros',
-    children: [
-      { label: 'Quiénes somos', href: '/nosotros#quienes-somos' },
-      { label: 'Instalaciones', href: '/nosotros#instalaciones' },
-      { label: 'Laboratorio', href: '/nosotros/laboratorio' },
-      { label: 'Horario de atención', href: '/nosotros#horario' },
-      { label: 'Tasas de embarazo', href: '/nosotros#tasas-embarazo' },
+    groups: [
+      {
+        title: 'Nuestra clínica',
+        links: [
+          { label: 'Quiénes somos', href: '/nosotros#quienes-somos' },
+          { label: 'Instalaciones', href: '/nosotros#instalaciones' },
+          { label: 'Laboratorio', href: '/nosotros/laboratorio' },
+          { label: 'Horario de atención', href: '/nosotros#horario' },
+          { label: 'Tasas de embarazo', href: '/nosotros#tasas-embarazo' },
+        ],
+      },
+      {
+        title: 'Actualidad',
+        links: [
+          { label: 'Testimonios e historias', href: '/testimonios' },
+          { label: 'Preguntas y respuestas', href: '/preguntas-frecuentes' },
+          { label: 'Médicos asociados', href: '/medicos' },
+        ],
+      },
     ],
   },
   {
     label: 'Servicios',
     href: '/servicios',
-    children: [
-      { label: 'Todos los servicios', href: '/servicios' },
-      { label: 'Fertilidad', href: '/servicios/fertilidad' },
-      { label: 'Donantes y bancos', href: '/servicios/donantes' },
-      { label: 'Obstetricia', href: '/servicios/obstetricia' },
-      { label: 'Cirugía de mínima invasión', href: '/servicios/cirugia' },
-      { label: 'Ginecología', href: '/servicios/ginecologia' },
+    cols: 3,
+    groups: [
+      {
+        title: 'Fertilidad',
+        href: '/servicios/fertilidad',
+        links: [
+          { label: 'Inseminación artificial', href: '/servicios/fertilidad' },
+          { label: 'Fecundación in vitro (FIV)', href: '/servicios/fertilidad' },
+          { label: 'Microinyección espermática (ICSI)', href: '/servicios/fertilidad' },
+          { label: 'Vitrificación de óvulos', href: '/servicios/fertilidad' },
+          { label: 'Congelación de embriones', href: '/servicios/fertilidad' },
+          { label: 'Screening genético (PGT)', href: '/servicios/fertilidad' },
+        ],
+      },
+      {
+        title: 'Donantes y bancos',
+        href: '/servicios/donantes',
+        links: [
+          { label: 'Donación de óvulos', href: '/servicios/donantes' },
+          { label: 'Donación de esperma', href: '/servicios/donantes' },
+          { label: 'Donación de embriones', href: '/servicios/donantes' },
+          { label: 'Banco de semen', href: '/servicios/donantes' },
+          { label: 'Banco de óvulos', href: '/servicios/donantes' },
+        ],
+      },
+      {
+        title: 'Obstetricia',
+        href: '/servicios/obstetricia',
+        links: [
+          { label: 'Embarazo normal', href: '/servicios/obstetricia' },
+          { label: 'Embarazo de alto riesgo', href: '/servicios/obstetricia' },
+          { label: 'Parto humanizado', href: '/servicios/obstetricia' },
+          { label: 'Cesárea', href: '/servicios/obstetricia' },
+        ],
+      },
+      {
+        title: 'Cirugía de mínima invasión',
+        href: '/servicios/cirugia',
+        links: [
+          { label: 'Laparoscopia', href: '/servicios/cirugia' },
+          { label: 'Histeroscopia', href: '/servicios/cirugia' },
+          { label: 'Cirugía robótica', href: '/servicios/cirugia' },
+          { label: 'Cirugía abierta', href: '/servicios/cirugia' },
+        ],
+      },
+      {
+        title: 'Ginecología',
+        href: '/servicios/ginecologia',
+        links: [
+          { label: 'Papanicolaou y colposcopia', href: '/servicios/ginecologia' },
+          { label: 'Control ginecológico', href: '/servicios/ginecologia' },
+          { label: 'Planificación familiar', href: '/servicios/ginecologia' },
+          { label: 'Endometriosis y quistes', href: '/servicios/ginecologia' },
+        ],
+      },
     ],
+    footer: { label: 'Ver todos los servicios', href: '/servicios' },
   },
   {
     label: 'Pacientes',
     href: '/pacientes',
-    children: [
-      { label: 'Primera consulta', href: '/pacientes#objetivo' },
-      { label: 'Pruebas diagnósticas', href: '/pacientes#pruebas' },
-      { label: 'Preguntas frecuentes', href: '/preguntas-frecuentes' },
+    groups: [
+      {
+        title: 'Tu primera consulta',
+        links: [
+          { label: 'Primera consulta', href: '/pacientes#objetivo' },
+          { label: 'Pruebas diagnósticas', href: '/pacientes#pruebas' },
+          { label: 'Agendar una cita', href: '/#agenda' },
+        ],
+      },
+      {
+        title: 'Información',
+        links: [
+          { label: 'Preguntas frecuentes', href: '/preguntas-frecuentes' },
+          { label: 'Testimonios', href: '/testimonios' },
+          { label: 'Cómo llegar', href: '/contacto' },
+        ],
+      },
     ],
   },
-  { label: 'Médicos asociados', href: '/medicos' },
-  { label: 'Testimonios', href: '/testimonios' },
+  { label: 'Médicos', href: '/medicos' },
+  { label: 'Preguntas frecuentes', href: '/preguntas-frecuentes' },
   { label: 'Contacto', href: '/contacto' },
 ];

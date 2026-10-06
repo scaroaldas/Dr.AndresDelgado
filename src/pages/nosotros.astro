@@ -40,7 +40,7 @@ import { site } from '../data/site.js';
         <h2>Instalaciones</h2>
         <p>
           Contamos con consultorios de ginecología y obstetricia, sala de
-          ecografía, quirófano propio equipado para cirugía laparoscópica e
+          ecografía, quirófano equipado para cirugía laparoscópica e
           histeroscópica, laboratorio de reproducción asistida con criopreservación
           de óvulos y embriones, y una sala de espera pensada para brindar
           privacidad y tranquilidad a nuestras pacientes.
@@ -58,6 +58,7 @@ import { site } from '../data/site.js';
             <li><span>{h.day}</span><span>{h.time}</span></li>
           ))}
         </ul>
+        {site.hoursNote && <p class="hours-note">{site.hoursNote}</p>}
       </div>
       <div class="panel" data-reveal>
         <h3>Ubicación</h3>
@@ -77,9 +78,9 @@ import { site } from '../data/site.js';
         durante la consulta.
       </p>
       <div class="stats-grid" data-reveal-group>
-        <div class="stat"><strong><span data-count-to="28" data-count-suffix="%">0%</span></strong><span>Inseminación artificial</span></div>
-        <div class="stat"><strong><span data-count-to="71" data-count-suffix="%">0%</span></strong><span>FIV / ICSI</span></div>
-        <div class="stat"><strong><span data-count-to="84" data-count-suffix="%">0%</span></strong><span>Ovodonación</span></div>
+        <div class="stat"><strong><span data-count-to="28" data-count-suffix="%">0%</span></strong><span class="stat__label">Inseminación artificial</span></div>
+        <div class="stat"><strong><span data-count-to="71" data-count-suffix="%">0%</span></strong><span class="stat__label">FIV / ICSI</span></div>
+        <div class="stat"><strong><span data-count-to="84" data-count-suffix="%">0%</span></strong><span class="stat__label">Ovodonación</span></div>
       </div>
     </div>
   </section>
@@ -97,6 +98,7 @@ import { site } from '../data/site.js';
   .hours-list { list-style: none; padding: 0; margin: 0; }
   .hours-list li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.95rem; }
   .hours-list li span:first-child { color: var(--ink-soft); }
+  .hours-note { margin: 0.9em 0 0; font-size: 0.85rem; font-style: italic; color: var(--ink-soft); }
 
   .stats-grid {
     display: grid;
@@ -106,11 +108,7 @@ import { site } from '../data/site.js';
     border: 1px solid var(--line);
     margin-top: 32px;
   }
-  .stat {
-    background: var(--white);
-    padding: 32px;
-    text-align: center;
-  }
+  .stat { background: var(--white); padding: 32px; text-align: center; }
   .stat strong {
     display: block;
     font-family: var(--font-display);
@@ -118,7 +116,7 @@ import { site } from '../data/site.js';
     color: var(--rose-dark);
     margin-bottom: 0.2em;
   }
-  .stat span { color: var(--ink-soft); font-size: 0.92rem; }
+  .stat__label { color: var(--ink-soft); font-size: 0.92rem; }
 
   @media (max-width: 780px) {
     .stats-grid { grid-template-columns: 1fr; }

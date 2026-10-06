@@ -1,0 +1,27 @@
+---
+// Fotos en /public/images/team/cerhvalencia-equipo.jpg (se entregó con la página de Médicos asociados).
+---
+<section class="section section--soft home-team">
+  <div class="container home-team__grid">
+    <figure class="home-team__photo" data-reveal>
+      <img src="/images/team/cerhvalencia-equipo.jpg" width="1800" height="1012" alt="Equipo de la Clínica CERHVALENCIA, Cuenca" loading="lazy" />
+    </figure>
+    <div data-reveal>
+      <span class="eyebrow">Equipo asociado</span>
+      <h2>Profesionales de la reproducción asistida a tu lado</h2>
+      <p class="lede">Colaboramos con la Clínica CERHVALENCIA en el laboratorio de reproducción asistida y en el seguimiento de tu tratamiento.</p>
+      <div class="home-team__actions">
+        <a class="btn btn--primary" href="/medicos">Conocer al equipo</a>
+        <a class="btn btn--ghost" href="/nosotros/laboratorio">Ver el laboratorio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-team__grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+  .home-team__photo { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  .home-team__photo img { width: 100%; height: auto; display: block; }
+  .home-team__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  @media (max-width: 900px) { .home-team__grid { grid-template-columns: 1fr; gap: 28px; } }
+</style>

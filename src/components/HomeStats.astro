@@ -1,0 +1,43 @@
+---
+// Franja de cifras del inicio. Las tasas vienen del doctor; edítalas aquí si cambian.
+const stats = [
+  { n: 28, suf: '%', label: 'Inseminación artificial' },
+  { n: 71, suf: '%', label: 'FIV / ICSI' },
+  { n: 84, suf: '%', label: 'Ovodonación' },
+  { n: 3, suf: '', label: 'Sociedades de medicina reproductiva: ESHRE, ASRM y AMMR' },
+];
+---
+<section class="section section--teal home-stats">
+  <div class="container">
+    <div class="home-stats__head" data-reveal>
+      <div>
+        <span class="eyebrow">Resultados</span>
+        <h2>Tasas de embarazo</h2>
+      </div>
+      <p>Varían según la edad, el diagnóstico y el tipo de tratamiento. En la consulta te explicamos tu caso.</p>
+    </div>
+    <div class="home-stats__grid" data-reveal-group>
+      {stats.map((s) => (
+        <div class="home-stat">
+          <strong><span data-count-to={s.n} data-count-suffix={s.suf}>{`0${s.suf}`}</span></strong>
+          <span class="home-stat__label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-stats__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+  .home-stats__head h2 { margin: 0; }
+  .home-stats__head p { margin: 0; max-width: 46ch; }
+  .home-stats__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .home-stat { background: var(--teal-dark); padding: 36px 22px; text-align: center; }
+  .home-stat strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: 3.2rem; line-height: 1; color: #fff; margin-bottom: 12px; }
+  .home-stat__label { display: block; font-size: 0.9rem; color: #AFD6D8; }
+  @media (max-width: 800px) { .home-stats__grid { grid-template-columns: 1fr 1fr; } .home-stat strong { font-size: 2.6rem; } }
+  @media (max-width: 440px) { .home-stats__grid { grid-template-columns: 1fr; } }
+</style>
