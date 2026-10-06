@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import RealPhoto from '../components/RealPhoto.astro';
 import AreaCards from '../components/AreaCards.astro';
+import HomeTreatments from '../components/HomeTreatments.astro';
 import HomeStats from '../components/HomeStats.astro';
 import HomeProcess from '../components/HomeProcess.astro';
 import LabGallery from '../components/LabGallery.astro';
@@ -163,6 +164,9 @@ const hasPhotos = heroSlides.length > 0;
 
   <!-- AREAS DE SERVICIO (con íconos) -->
   <AreaCards />
+
+  <!-- TRATAMIENTOS (enlaces a cada página) -->
+  <HomeTreatments />
 
   <!-- CIFRAS -->
   <HomeStats />

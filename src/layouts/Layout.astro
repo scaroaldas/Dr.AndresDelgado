@@ -3,13 +3,98 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import '../styles/global.css';
+import { site } from '../data/site.js';
+import { tratamientos } from '../data/tratamientos.js';
 
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  noindex?: boolean;
+  /** Datos estructurados extra de la página (sin "@context"). */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description = 'Consulta de fertilidad, obstetricia y ginecología en Cuenca, Ecuador.' } = Astro.props as Props;
+const {
+  title,
+  description = 'Consulta de fertilidad, obstetricia y ginecología en Cuenca, Ecuador.',
+  image = '/images/og.jpg',
+  noindex = false,
+  jsonLd,
+} = Astro.props as Props;
+
+const origin = (Astro.site ?? Astro.url).origin;
+const abs = (p: string) => new URL(p, origin).href;
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = abs(path);
+
+// ---- Datos estructurados para Google (médico, consultorio, horario, redes) ----
+const clinicId = abs('/#consultorio');
+const personId = abs('/#doctor');
+const redes = [site.social.facebook, site.social.instagram, site.social.tiktok, site.googleBusinessUrl].filter(Boolean);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Physician',
+      '@id': clinicId,
+      name: site.doctorName,
+      description: 'Consulta de fertilidad, obstetricia y ginecología en Cuenca, Ecuador.',
+      url: abs('/'),
+      image: abs('/images/team/hero-sign.jpg'),
+      logo: abs('/images/logo.png'),
+      telephone: `+${site.whatsappNumber}`,
+      email: site.email,
+      medicalSpecialty: ['Gynecologic', 'Obstetric'],
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.address.line1,
+        addressLocality: 'Cuenca',
+        addressRegion: 'Azuay',
+        addressCountry: 'EC',
+      },
+      areaServed: { '@type': 'City', name: 'Cuenca' },
+      hasMap: site.googleBusinessUrl || site.address.mapsUrl,
+      openingHoursSpecification: site.hoursSchema.map((h) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: h.days,
+        opens: h.opens,
+        closes: h.closes,
+      })),
+      sameAs: redes,
+      availableService: tratamientos.map((t) => ({ '@type': 'MedicalProcedure', name: t.nombre, url: abs(`/tratamientos/${t.slug}`) })),
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Andrés Delgado Ponce',
+      honorificPrefix: 'Dr.',
+      jobTitle: 'Ginecólogo Especialista en Medicina Reproductiva e Infertilidad',
+      worksFor: { '@id': clinicId },
+      alumniOf: [
+        { '@type': 'CollegeOrUniversity', name: 'Universidad de Cuenca' },
+        { '@type': 'CollegeOrUniversity', name: 'Universidad Nacional Autónoma de México' },
+      ],
+      memberOf: [
+        { '@type': 'Organization', name: 'ESHRE — Sociedad Europea de Medicina de la Reproducción' },
+        { '@type': 'Organization', name: 'ASRM — Sociedad Americana de Medicina de la Reproducción' },
+        { '@type': 'Organization', name: 'AMMR — Asociación Mexicana de Medicina de la Reproducción' },
+      ],
+      image: abs('/images/team/hero-sign.jpg'),
+      sameAs: redes,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': abs('/#sitio'),
+      url: abs('/'),
+      name: site.doctorName,
+      inLanguage: 'es-EC',
+      publisher: { '@id': clinicId },
+    },
+    ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []),
+  ],
+};
 ---
 <!doctype html>
 <html lang="es">
@@ -22,11 +107,16 @@ const { title, description = 'Consulta de fertilidad, obstetricia y ginecología
     <meta name="theme-color" content="#29265B" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+    <meta property="og:site_name" content={site.doctorName} />
+    <meta property="og:locale" content="es_EC" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL('/images/og.jpg', Astro.site ?? Astro.url).href} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={abs(image)} />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
     <Header />
@@ -46,8 +136,9 @@ const { title, description = 'Consulta de fertilidad, obstetricia y ginecología
               entry.target.classList.add('is-visible');
               const counters = entry.target.hasAttribute('data-count-to')
                 ? [entry.target]
-                : entry.target.querySelectorAll('[data-count-to]');
-              counters.forEach((el) => {
+                : Array.from(entry.target.querySelectorAll('[data-count-to]'));
+              counters.forEach((node) => {
+                const el = node as HTMLElement;
                 if (el.dataset.counted) return;
                 el.dataset.counted = 'true';
                 const target = parseFloat(el.getAttribute('data-count-to') || '0');

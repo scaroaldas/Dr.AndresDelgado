@@ -1,0 +1,49 @@
+---
+import { tratamientos, getTratamiento } from '../data/tratamientos.js';
+// Tratamientos destacados en el inicio (cambia los "slug" para elegir otros).
+const destacados = [
+  'inseminacion-artificial',
+  'fecundacion-in-vitro',
+  'icsi',
+  'vitrificacion-de-ovulos',
+  'diagnostico-genetico-preimplantacional',
+  'ovodonacion',
+].map((s) => getTratamiento(s)).filter(Boolean);
+---
+<section class="section section--soft home-tx">
+  <div class="container">
+    <div class="home-tx__head" data-reveal>
+      <div>
+        <span class="eyebrow">Tratamientos</span>
+        <h2>Tratamientos de fertilidad en Cuenca</h2>
+        <p class="lede">Conoce cada opción: qué es, para quién está indicada y cómo es el proceso.</p>
+      </div>
+      <a class="btn btn--ghost" href="/tratamientos">Ver todos los tratamientos →</a>
+    </div>
+    <div class="home-tx__grid" data-reveal-group>
+      {destacados.map((t: any) => (
+        <a class="home-tx__card" href={`/tratamientos/${t.slug}`}>
+          <h3>{t.nombre}</h3>
+          <p>{t.corto}</p>
+          <span class="home-tx__more">Conocer más <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-tx__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 30px; }
+  .home-tx__head h2 { margin-bottom: 0.3em; }
+  .home-tx__head .lede { margin: 0; }
+  .home-tx__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .home-tx__card { background: var(--white); padding: 28px 26px; text-decoration: none; color: var(--ink); transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease; position: relative; }
+  .home-tx__card:hover, .home-tx__card:focus-visible { background: var(--bg); transform: translateY(-3px); box-shadow: 0 16px 26px -18px rgba(41, 38, 91, 0.3); z-index: 1; }
+  .home-tx__card h3 { margin: 0 0 0.35em; font-size: 1.2rem; color: var(--teal-dark); }
+  .home-tx__card p { margin: 0 0 14px; font-size: 0.93rem; color: var(--ink-soft); }
+  .home-tx__more { font-size: 0.88rem; font-weight: 600; color: var(--teal); }
+  .home-tx__more span { display: inline-block; transition: transform 200ms ease; }
+  .home-tx__card:hover .home-tx__more span { transform: translateX(5px); }
+  @media (max-width: 900px) { .home-tx__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .home-tx__grid { grid-template-columns: 1fr; } }
+</style>

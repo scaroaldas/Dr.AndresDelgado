@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, whatsappLink } from '../data/site.js';
+---
+<Layout title={`Página no encontrada — ${site.doctorName}`} description="La página que buscas no existe o cambió de dirección." noindex>
+  <section class="section nf">
+    <div class="container nf__inner">
+      <span class="nf__code" aria-hidden="true">404</span>
+      <h1>No encontramos esa página</h1>
+      <p class="lede">
+        Es posible que el enlace haya cambiado o que la página ya no exista. Estos accesos pueden ayudarte:
+      </p>
+      <div class="nf__actions">
+        <a class="btn btn--primary" href="/">Volver al inicio</a>
+        <a class="btn btn--whatsapp" href={whatsappLink('Hola, no encontré una página del sitio y quisiera ayuda.')} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+      <ul class="nf__links">
+        <li><a href="/tratamientos">Tratamientos</a></li>
+        <li><a href="/servicios">Servicios</a></li>
+        <li><a href="/nosotros">Nosotros</a></li>
+        <li><a href="/preguntas-frecuentes">Preguntas frecuentes</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf { padding: 96px 0 110px; text-align: center; }
+  .nf__inner { display: flex; flex-direction: column; align-items: center; }
+  .nf__code {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 22vw, 11rem);
+    line-height: 1;
+    font-weight: 500;
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .nf__code::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 130%; aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 1.5px solid var(--teal-light);
+    border-radius: 50%;
+    opacity: 0.55;
+    z-index: -1;
+  }
+  .nf h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .nf .lede { margin: 0 auto 26px; }
+  .nf__actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .nf__links { list-style: none; padding: 0; margin: 34px 0 0; display: flex; gap: 8px 24px; flex-wrap: wrap; justify-content: center; }
+  .nf__links a { color: var(--teal-dark); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--teal-light); padding-bottom: 2px; }
+  .nf__links a:hover { border-color: var(--teal); }
+</style>

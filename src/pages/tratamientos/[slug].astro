@@ -1,0 +1,259 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { site, whatsappLink } from '../../data/site.js';
+import { tratamientos, getTratamiento } from '../../data/tratamientos.js';
+
+export function getStaticPaths() {
+  return tratamientos.map((t) => ({ params: { slug: t.slug }, props: { t } }));
+}
+
+const { t } = Astro.props;
+const related = (t.relacionados ?? []).map((s: string) => getTratamiento(s)).filter(Boolean);
+const origin = (Astro.site ?? Astro.url).origin;
+const pageUrl = `${origin}/tratamientos/${t.slug}`;
+const title = `${t.titulo} | Dr. Andrés Delgado`;
+
+const jsonLd = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${origin}/` },
+      { '@type': 'ListItem', position: 2, name: 'Tratamientos', item: `${origin}/tratamientos` },
+      { '@type': 'ListItem', position: 3, name: t.nombre, item: pageUrl },
+    ],
+  },
+  {
+    '@type': 'MedicalWebPage',
+    '@id': `${pageUrl}#pagina`,
+    url: pageUrl,
+    name: t.titulo,
+    description: t.descripcion,
+    inLanguage: 'es-EC',
+    about: { '@type': 'MedicalProcedure', name: t.nombre },
+  },
+  {
+    '@type': 'FAQPage',
+    mainEntity: t.faqs.map((f: { q: string; a: string }) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<Layout title={title} description={t.descripcion} image={t.foto.src} jsonLd={jsonLd}>
+
+  <section class="section tx-hero">
+    <div class="container tx-hero__grid">
+      <div data-reveal>
+        <nav class="tx-crumbs" aria-label="Ruta de navegación">
+          <a href="/">Inicio</a><span aria-hidden="true">›</span>
+          <a href="/tratamientos">Tratamientos</a><span aria-hidden="true">›</span>
+          <span aria-current="page">{t.nombre}</span>
+        </nav>
+        <span class="eyebrow">{t.categoria}</span>
+        <h1>{t.nombre}</h1>
+        <p class="lede">{t.resumen}</p>
+        <div class="tx-actions">
+          <a class="btn btn--whatsapp" href={whatsappLink(`Hola, quisiera información sobre ${t.nombre.toLowerCase()}.`)} target="_blank" rel="noopener">Consultar por WhatsApp</a>
+          <a class="btn btn--ghost" href="#proceso">Ver el proceso</a>
+        </div>
+      </div>
+      <figure class="tx-hero__photo" data-reveal="scale">
+        <img src={t.foto.src} alt={t.foto.alt} style={`object-position:${t.foto.pos}`} />
+      </figure>
+    </div>
+  </section>
+
+  <section class="tx-facts" aria-label="Datos rápidos">
+    <div class="container">
+      <dl class="tx-facts__grid" data-reveal-group>
+        {t.datos.map((d: { k: string; v: string }) => (
+          <div><dt>{d.k}</dt><dd>{d.v}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container tx-grid">
+      <div class="tx-main" data-reveal>
+        <h2>¿Qué es?</h2>
+        {t.queEs.map((p: string) => <p>{p}</p>)}
+        {t.tasa && (
+          <div class="tx-rate">
+            <strong><span data-count-to={t.tasa.valor} data-count-suffix="%">0%</span></strong>
+            <p>{t.tasa.texto} <a href="/nosotros#tasas-embarazo">Ver más</a></p>
+          </div>
+        )}
+      </div>
+      <aside class="tx-aside" data-reveal>
+        <h3>¿Para quién está indicado?</h3>
+        <ul class="tx-check">
+          {t.paraQuien.map((i: string) => <li>{i}</li>)}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="proceso">
+    <div class="container">
+      <span class="eyebrow">Paso a paso</span>
+      <h2>Cómo es el proceso</h2>
+      <ol class="tx-steps">
+        {t.proceso.map((s: { t: string; d: string }) => (
+          <li data-reveal>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container tx-grid tx-grid--even">
+      <div data-reveal>
+        <h2>Qué debes considerar</h2>
+        <ul class="tx-notes">
+          {t.considera.map((i: string) => <li>{i}</li>)}
+        </ul>
+        <p class="tx-disclaimer">
+          Esta información es general y no reemplaza la valoración médica. Cada caso se evalúa de forma individual en consulta.
+        </p>
+      </div>
+      <div data-reveal>
+        <h2>Preguntas frecuentes</h2>
+        <div class="tx-faq">
+          {t.faqs.map((f: { q: string; a: string }, i: number) => (
+            <details name="tx-faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section section--soft">
+      <div class="container">
+        <span class="eyebrow">Te puede interesar</span>
+        <h2>Tratamientos relacionados</h2>
+        <div class="tx-related" data-reveal-group>
+          {related.map((r: any) => (
+            <a href={`/tratamientos/${r.slug}`}>
+              <span class="tx-related__cat">{r.categoria}</span>
+              <h3>{r.nombre}</h3>
+              <p>{r.corto}</p>
+              <span class="tx-related__more">Ver tratamiento →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--teal cta">
+    <div class="container tx-cta">
+      <div>
+        <h2>¿Quieres saber si es una opción para ti?</h2>
+        <p>Agenda una consulta y evaluamos tu caso con calma. Todas las citas deben agendarse previamente.</p>
+      </div>
+      <div class="tx-cta__buttons">
+        <a class="btn btn--ghost-inverse" href="/tratamientos">Ver todos los tratamientos</a>
+        <a class="btn btn--whatsapp" href={whatsappLink(`Hola, quisiera agendar una consulta sobre ${t.nombre.toLowerCase()}.`)} target="_blank" rel="noopener">Agendar por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .tx-hero { padding-top: 44px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+  .tx-hero__grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: center; }
+  .tx-crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 22px; }
+  .tx-crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .tx-crumbs a:hover { color: var(--teal-dark); }
+  .tx-crumbs [aria-current] { color: var(--teal-dark); font-weight: 600; }
+  .tx-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .tx-hero__photo { margin: 0; aspect-ratio: 4 / 5; max-height: 520px; width: 100%; justify-self: end; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg-soft); }
+  .tx-hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .tx-facts { background: var(--bg-soft); border-bottom: 1px solid var(--line); }
+  .tx-facts__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 0; background: var(--line); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .tx-facts__grid > div { background: var(--bg-soft); padding: 26px 22px; }
+  .tx-facts dt { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .tx-facts dd { margin: 0; font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; color: var(--teal-dark); }
+
+  .tx-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 56px; align-items: start; }
+  .tx-grid--even { grid-template-columns: 1fr 1fr; }
+  .tx-main p { color: var(--ink-soft); }
+  .tx-aside { background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .tx-aside h3 { margin-bottom: 0.7em; }
+  .tx-check { list-style: none; padding: 0; margin: 0; }
+  .tx-check li { position: relative; padding: 9px 0 9px 30px; border-top: 1px solid var(--line); font-size: 0.95rem; }
+  .tx-check li:first-child { border-top: none; }
+  .tx-check li::before {
+    content: ''; position: absolute; left: 2px; top: 14px; width: 14px; height: 8px;
+    border-left: 2px solid var(--teal); border-bottom: 2px solid var(--teal); transform: rotate(-45deg);
+  }
+
+  .tx-rate { display: flex; align-items: center; gap: 22px; margin-top: 26px; padding: 22px 26px; background: var(--teal-dark); border-radius: var(--radius); }
+  .tx-rate strong { font-family: var(--font-display); font-weight: 500; font-size: 3rem; line-height: 1; color: #fff; }
+  .tx-rate p { margin: 0; color: #DCEFF1; font-size: 0.92rem; }
+  .tx-rate a { color: var(--teal-light); }
+
+  .tx-steps { list-style: none; counter-reset: paso; margin: 32px 0 0; padding: 0; display: grid; gap: 0; max-width: 820px; }
+  .tx-steps li { counter-increment: paso; position: relative; padding: 0 0 30px 64px; }
+  .tx-steps li::before {
+    content: counter(paso); position: absolute; left: 0; top: 0; width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--teal-dark);
+    background: var(--white); border: 1.5px solid var(--teal);
+  }
+  .tx-steps li::after { content: ''; position: absolute; left: 20.5px; top: 46px; bottom: 6px; width: 1.5px; background: var(--teal-light); opacity: 0.7; }
+  .tx-steps li:last-child { padding-bottom: 0; }
+  .tx-steps li:last-child::after { display: none; }
+  .tx-steps h3 { margin: 6px 0 0.25em; font-size: 1.15rem; }
+  .tx-steps p { margin: 0; color: var(--ink-soft); }
+
+  .tx-notes { list-style: none; padding: 0; margin: 0 0 22px; }
+  .tx-notes li { position: relative; padding: 10px 0 10px 24px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 0.96rem; }
+  .tx-notes li:last-child { border-bottom: 1px solid var(--line); }
+  .tx-notes li::before { content: ''; position: absolute; left: 4px; top: 19px; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+  .tx-disclaimer { font-size: 0.85rem; font-style: italic; color: var(--ink-soft); margin: 0; }
+
+  .tx-faq details { border-top: 1px solid var(--line); padding: 18px 0; }
+  .tx-faq details:last-child { border-bottom: 1px solid var(--line); }
+  .tx-faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--font-display); font-size: 1.1rem; color: var(--teal-dark); }
+  .tx-faq summary::-webkit-details-marker { display: none; }
+  .tx-faq summary::after { content: '+'; font-family: var(--font-body); color: var(--rose-dark); font-size: 1.4rem; flex-shrink: 0; }
+  .tx-faq details[open] summary::after { content: '–'; }
+  .tx-faq p { margin: 12px 0 0; color: var(--ink-soft); }
+
+  .tx-related { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 28px; }
+  .tx-related a { background: var(--white); padding: 26px 24px; text-decoration: none; color: var(--ink); transition: background-color 200ms ease, transform 200ms ease; }
+  .tx-related a:hover { background: var(--bg); transform: translateY(-3px); }
+  .tx-related__cat { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .tx-related h3 { margin: 8px 0 0.3em; color: var(--teal-dark); font-size: 1.15rem; }
+  .tx-related p { margin: 0 0 12px; font-size: 0.92rem; color: var(--ink-soft); }
+  .tx-related__more { font-size: 0.88rem; font-weight: 600; color: var(--teal); }
+
+  .tx-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .tx-cta h2 { margin-bottom: 0.3em; }
+  .tx-cta p { margin: 0; }
+  .tx-cta__buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .tx-hero__grid, .tx-grid, .tx-grid--even { grid-template-columns: 1fr; gap: 32px; }
+    .tx-hero__photo { aspect-ratio: 4 / 3; max-height: none; justify-self: stretch; }
+    .tx-facts__grid { grid-template-columns: 1fr 1fr; }
+    .tx-related { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .tx-facts__grid { grid-template-columns: 1fr; }
+    .tx-rate { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+</style>

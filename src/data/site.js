@@ -25,6 +25,20 @@ export const site = {
   ],
   hoursNote: 'Todas las citas deben agendarse previamente.',
 
+  // Horario en formato para Google (debe coincidir con "hours" de arriba).
+  hoursSchema: [
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '12:00' },
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '15:30', closes: '18:30' },
+    { days: ['Saturday'], opens: '10:00', closes: '12:30' },
+  ],
+
+  // Perfil de Negocio de Google. Cuando el doctor lo tenga verificado, pega aquí:
+  //  - googleBusinessUrl: el enlace "Compartir perfil" (g.page/... o maps.app.goo.gl/...)
+  //  - googleReviewUrl: el enlace para pedir reseñas ("Obtener más reseñas")
+  // Se usan en los datos estructurados del sitio para que Google conecte ambos.
+  googleBusinessUrl: '',
+  googleReviewUrl: '',
+
   social: {
     instagram: 'https://www.instagram.com/drandresdelgadop/',
     facebook: 'https://www.facebook.com/DrAndresDelgadoFertilidadGinecologiaObstetricia/',
@@ -74,23 +88,23 @@ export const nav = [
         title: 'Fertilidad',
         href: '/servicios/fertilidad',
         links: [
-          { label: 'Inseminación artificial', href: '/servicios/fertilidad' },
-          { label: 'Fecundación in vitro (FIV)', href: '/servicios/fertilidad' },
-          { label: 'Microinyección espermática (ICSI)', href: '/servicios/fertilidad' },
-          { label: 'Vitrificación de óvulos', href: '/servicios/fertilidad' },
-          { label: 'Congelación de embriones', href: '/servicios/fertilidad' },
-          { label: 'Screening genético (PGT)', href: '/servicios/fertilidad' },
+          { label: 'Inseminación artificial', href: '/tratamientos/inseminacion-artificial' },
+          { label: 'Fecundación in vitro (FIV)', href: '/tratamientos/fecundacion-in-vitro' },
+          { label: 'Microinyección espermática (ICSI)', href: '/tratamientos/icsi' },
+          { label: 'Vitrificación de óvulos', href: '/tratamientos/vitrificacion-de-ovulos' },
+          { label: 'Congelación de embriones', href: '/tratamientos/criopreservacion-de-embriones' },
+          { label: 'Estudio genético (PGT)', href: '/tratamientos/diagnostico-genetico-preimplantacional' },
         ],
       },
       {
         title: 'Donantes y bancos',
         href: '/servicios/donantes',
         links: [
-          { label: 'Donación de óvulos', href: '/servicios/donantes' },
-          { label: 'Donación de esperma', href: '/servicios/donantes' },
+          { label: 'Donación de óvulos', href: '/tratamientos/ovodonacion' },
+          { label: 'Donación de esperma', href: '/tratamientos/banco-de-semen-y-donacion-de-esperma' },
           { label: 'Donación de embriones', href: '/servicios/donantes' },
-          { label: 'Banco de semen', href: '/servicios/donantes' },
-          { label: 'Banco de óvulos', href: '/servicios/donantes' },
+          { label: 'Banco de semen', href: '/tratamientos/banco-de-semen-y-donacion-de-esperma' },
+          { label: 'Banco de óvulos', href: '/tratamientos/vitrificacion-de-ovulos' },
         ],
       },
       {
@@ -107,8 +121,8 @@ export const nav = [
         title: 'Cirugía de mínima invasión',
         href: '/servicios/cirugia',
         links: [
-          { label: 'Laparoscopia', href: '/servicios/cirugia' },
-          { label: 'Histeroscopia', href: '/servicios/cirugia' },
+          { label: 'Laparoscopia', href: '/tratamientos/cirugia-laparoscopica' },
+          { label: 'Histeroscopia', href: '/tratamientos/histeroscopia' },
           { label: 'Cirugía robótica', href: '/servicios/cirugia' },
           { label: 'Cirugía abierta', href: '/servicios/cirugia' },
         ],
@@ -124,7 +138,7 @@ export const nav = [
         ],
       },
     ],
-    footer: { label: 'Ver todos los servicios', href: '/servicios' },
+    footer: { label: 'Ver todos los tratamientos', href: '/tratamientos' },
   },
   {
     label: 'Pacientes',
