@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import RealPhoto from '../components/RealPhoto.astro';
+import ConsultorioGallery from '../components/ConsultorioGallery.astro';
 import { site } from '../data/site.js';
 ---
 <Layout title={`Nosotros — ${site.doctorName}`} description="Quiénes somos, nuestras instalaciones, horario de atención y tasas de embarazo.">
@@ -21,12 +22,20 @@ import { site } from '../data/site.js';
       <div data-reveal>
         <h2>Quiénes somos</h2>
         <p>
-          Centro de Fertilidad Delgado Ponce nació en 2013 con un objetivo claro:
-          ofrecer a las familias de Cuenca y el austro ecuatoriano acceso a medicina
-          reproductiva de alto nivel, sin tener que viajar a Quito o Guayaquil. Desde
-          entonces hemos acompañado a cientos de familias, combinando protocolos
-          basados en evidencia con un trato cercano y personalizado en cada etapa
-          del tratamiento.
+          Desde 2019 nuestra meta fue ayudar a todas aquellas parejas que tienen
+          dificultades para concebir; de momento son más de 900 embarazos conseguidos
+          con las diversas técnicas de reproducción asistida. Esto demuestra el
+          compromiso que tenemos con toda la sociedad, manteniéndonos siempre a la
+          vanguardia con constante actualización y tecnología de punta.
+        </p>
+        <p>
+          En el área de cirugía de mínima invasión nos enfocamos en resolver cualquier
+          patología del tracto genital con mínimas incisiones o ninguna, lo cual permite
+          que nuestras pacientes tengan una recuperación mucho más rápida y sin cicatriz.
+        </p>
+        <p>
+          En obstetricia buscamos acompañarte de manera cercana y cálida, comprendiendo
+          que ningún miedo o pregunta es irracional.
         </p>
       </div>
       <RealPhoto src="/images/team/office-desk.jpg" alt="Dr. Andrés Delgado en su consultorio" aspect="wide" />
@@ -35,7 +44,7 @@ import { site } from '../data/site.js';
 
   <section class="section section--soft" id="instalaciones">
     <div class="container facility-grid">
-      <RealPhoto src="/images/team/surgery-or.jpg" alt="Quirófano del consultorio" aspect="wide" caption="Quirófano equipado para cirugía de mínima invasión" />
+      <RealPhoto src="/images/team/consultorio-escritorio-2.jpg" alt="Consultorio y recepción del Dr. Andrés Delgado" aspect="wide" caption="Consultorio y recepción" />
       <div data-reveal>
         <h2>Instalaciones</h2>
         <p>
@@ -46,6 +55,9 @@ import { site } from '../data/site.js';
           privacidad y tranquilidad a nuestras pacientes.
         </p>
       </div>
+    </div>
+    <div class="container" style="margin-top: 40px;">
+      <ConsultorioGallery />
     </div>
   </section>
 
@@ -73,9 +85,9 @@ import { site } from '../data/site.js';
       <span class="eyebrow">Resultados</span>
       <h2>Tasas de embarazo</h2>
       <p class="lede">
-        Estas son nuestras tasas de embarazo según el tratamiento. Los resultados
-        varían según la edad, el diagnóstico y cada caso, y se explican en detalle
-        durante la consulta.
+        Estas son nuestras tasas de embarazo. Los resultados varían según la edad de
+        los pacientes, la reserva y calidad ovárica, la calidad del semen y la calidad
+        final de los embriones.
       </p>
       <div class="stats-grid" data-reveal-group>
         <div class="stat"><strong><span data-count-to="28" data-count-suffix="%">0%</span></strong><span class="stat__label">Inseminación artificial</span></div>

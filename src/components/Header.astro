@@ -155,6 +155,10 @@ const firstHours = site.hours[0];
     border-bottom: 1px solid transparent;
     transition: border-color 220ms ease, box-shadow 220ms ease;
   }
+  .site-header::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+    background: linear-gradient(90deg, var(--lilac) 50%, var(--sky) 50%); pointer-events: none;
+  }
   .site-header.is-scrolled {
     border-bottom-color: var(--line);
     box-shadow: 0 8px 24px -18px rgba(41, 38, 91, 0.35);
@@ -209,7 +213,7 @@ const firstHours = site.hours[0];
     right: 0;
     bottom: -1px;
     height: 1.5px;
-    background: var(--teal);
+    background: var(--lilac-strong);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -222,8 +226,8 @@ const firstHours = site.hours[0];
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--teal);
-    color: #FBFDFD !important;
+    background: var(--lilac);
+    color: var(--teal-dark) !important;
     padding: 10px 20px;
     border-radius: 999px;
     font-weight: 600 !important;
@@ -232,7 +236,8 @@ const firstHours = site.hours[0];
     transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
   }
   .site-nav__cta:hover {
-    background: var(--teal-dark);
+    background: var(--lilac-strong);
+    color: #fff !important;
     transform: translateY(-1px);
     box-shadow: 0 10px 20px -10px rgba(41, 38, 91, 0.5);
   }
@@ -330,15 +335,15 @@ const firstHours = site.hours[0];
   .site-nav__contact { display: none; }
 
   /* Barra superior */
-  .topbar { background: var(--teal-dark); color: #DCEFF1; font-size: 0.82rem; }
+  .topbar { background: var(--lilac-soft); color: var(--teal-dark); border-bottom: 1px solid rgba(142, 98, 184, 0.12); font-size: 0.82rem; }
   .topbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 38px; }
   .topbar__info { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
-  .topbar a, .topbar__item { display: inline-flex; align-items: center; gap: 8px; color: #DCEFF1; text-decoration: none; }
-  .topbar a:hover { color: #fff; }
+  .topbar a, .topbar__item { display: inline-flex; align-items: center; gap: 8px; color: var(--teal-dark); text-decoration: none; }
+  .topbar a:hover { color: var(--lilac-strong); }
   .topbar svg { flex-shrink: 0; opacity: 0.9; }
   .topbar__social { display: flex; align-items: center; gap: 4px; }
   .topbar__social a { width: 30px; height: 30px; justify-content: center; border-radius: 50%; transition: background-color 200ms ease; }
-  .topbar__social a:hover { background: rgba(255, 255, 255, 0.16); }
+  .topbar__social a:hover { background: #fff; }
 
   /* Botón hamburguesa — oculto en escritorio */
   .nav-toggle { display: none; }

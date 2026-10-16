@@ -9,6 +9,7 @@ import LabGallery from '../components/LabGallery.astro';
 import HomeTeam from '../components/HomeTeam.astro';
 import HomeFaq from '../components/HomeFaq.astro';
 import HomeContact from '../components/HomeContact.astro';
+import ReviewCta from '../components/ReviewCta.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 import { site, whatsappLink } from '../data/site.js';
@@ -149,7 +150,7 @@ const hasPhotos = heroSlides.length > 0;
   <!-- INSTALACIONES (foto) -->
   <section class="section section--soft">
     <div class="container facility-grid">
-      <RealPhoto src="/images/team/clinic-entrance.jpg" alt="Entrada del consultorio" aspect="wide" caption="Nuestras instalaciones en Cuenca" />
+      <RealPhoto src="/images/team/consultorio-recepcion.jpg" alt="Recepción y sala de espera del consultorio" aspect="wide" caption="Nuestras instalaciones en Cuenca" />
       <div data-reveal>
         <span class="eyebrow">Instalaciones</span>
         <h2>Un espacio pensado para tu tranquilidad</h2>
@@ -184,6 +185,11 @@ const hasPhotos = heroSlides.length > 0;
   <HomeFaq />
 
   <!-- CONTACTO / AGENDAR CITA -->
+  <!-- RESEÑAS EN GOOGLE -->
+  <section class="section">
+    <div class="container"><ReviewCta compact /></div>
+  </section>
+
   <HomeContact />
 
 </Layout>
@@ -221,9 +227,19 @@ const hasPhotos = heroSlides.length > 0;
     position: absolute;
     inset: 0;
     z-index: 3;
-    background: linear-gradient(96deg, rgba(30,27,72,.92) 0%, rgba(35,32,80,.78) 36%, rgba(41,38,91,.28) 68%, rgba(41,38,91,.12) 100%);
+    background: linear-gradient(96deg, rgba(41,38,91,.68) 0%, rgba(41,38,91,.48) 36%, rgba(41,38,91,.12) 68%, rgba(41,38,91,.03) 100%);
   }
 
+  /* Onda suave que se desliza lentamente al pie del hero */
+  .hero::after {
+    content: ''; position: absolute; left: 0; bottom: -1px; width: 200%; height: clamp(46px, 7vw, 90px);
+    background: var(--deco-wave) repeat-x bottom left / 50% 100%;
+    z-index: 5; pointer-events: none; animation: waveSlide 26s linear infinite;
+  }
+  @keyframes waveSlide { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .hero::after { animation: none; } }
+  .hero .btn--whatsapp { background: #fff; color: var(--teal-dark); box-shadow: none; }
+  .hero .btn--whatsapp:hover { background: var(--lilac); }
   .hero-content { position: relative; z-index: 4; padding-top: 80px; padding-bottom: 110px; }
   .hero-copy { max-width: 640px; animation: heroFade 1100ms ease-out both; }
   @keyframes heroFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -239,9 +255,9 @@ const hasPhotos = heroSlides.length > 0;
   .hero-dots {
     position: absolute;
     left: 50%;
-    bottom: 30px;
+    bottom: clamp(62px, 8vw, 104px);
     transform: translateX(-50%);
-    z-index: 5;
+    z-index: 6;
     display: flex;
     gap: 10px;
   }

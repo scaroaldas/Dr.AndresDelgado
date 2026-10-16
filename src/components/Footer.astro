@@ -1,5 +1,5 @@
 ---
-import { site, nav } from '../data/site.js';
+import { site, nav, googleReviewLink } from '../data/site.js';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -27,6 +27,7 @@ const year = new Date().getFullYear();
         <li><a href={`tel:${site.phoneDisplay.replace(/\s/g, '')}`}>{site.phoneDisplay}</a></li>
         <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
         <li><a href={site.address.mapsUrl} target="_blank" rel="noopener">Cómo llegar</a></li>
+        <li><a href={googleReviewLink()} target="_blank" rel="noopener">Califícanos en Google ★</a></li>
       </ul>
     </div>
 
@@ -61,10 +62,14 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background: var(--teal-dark);
-    color: #AFD6D8;
+    background: var(--navy);
+    color: #D9CDEE;
+    position: relative; overflow: hidden; isolation: isolate;
+    border-top: 4px solid transparent;
+    border-image: linear-gradient(90deg, var(--lilac-strong) 50%, var(--sky-strong) 50%) 1;
     padding: 56px 0 0;
   }
+  .site-footer::before { content: ''; position: absolute; right: -110px; bottom: -150px; width: 420px; height: 420px; background: var(--deco-ring) no-repeat center / contain; opacity: 0.7; pointer-events: none; z-index: -1; }
   .foot-bottom-spacer {
     /* Deja aire debajo del pie para que el botón flotante de WhatsApp
        nunca quede encima del copyright al llegar al final de la página. */
@@ -79,20 +84,20 @@ const year = new Date().getFullYear();
   .foot-logo { height: 118px; width: auto; margin-bottom: 14px; display: block; }
   .foot-address { font-size: 0.9rem; }
   .foot-heading {
-    color: #FBFDFD;
+    color: #fff;
     font-weight: 600;
     font-size: 0.88rem;
     margin-bottom: 0.9em;
   }
   .foot-list { list-style: none; padding: 0; margin: 0; }
   .foot-list li { margin-bottom: 0.6em; font-size: 0.9rem; }
-  .foot-list a { color: #AFD6D8; text-decoration: none; }
-  .foot-list a:hover { color: #FBFDFD; }
+  .foot-list a { color: #D9CDEE; text-decoration: none; }
+  .foot-list a:hover { color: #fff; }
   .foot-note {
     margin: 0.8em 0 0;
     font-size: 0.82rem;
     font-style: italic;
-    color: #90CFD5;
+    color: var(--sky);
   }
 
   .foot-bottom {
@@ -120,15 +125,15 @@ const year = new Date().getFullYear();
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #DCEFF1;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
     flex-shrink: 0;
     transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
   }
   .foot-social a:hover {
-    background: var(--teal);
-    border-color: var(--teal);
-    color: #FBFDFD;
+    background: var(--lilac-strong);
+    border-color: var(--lilac-strong);
+    color: #fff;
     transform: translateY(-2px);
   }
 

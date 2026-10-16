@@ -8,13 +8,23 @@
      fiel a los 3 colores oficiales, sin inventar un cuarto tono. */
   --ink: #232048;
   --ink-soft: #55527A;
-  --bg: #FBFDFD;
-  --bg-soft: #EAF6F7;
+  --bg: #FDFDFF;
+  --bg-soft: #EAF5FC;
   --teal: #5BBEC5;
   --teal-dark: #29265B;
   --teal-light: #90CFD5;
-  --rose: #90CFD5;
-  --rose-dark: #5BBEC5;
+  --rose: #D5B8E8;
+  --rose-dark: #8E62B8;   /* lila orquídea: texto y acentos con carácter */
+  /* Dos colores de marca, sólidos (tomados de las piezas de Instagram del doctor) */
+  --lilac: #D5B8E8;        /* lila rosado */
+  --lilac-soft: #F8EDF7;   /* lila con un toque rosado */
+  --pink: #F4C9DD;
+  --sky: #A4D3EA;          /* celeste */
+  --sky-soft: #EAF5FC;
+  --lilac-strong: #8E62B8;   /* lila orquídea (versión intensa) */
+  --sky-strong: #3E86B8;     /* celeste intenso */
+  --navy: #29265B;
+  --cyan: #06A9B8;        /* cian de los botones/etiquetas de Instagram */
   --gold: #B8935A;
   --line: #DCE7EA;
   --white: #FFFFFF;
@@ -25,7 +35,7 @@
 
   /* Layout */
   --content-width: 1180px;
-  --radius: 3px;
+  --radius: 12px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -75,15 +85,28 @@ a { color: var(--teal); }
 }
 
 .section--soft {
-  background: var(--bg-soft);
+  background: var(--sky-soft);      /* celeste muy claro */
+}
+.section--lilac {
+  background: var(--lilac-soft);    /* lila muy claro */
 }
 
 .section--teal {
-  background: var(--teal-dark);
-  color: #E7EEEC;
+  /* Franjas destacadas: celeste intenso, texto blanco */
+  background: var(--sky-strong);
+  color: #fff;
 }
-.section--teal h1, .section--teal h2, .section--teal h3 { color: #FBF8F3; }
-.section--teal p { color: #C9D6D2; }
+.section--teal.cta { background: var(--lilac-strong); }   /* llamadas a la acción: lila orquídea */
+.section--teal h1, .section--teal h2, .section--teal h3 { color: #fff; }
+.section--teal p { color: #F1F7FC; }
+.section--teal .eyebrow { color: #fff; opacity: 0.9; }
+.section--teal .eyebrow::before { background: #fff; }
+.section--teal .btn--whatsapp, .section--teal .btn--primary { background: #fff; color: var(--lilac-strong); }
+.section--teal .btn--whatsapp:hover, .section--teal .btn--primary:hover { background: var(--navy); color: #fff; }
+
+.eyebrow { color: var(--teal-dark); }
+.section--teal.cta .btn--whatsapp, .section--teal.cta .btn--primary { background: #fff; }
+.section--teal.cta .btn--whatsapp:hover, .section--teal.cta .btn--primary:hover { background: var(--teal-dark); color: #fff; }
 
 .eyebrow {
   font-family: var(--font-display);
@@ -91,8 +114,11 @@ a { color: var(--teal); }
   font-size: 1.05rem;
   color: var(--rose-dark);
   margin: 0 0 0.6em;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+.eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--lilac-strong); flex-shrink: 0; }
 
 .lede {
   font-size: 1.15rem;
@@ -133,16 +159,18 @@ a { color: var(--teal); }
 }
 
 .btn--primary {
-  background: var(--teal);
-  color: var(--white);
+  background: var(--lilac-strong);
+  color: #fff;
+  box-shadow: 0 12px 24px -14px rgba(142, 98, 184, 0.9);
 }
-.btn--primary:hover { background: var(--teal-dark); }
+.btn--primary:hover { background: var(--navy); color: var(--white); }
 
 .btn--whatsapp {
-  background: var(--rose);
-  color: var(--white);
+  background: var(--lilac-strong);
+  color: #fff;
+  box-shadow: 0 12px 24px -14px rgba(142, 98, 184, 0.9);
 }
-.btn--whatsapp:hover { background: var(--rose-dark); }
+.btn--whatsapp:hover { background: var(--navy); color: var(--white); }
 
 .btn--ghost {
   background: transparent;
@@ -342,4 +370,35 @@ a:focus-visible, button:focus-visible {
   html { scroll-behavior: auto; }
   * { animation: none !important; transition: none !important; }
   [data-reveal], [data-reveal-group] > * { opacity: 1 !important; transform: none !important; }
+}
+
+/* ───────── Decoración suave y animada (línea gráfica de Instagram del doctor) ───────── */
+:root {
+  --deco-l: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 320 800%22 preserveAspectRatio=%22none%22%3E%3Cg%3E%0A%3Cpath d=%22M0,0 H70 C210,70 250,210 170,340 C100,455 135,600 50,800 H0 Z%22 fill=%22%23CDB4E6%22 fill-opacity=%220.26%22/%3E%0A%3Cpath d=%22M70,0 H104 C249,76 289,216 209,346 C142,458 172,598 94,800 H50 C135,600 100,455 170,340 C250,210 210,70 70,0 Z%22 fill=%22%23F4C9DD%22 fill-opacity=%220.3%22/%3E%0A%3Cpath d=%22M104,0 C249,76 289,216 209,346 C142,458 172,598 94,800%22 fill=%22none%22 stroke=%22%238E62B8%22 stroke-opacity=%220.3%22 stroke-width=%222%22/%3E%0A%3Cpath d=%22M122,0 C268,80 308,222 228,352 C160,462 190,600 114,800%22 fill=%22none%22 stroke=%22%238E62B8%22 stroke-opacity=%220.18%22 stroke-width=%221.4%22/%3E%3C/g%3E%3C/svg%3E");
+  --deco-r: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 320 800%22 preserveAspectRatio=%22none%22%3E%3Cg transform=%22translate(320,0) scale(-1,1)%22%3E%0A%3Cpath d=%22M0,0 H70 C210,70 250,210 170,340 C100,455 135,600 50,800 H0 Z%22 fill=%22%23A9D3EC%22 fill-opacity=%220.28%22/%3E%0A%3Cpath d=%22M70,0 H104 C249,76 289,216 209,346 C142,458 172,598 94,800 H50 C135,600 100,455 170,340 C250,210 210,70 70,0 Z%22 fill=%22%23D8ECF9%22 fill-opacity=%220.3%22/%3E%0A%3Cpath d=%22M104,0 C249,76 289,216 209,346 C142,458 172,598 94,800%22 fill=%22none%22 stroke=%22%233E86B8%22 stroke-opacity=%220.3%22 stroke-width=%222%22/%3E%0A%3Cpath d=%22M122,0 C268,80 308,222 228,352 C160,462 190,600 114,800%22 fill=%22none%22 stroke=%22%233E86B8%22 stroke-opacity=%220.18%22 stroke-width=%221.4%22/%3E%3C/g%3E%3C/svg%3E");
+  --deco-ring: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22190%22 fill=%22%23fff%22 fill-opacity=%22.04%22 stroke=%22%23fff%22 stroke-opacity=%22.26%22 stroke-width=%221.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.2%22 stroke-width=%221.4%22 stroke-dasharray=%223 9%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22110%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.16%22 stroke-width=%221.2%22/%3E%3C/svg%3E");
+  --deco-wave: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 90%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M0,46 C360,2 360,2 720,46 C1080,90 1080,90 1440,46 V90 H0 Z%22 fill=%22%23FDFDFF%22/%3E%3Cpath d=%22M0,36 C360,-8 360,-8 720,36 C1080,80 1080,80 1440,36%22 fill=%22none%22 stroke=%22%23D5B8E8%22 stroke-width=%223%22/%3E%3Cpath d=%22M0,24 C360,-20 360,-20 720,24 C1080,68 1080,68 1440,24%22 fill=%22none%22 stroke=%22%23A9D3EC%22 stroke-width=%222%22/%3E%3C/svg%3E");
+}
+.page-hero, .section--lilac, .section--teal { position: relative; overflow: hidden; isolation: isolate; }
+.page-hero::before, .section--lilac::before, .page-hero::after, .section--lilac::after {
+  content: ''; position: absolute; top: -20px; bottom: -20px; width: clamp(100px, 16vw, 250px);
+  background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none; z-index: -1;
+  will-change: transform;
+}
+.page-hero::before, .section--lilac::before { left: -10px; background-image: var(--deco-l); animation: deco-drift-l 18s ease-in-out infinite alternate; }
+.page-hero::after, .section--lilac::after { right: -10px; background-image: var(--deco-r); animation: deco-drift-r 22s ease-in-out infinite alternate; }
+.section--teal::after {
+  content: ''; position: absolute; right: -90px; top: 50%; width: 360px; height: 360px; margin-top: -180px;
+  background: var(--deco-ring) no-repeat center / contain; pointer-events: none; z-index: -1;
+  animation: deco-spin 70s linear infinite;
+}
+@keyframes deco-drift-l { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(14px, 16px, 0); } }
+@keyframes deco-drift-r { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-14px, -16px, 0); } }
+@keyframes deco-spin { to { transform: rotate(360deg); } }
+@media (max-width: 700px) {
+  .page-hero::before, .section--lilac::before, .page-hero::after, .section--lilac::after { width: 70px; opacity: 0.7; }
+  .section--teal::after { width: 240px; height: 240px; margin-top: -120px; right: -120px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero::before, .page-hero::after, .section--lilac::before, .section--lilac::after, .section--teal::after { animation: none; }
 }

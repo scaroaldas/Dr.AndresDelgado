@@ -38,6 +38,14 @@ export const site = {
   // Se usan en los datos estructurados del sitio para que Google conecte ambos.
   googleBusinessUrl: '',
   googleReviewUrl: '',
+  // Lo más cómodo: el "Place ID" del perfil (se obtiene gratis en
+  // https://developers.google.com/maps/documentation/places/web-service/place-id).
+  // Con él, el botón "Calificar en Google" abre DIRECTO la ventana de reseña con las estrellas.
+  googlePlaceId: '',
+  // Cuando haya reseñas reales, copia aquí la calificación que muestra Google y algunas reseñas
+  // (siempre reales, con autorización). Si quedan vacías, la página no muestra nada inventado.
+  googleRating: null,            // ejemplo: { valor: 4.9, total: 32 }
+  resenas: [],                   // ejemplo: [{ nombre: 'María P.', texto: '...', estrellas: 5, fecha: 'septiembre 2026' }]
 
   social: {
     instagram: 'https://www.instagram.com/drandresdelgadop/',
@@ -45,6 +53,19 @@ export const site = {
     tiktok: 'https://www.tiktok.com/@drandresdelgadop',
   },
 };
+
+// Enlaces a Google. Prioridad: enlace propio > Place ID > búsqueda en Google Maps (siempre funciona).
+const googleFallback = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Dr. Andrés Delgado Ponce Cuenca')}`;
+export function googleReviewLink() {
+  if (site.googleReviewUrl) return site.googleReviewUrl;
+  if (site.googlePlaceId) return `https://search.google.com/local/writereview?placeid=${site.googlePlaceId}`;
+  return googleFallback;
+}
+export function googleReadLink() {
+  if (site.googleBusinessUrl) return site.googleBusinessUrl;
+  if (site.googlePlaceId) return `https://search.google.com/local/reviews?placeid=${site.googlePlaceId}`;
+  return googleFallback;
+}
 
 export function whatsappLink(message = site.whatsappDefaultMessage) {
   const text = encodeURIComponent(message);

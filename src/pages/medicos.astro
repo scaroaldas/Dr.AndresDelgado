@@ -2,18 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import RealPhoto from '../components/RealPhoto.astro';
 import { site, whatsappLink } from '../data/site.js';
+import { existsSync } from 'node:fs';
 
 // Integrantes del equipo asociado (fotos individuales). Cuando tengas el nombre y el
 // cargo de cada persona, escríbelos en "nombre" y "cargo": se muestran debajo de la foto.
 // Para agregar a alguien más, copia un bloque y cambia la foto (en /public/images/team/).
-const integrantes = [
-  {
-    foto: '/images/team/cerhvalencia-retrato.jpg',
-    alt: 'Integrante del equipo asociado, Clínica CERHVALENCIA',
-    nombre: '',
-    cargo: '',
-  },
+
+// Fotos: copia cada archivo a /public/images/team/ con el nombre indicado (.png, .jpg o .webp)
+// y aparecerá solo. Mientras no esté, se muestra un círculo con las iniciales.
+const equipo = [
+  { nombre: 'Dr. Andrés Delgado Ponce', cargo: 'Ginecólogo, especialista en reproducción humana y cirugía endoscópica', archivo: 'andres-delgado', fotoActual: '/images/team/portrait-crossed.jpg' },
+  { nombre: 'Dr. Pablo Valencia', cargo: 'Ginecólogo especialista en reproducción humana', archivo: 'pablo-valencia' },
+  { nombre: 'Bioq. Pablo Flor', cargo: 'Jefe de Laboratorio de reproducción asistida', archivo: 'pablo-flor' },
 ];
+const integrantes = equipo.map((m) => {
+  const ext = ['png', 'jpg', 'jpeg', 'webp'].find((e) => existsSync(`public/images/team/${m.archivo}.${e}`));
+  const foto = ext ? `/images/team/${m.archivo}.${ext}` : (m.fotoActual || '');
+  const iniciales = m.nombre.replace(/^(Dr\.|Dra\.|Bioq\.)\s*/, '').split(' ').slice(0, 2).map((w) => w[0]).join('');
+  return { ...m, foto, iniciales };
+});
 ---
 <Layout title={`Médicos asociados — ${site.doctorName}`} description="Conoce al equipo médico asociado del consultorio.">
 
@@ -24,43 +31,47 @@ const integrantes = [
         <h1>Un equipo médico en el que puedes confiar</h1>
         <p class="lede">
           Trabajamos junto a especialistas de distintas áreas para ofrecerte una
-          atención completa.
+          atención completa, cercana y de primer nivel.
         </p>
       </div>
-      <RealPhoto src="/images/team/portrait-crossed.jpg" alt={site.doctorName} aspect="square" focal="50% 15%" />
+      <RealPhoto src="/images/team/consultorio-escritorio.jpg" alt="Consultorio del Dr. Andrés Delgado Ponce" aspect="square" focal="60% 50%" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Nuestro equipo</span>
+      <h2>Los profesionales que te acompañan</h2>
+      <div class="team-cards" data-reveal-group>
+        {integrantes.map((p) => (
+          <article class="team-card">
+            <div class="team-card__foto">
+              {p.foto
+                ? <img src={p.foto} alt={p.nombre} width="800" height="1000" loading="lazy" />
+                : <span class="team-card__ini" aria-hidden="true">{p.iniciales}</span>}
+            </div>
+            <h3>{p.nombre}</h3>
+            <p>{p.cargo}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section section--soft">
     <div class="container">
-      <span class="eyebrow">Equipo asociado</span>
-      <div class="equipo-grid">
-        <div class="equipo-main">
-          <figure class="equipo-foto" data-reveal>
-            <img src="/images/team/cerhvalencia-equipo.jpg" width="1800" height="1012" alt="Equipo de la Clínica CERHVALENCIA, Cuenca" loading="lazy" />
-          </figure>
-          <div class="equipo-text" data-reveal>
-            <h2>Clínica CERHVALENCIA</h2>
-            <p>
-              Profesionales con quienes colaboramos en el laboratorio de reproducción
-              asistida y en el seguimiento de tu tratamiento.
-            </p>
-            <a class="btn btn--ghost" href="/nosotros/laboratorio">Conocer el laboratorio →</a>
-          </div>
-        </div>
-
-        <div class="equipo-side">
-          {integrantes.map((p) => (
-            <figure class="integrante" data-reveal>
-              <div class="integrante__foto">
-                <img src={p.foto} width="1000" height="1777" alt={p.alt} loading="lazy" />
-              </div>
-              <figcaption>
-                <strong>{p.nombre || 'Equipo CERHVALENCIA'}</strong>
-                {p.cargo && <span>{p.cargo}</span>}
-              </figcaption>
-            </figure>
-          ))}
+      <span class="eyebrow">Alianza</span>
+      <div class="equipo-main">
+        <figure class="equipo-foto" data-reveal>
+          <img src="/images/team/cerhvalencia-equipo.jpg" width="1800" height="1012" alt="Equipo de la Clínica CERHVALENCIA, Cuenca" loading="lazy" />
+        </figure>
+        <div class="equipo-text" data-reveal>
+          <h2>Clínica CERHVALENCIA</h2>
+          <p>
+            Nuestra alianza con el centro ecuatoriano de reproducción humana nos permite
+            garantizar que el tratamiento de tus embriones está en las mejores manos.
+          </p>
+          <a class="btn btn--ghost" href="/nosotros/laboratorio">Conocer el laboratorio →</a>
         </div>
       </div>
     </div>
@@ -82,27 +93,27 @@ const integrantes = [
   .page-hero { padding-top: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
   .hero-split { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 48px; align-items: center; }
 
-  .equipo-grid { display: grid; grid-template-columns: 1.55fr 0.9fr; gap: 40px; align-items: start; margin-top: 8px; }
+  .team-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 28px; }
+  .team-card { text-align: left; }
+  .team-card__foto { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 14px; background: var(--lilac-soft); border: 1px solid var(--line); display: grid; place-items: center; }
+  .team-card__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
+  .team-card__ini { font-family: var(--font-display); font-size: 4.5rem; color: var(--rose-dark); opacity: 0.75; }
+  .team-card h3 { margin: 16px 0 4px; }
+  .team-card p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+  .equipo-main { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; margin-top: 8px; }
   .equipo-foto { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #fff; }
   .equipo-foto img { width: 100%; height: auto; display: block; }
-  .equipo-text { margin-top: 26px; }
   .equipo-text h2 { margin-bottom: 0.3em; }
   .equipo-text p { color: var(--ink-soft); }
-
-  .equipo-side { display: flex; flex-direction: column; gap: 24px; }
-  .integrante { margin: 0; }
-  .integrante__foto { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: #fff; }
-  .integrante__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
-  .integrante figcaption { padding-top: 14px; display: flex; flex-direction: column; gap: 2px; }
-  .integrante figcaption strong { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; color: var(--teal-dark); }
-  .integrante figcaption span { font-size: 0.9rem; color: var(--ink-soft); }
 
   .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 
   @media (max-width: 900px) {
-    .equipo-grid { grid-template-columns: 1fr; gap: 32px; }
-    .equipo-side { max-width: 420px; }
+    .team-cards { grid-template-columns: 1fr 1fr; }
+    .equipo-main { grid-template-columns: 1fr; gap: 24px; }
   }
+  @media (max-width: 560px) { .team-cards { grid-template-columns: 1fr; } }
   @media (max-width: 860px) {
     .hero-split { grid-template-columns: 1fr; }
   }
