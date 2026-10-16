@@ -36,12 +36,12 @@ export const site = {
   //  - googleBusinessUrl: el enlace "Compartir perfil" (g.page/... o maps.app.goo.gl/...)
   //  - googleReviewUrl: el enlace para pedir reseñas ("Obtener más reseñas")
   // Se usan en los datos estructurados del sitio para que Google conecte ambos.
-  googleBusinessUrl: '',
+  googleBusinessUrl: 'https://maps.app.goo.gl/nWWdm34oBNNa9scs8',
   googleReviewUrl: '',
   // Lo más cómodo: el "Place ID" del perfil (se obtiene gratis en
   // https://developers.google.com/maps/documentation/places/web-service/place-id).
   // Con él, el botón "Calificar en Google" abre DIRECTO la ventana de reseña con las estrellas.
-  googlePlaceId: '',
+  googlePlaceId: 'ChIJg8cAQakZzZERc-OeS3z1RfM',
   // Cuando haya reseñas reales, copia aquí la calificación que muestra Google y algunas reseñas
   // (siempre reales, con autorización). Si quedan vacías, la página no muestra nada inventado.
   googleRating: null,            // ejemplo: { valor: 4.9, total: 32 }
@@ -62,8 +62,8 @@ export function googleReviewLink() {
   return googleFallback;
 }
 export function googleReadLink() {
-  if (site.googleBusinessUrl) return site.googleBusinessUrl;
   if (site.googlePlaceId) return `https://search.google.com/local/reviews?placeid=${site.googlePlaceId}`;
+  if (site.googleBusinessUrl) return site.googleBusinessUrl;
   return googleFallback;
 }
 
