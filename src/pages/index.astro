@@ -9,7 +9,6 @@ import LabGallery from '../components/LabGallery.astro';
 import HomeTeam from '../components/HomeTeam.astro';
 import HomeFaq from '../components/HomeFaq.astro';
 import HomeContact from '../components/HomeContact.astro';
-import ReviewCta from '../components/ReviewCta.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 import { site, whatsappLink } from '../data/site.js';
@@ -185,11 +184,6 @@ const hasPhotos = heroSlides.length > 0;
   <HomeFaq />
 
   <!-- CONTACTO / AGENDAR CITA -->
-  <!-- RESEÑAS EN GOOGLE -->
-  <section class="section">
-    <div class="container"><ReviewCta compact /></div>
-  </section>
-
   <HomeContact />
 
 </Layout>

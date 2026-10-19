@@ -1,5 +1,5 @@
 ---
-import { site, nav, googleReviewLink } from '../data/site.js';
+import { site, nav } from '../data/site.js';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -27,7 +27,6 @@ const year = new Date().getFullYear();
         <li><a href={`tel:${site.phoneDisplay.replace(/\s/g, '')}`}>{site.phoneDisplay}</a></li>
         <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
         <li><a href={site.address.mapsUrl} target="_blank" rel="noopener">Cómo llegar</a></li>
-        <li><a href={googleReviewLink()} target="_blank" rel="noopener">Califícanos en Google ★</a></li>
       </ul>
     </div>
 

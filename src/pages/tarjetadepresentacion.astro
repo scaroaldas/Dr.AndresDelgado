@@ -1,0 +1,308 @@
+---
+// Tarjeta de presentación digital del doctor.
+// Página independiente: no tiene menú ni pie del sitio, no aparece en el mapa del sitio
+// ni en buscadores, y no está enlazada desde ninguna página. Solo se entra con /tarjetadepresentacion
+// (pensada para un código QR, la firma del correo o el enlace de Instagram).
+import '../styles/global.css';
+import { site, whatsappLink, googleReviewLink, googleReadLink } from '../data/site.js';
+
+const titulo = `${site.doctorName} · Tarjeta de presentación`;
+const tel = site.phoneDisplay.replace(/\s/g, '');
+
+const vcard = [
+  'BEGIN:VCARD',
+  'VERSION:3.0',
+  `FN:${site.doctorName}`,
+  `ORG:${site.clinicName}`,
+  `TITLE:${site.specialty}`,
+  `TEL;TYPE=CELL:${tel}`,
+  `EMAIL:${site.email}`,
+  `ADR;TYPE=WORK:;;${site.address.line1};Cuenca;;;Ecuador`,
+  'END:VCARD',
+].join('\n');
+const vcardHref = `data:text/vcard;charset=utf-8,${encodeURIComponent(vcard)}`;
+
+const redes = [
+  { nombre: 'Instagram', href: site.social.instagram, icon: 'ig' },
+  { nombre: 'Facebook', href: site.social.facebook, icon: 'fb' },
+  { nombre: 'TikTok', href: site.social.tiktok, icon: 'tt' },
+].filter((r) => r.href);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={`${site.doctorName} — ${site.specialty}. WhatsApp, ubicación y reseñas.`} />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#29265B" />
+    <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png?v=2" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body class="tarjeta-body">
+    <main class="card-wrap">
+      <article class="card">
+        <div class="card__top" aria-hidden="true"></div>
+
+        <div class="card__photo">
+          <img src="/images/team/portrait-crossed.jpg" alt={site.doctorName} width="320" height="320" />
+        </div>
+
+        <header class="card__head">
+          <h1>{site.doctorName}</h1>
+          <p class="card__spec">{site.specialty}</p>
+          <p class="card__place">{site.clinicName} · Cuenca, Ecuador</p>
+        </header>
+
+        <nav class="card__actions" aria-label="Contacto">
+          <a class="act act--wa" href={whatsappLink('Hola, quisiera agendar una cita.')} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.4 15.1L2 22l5-1.6A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.35-2 1.4-.5.05-1.1.07-1.8-.12a14.6 14.6 0 0 1-1.65-.6c-2.9-1.25-4.8-4.15-4.95-4.35-.15-.2-1.2-1.6-1.2-3s.75-2.1 1-2.4c.25-.3.55-.35.75-.35h.55c.18 0 .42-.07.65.5.25.6.85 2.1.9 2.25.08.15.12.33.02.52-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.3.3-.13.6.18.3.78 1.28 1.68 2.07 1.15 1.03 2.1 1.35 2.4 1.5.3.15.48.12.65-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.27.1 1.75.83 2.05.98.3.15.5.22.58.35.07.12.07.72-.18 1.4Z"/></svg>
+            <span>Agendar por WhatsApp</span>
+          </a>
+
+          <a class="act" href={`tel:${tel}`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+            <span>Llamar · {site.phoneDisplay}</span>
+          </a>
+
+          <a class="act" href={site.address.mapsUrl} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span>Cómo llegar<small>{site.address.line1}</small></span>
+          </a>
+
+          <a class="act act--google" href={googleReviewLink()} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z"/></svg>
+            <span>Déjanos tu opinión en Google<small>Tu reseña ayuda a otras familias</small></span>
+          </a>
+
+          <a class="act act--soft" href={googleReadLink()} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5Z"/></svg>
+            <span>Ver reseñas en Google</span>
+          </a>
+
+          <a class="act act--soft" href="/" >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+            <span>Visitar nuestro sitio web</span>
+          </a>
+        </nav>
+
+        <div class="card__social">
+          <p>Síguenos</p>
+          <ul>
+            {redes.map((r) => (
+              <li>
+                <a href={r.href} target="_blank" rel="noopener" aria-label={r.nombre} title={r.nombre}>
+                  {r.icon === 'ig' && (
+                    <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>
+                  )}
+                  {r.icon === 'fb' && (
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.25-1.5 1.5-1.5h1.6V4.3A21 21 0 0 0 14.3 4c-2.3 0-3.9 1.4-3.9 4v2.4H7.8v3h2.6V21h3.1Z"/></svg>
+                  )}
+                  {r.icon === 'tt' && (
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 3h-3v11.6a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9a5.6 5.6 0 1 0 4.8 5.5V8.8a6.8 6.8 0 0 0 4 1.3V7.2a4 4 0 0 1-4-4.2Z"/></svg>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <a class="card__save" href={vcardHref} download="dr-andres-delgado-ponce.vcf">Guardar contacto en mi teléfono</a>
+
+        <footer class="card__foot">
+          <p>{site.hours[0].day}: {site.hours[0].time}</p>
+          <p>{site.hours[1].day}: {site.hours[1].time}</p>
+          <p class="card__note">{site.hoursNote}</p>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  .tarjeta-body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--lilac-soft);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(213, 184, 232, 0.55) 0, transparent 38%),
+      radial-gradient(circle at 92% 92%, rgba(164, 211, 234, 0.6) 0, transparent 42%);
+    background-attachment: fixed;
+    color: var(--teal-dark);
+  }
+  .card-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px 44px;
+  }
+  .card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(41, 38, 91, 0.16);
+    padding: 0 22px 26px;
+    text-align: center;
+    animation: cardIn 0.7s ease both;
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  .card__top {
+    height: 112px;
+    margin: 0 -22px;
+    background: linear-gradient(90deg, var(--lilac) 50%, var(--sky) 50%);
+    position: relative;
+    overflow: hidden;
+  }
+  .card__top::after {
+    content: '';
+    position: absolute;
+    inset: auto -20% -1px -20%;
+    height: 46px;
+    background: #fff;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .card__photo {
+    width: 132px;
+    height: 132px;
+    margin: -78px auto 0;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(41, 38, 91, 0.2);
+    background: var(--lilac-soft);
+  }
+  .card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 14%;
+    display: block;
+  }
+  .card__head h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.7rem;
+    line-height: 1.15;
+    margin: 16px 0 6px;
+    color: var(--navy);
+  }
+  .card__spec {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--lilac-strong);
+    font-weight: 600;
+  }
+  .card__place {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    opacity: 0.72;
+  }
+  .card__actions {
+    display: grid;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .act {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(142, 98, 184, 0.28);
+    background: #fff;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.97rem;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .act svg { width: 24px; height: 24px; flex: none; }
+  .act span { display: flex; flex-direction: column; gap: 2px; line-height: 1.25; }
+  .act small { font-weight: 400; font-size: 0.78rem; opacity: 0.8; }
+  .act:hover, .act:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(41, 38, 91, 0.14);
+    background: var(--lilac-soft);
+  }
+  .act--wa {
+    background: var(--lilac-strong);
+    border-color: var(--lilac-strong);
+    color: #fff;
+  }
+  .act--wa:hover, .act--wa:focus-visible { background: var(--navy); border-color: var(--navy); }
+  .act--google {
+    background: var(--sky-strong);
+    border-color: var(--sky-strong);
+    color: #fff;
+    animation: pulseRing 2.8s ease-out infinite;
+  }
+  .act--google:hover, .act--google:focus-visible { background: var(--navy); border-color: var(--navy); }
+  @keyframes pulseRing {
+    0% { box-shadow: 0 0 0 0 rgba(62, 134, 184, 0.45); }
+    70%, 100% { box-shadow: 0 0 0 12px rgba(62, 134, 184, 0); }
+  }
+  .act--soft { background: var(--sky-soft); border-color: transparent; }
+  .card__social { margin-top: 24px; }
+  .card__social p {
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+  .card__social ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  .card__social a {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--lilac-soft);
+    color: var(--lilac-strong);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .card__social a:hover, .card__social a:focus-visible {
+    background: var(--lilac-strong);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .card__social svg { width: 22px; height: 22px; }
+  .card__save {
+    display: inline-block;
+    margin-top: 22px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sky-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .card__foot {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(142, 98, 184, 0.18);
+    font-size: 0.82rem;
+    opacity: 0.8;
+  }
+  .card__foot p { margin: 2px 0; }
+  .card__note { font-style: italic; }
+  @media (prefers-reduced-motion: reduce) {
+    .card, .act--google { animation: none; }
+  }
+</style>

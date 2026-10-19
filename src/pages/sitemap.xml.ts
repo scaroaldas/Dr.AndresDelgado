@@ -12,7 +12,7 @@ export const GET: APIRoute = ({ site }) => {
   for (const archivo of Object.keys(paginas)) {
     let ruta = archivo.replace(/^\./, '').replace(/\.astro$/, '').replace(/\/index$/, '');
     if (ruta === '') ruta = '/';
-    if (ruta.includes('[') || ruta === '/404') continue; // páginas dinámicas y de error
+    if (ruta.includes('[') || ruta === '/404' || ruta === '/tarjetadepresentacion') continue; // páginas dinámicas y de error
     rutas.add(ruta);
   }
   for (const t of tratamientos) rutas.add(`/tratamientos/${t.slug}`);
