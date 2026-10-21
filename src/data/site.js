@@ -47,6 +47,14 @@ export const site = {
   googleRating: null,            // ejemplo: { valor: 4.9, total: 32 }
   resenas: [],                   // ejemplo: [{ nombre: 'María P.', texto: '...', estrellas: 5, fecha: 'septiembre 2026' }]
 
+  // Videos de Instagram para la página de Testimonios. Pega aquí el enlace de cada
+  // publicación o reel (el que sale en "Copiar enlace"), uno por línea. Ejemplo:
+  //   'https://www.instagram.com/reel/XXXXXXXXXXX/',
+  videosInstagram: [
+    'https://www.instagram.com/reel/DYX8EfAE02Q/',
+    'https://www.instagram.com/reel/DVPIFnRDuPn/',
+  ],
+
   social: {
     instagram: 'https://www.instagram.com/drandresdelgadop/',
     facebook: 'https://www.facebook.com/DrAndresDelgadoFertilidadGinecologiaObstetricia/',
