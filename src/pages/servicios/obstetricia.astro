@@ -24,6 +24,7 @@ import { site, whatsappLink } from '../../data/site.js';
   <section class="section">
     <div class="container">
       <ServiceBlock
+        id="embarazo-normal"
         title="Control de embarazo normal"
         description="Controles periódicos con ecografía, monitoreo de peso, presión arterial y exámenes de laboratorio según cada trimestre."
         items={[
@@ -32,6 +33,7 @@ import { site, whatsappLink } from '../../data/site.js';
         ]}
       />
       <ServiceBlock
+        id="embarazo-de-alto-riesgo"
         title="Embarazo de alto riesgo"
         description="Seguimiento más frecuente para embarazos con hipertensión, diabetes gestacional, embarazo múltiple u otras condiciones que requieren vigilancia estrecha."
         items={[
@@ -41,6 +43,8 @@ import { site, whatsappLink } from '../../data/site.js';
         video={{ src: '/videos/embarazo-alto-riesgo.mp4', poster: '/videos/embarazo-alto-riesgo.jpg', titulo: 'Embarazo de alto riesgo' }}
       />
       <ServiceBlock
+        id="parto-humanizado"
+        anchors={['cesarea']}
         title="Parto"
         description="Acompañamos la decisión informada entre parto vaginal y cesárea, priorizando siempre la seguridad de la madre y el bebé."
         items={[
@@ -50,6 +54,7 @@ import { site, whatsappLink } from '../../data/site.js';
         video={{ src: '/videos/cesarea.mp4', poster: '/videos/cesarea.jpg', titulo: 'Cesárea' }}
       />
       <ServiceBlock
+        id="otros-procedimientos"
         title="Otros procedimientos"
         items={[
           'Legrado uterino — Aspiración Manual Endouterina (AMEU)',

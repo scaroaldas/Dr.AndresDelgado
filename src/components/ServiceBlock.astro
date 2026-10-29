@@ -1,6 +1,10 @@
 ---
 interface Props {
   title: string;
+  /** Ancla para enlazar directo a este bloque (ej. /servicios/cirugia#cirugia-abierta). */
+  id?: string;
+  /** Otros nombres de ancla que llevan a este mismo bloque. */
+  anchors?: string[];
   items?: string[];
   description?: string;
   /** Video opcional (archivo en /public/videos), se muestra al lado del texto. */
@@ -8,10 +12,11 @@ interface Props {
   /** Foto opcional, se muestra al lado del texto. */
   image?: { src: string; alt: string; pos?: string };
 }
-const { title, items = [], description, video, image } = Astro.props as Props;
+const { title, id, anchors = [], items = [], description, video, image } = Astro.props as Props;
 const media = Boolean(video || image);
 ---
-<div class:list={['service-block', { 'service-block--media': media }]} data-reveal>
+<div id={id} class:list={['service-block', { 'service-block--media': media }]} data-reveal>
+  {anchors.map((a) => <span id={a} class="service-block__anchor"></span>)}
   <div class="service-block__text">
     <h3>{title}</h3>
     {description && <p class="service-block__intro">{description}</p>}
@@ -34,6 +39,9 @@ const media = Boolean(video || image);
 </div>
 
 <style>
+  .service-block, .service-block__anchor { scroll-margin-top: 130px; }
+  .service-block__anchor { position: absolute; }
+  .service-block { position: relative; }
   .service-block--media {
     display: grid;
     grid-template-columns: 1fr minmax(240px, 300px);

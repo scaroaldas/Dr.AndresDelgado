@@ -131,7 +131,7 @@ export const nav = [
         links: [
           { label: 'Donación de óvulos', href: '/tratamientos/ovodonacion' },
           { label: 'Donación de esperma', href: '/tratamientos/banco-de-semen-y-donacion-de-esperma' },
-          { label: 'Donación de embriones', href: '/servicios/donantes' },
+          { label: 'Donación de embriones', href: '/servicios/donantes#donacion-de-embriones' },
           { label: 'Banco de semen', href: '/tratamientos/banco-de-semen-y-donacion-de-esperma' },
           { label: 'Banco de óvulos', href: '/tratamientos/vitrificacion-de-ovulos' },
         ],
@@ -140,10 +140,10 @@ export const nav = [
         title: 'Obstetricia',
         href: '/servicios/obstetricia',
         links: [
-          { label: 'Embarazo normal', href: '/servicios/obstetricia' },
-          { label: 'Embarazo de alto riesgo', href: '/servicios/obstetricia' },
-          { label: 'Parto humanizado', href: '/servicios/obstetricia' },
-          { label: 'Cesárea', href: '/servicios/obstetricia' },
+          { label: 'Embarazo normal', href: '/servicios/obstetricia#embarazo-normal' },
+          { label: 'Embarazo de alto riesgo', href: '/servicios/obstetricia#embarazo-de-alto-riesgo' },
+          { label: 'Parto humanizado', href: '/servicios/obstetricia#parto-humanizado' },
+          { label: 'Cesárea', href: '/servicios/obstetricia#cesarea' },
         ],
       },
       {
@@ -152,18 +152,18 @@ export const nav = [
         links: [
           { label: 'Laparoscopia', href: '/tratamientos/cirugia-laparoscopica' },
           { label: 'Histeroscopia', href: '/tratamientos/histeroscopia' },
-          { label: 'Cirugía robótica', href: '/servicios/cirugia' },
-          { label: 'Cirugía abierta', href: '/servicios/cirugia' },
+          { label: 'Cirugía robótica', href: '/servicios/cirugia#cirugia-robotica' },
+          { label: 'Cirugía abierta', href: '/servicios/cirugia#cirugia-abierta' },
         ],
       },
       {
         title: 'Ginecología',
         href: '/servicios/ginecologia',
         links: [
-          { label: 'Papanicolaou y colposcopia', href: '/servicios/ginecologia' },
-          { label: 'Control ginecológico', href: '/servicios/ginecologia' },
-          { label: 'Planificación familiar', href: '/servicios/ginecologia' },
-          { label: 'Endometriosis y quistes', href: '/servicios/ginecologia' },
+          { label: 'Papanicolaou y colposcopia', href: '/servicios/ginecologia#controles-y-prevencion' },
+          { label: 'Control ginecológico', href: '/servicios/ginecologia#controles-y-prevencion' },
+          { label: 'Planificación familiar', href: '/servicios/ginecologia#controles-y-prevencion' },
+          { label: 'Endometriosis y quistes', href: '/servicios/ginecologia#condiciones-frecuentes' },
         ],
       },
     ],
