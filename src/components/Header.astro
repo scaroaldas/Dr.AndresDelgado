@@ -135,9 +135,14 @@ const firstHours = site.hours[0];
     document.documentElement.style.overflow = locked ? 'hidden' : '';
   };
   toggle?.addEventListener('change', () => lockScroll(toggle.checked));
-  document.querySelectorAll('.site-nav__links > a').forEach((a) =>
-    a.addEventListener('click', () => { if (toggle) { toggle.checked = false; lockScroll(false); } })
-  );
+  // Cualquier enlace del menú (incluidos los de los desplegables) cierra el menú móvil.
+  // Importante para enlaces a una sección de la misma página (#ancla): ahí no hay recarga.
+  const closeMobileMenu = () => {
+    if (toggle) { toggle.checked = false; lockScroll(false); }
+    document.querySelectorAll('.site-nav details[open]').forEach((el) => el.removeAttribute('open'));
+  };
+  document.querySelectorAll('.site-nav a').forEach((a) => a.addEventListener('click', closeMobileMenu));
+  window.addEventListener('hashchange', closeMobileMenu);
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && toggle?.checked) { toggle.checked = false; lockScroll(false); }
   });
