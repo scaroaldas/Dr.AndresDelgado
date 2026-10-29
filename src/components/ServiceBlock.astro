@@ -1,15 +1,51 @@
 ---
 interface Props {
   title: string;
-  items: string[];
+  items?: string[];
   description?: string;
+  /** Video opcional (archivo en /public/videos), se muestra al lado del texto. */
+  video?: { src: string; poster?: string; titulo?: string };
+  /** Foto opcional, se muestra al lado del texto. */
+  image?: { src: string; alt: string; pos?: string };
 }
-const { title, items, description } = Astro.props as Props;
+const { title, items = [], description, video, image } = Astro.props as Props;
+const media = Boolean(video || image);
 ---
-<div class="service-block" data-reveal>
-  <h3>{title}</h3>
-  {description && <p class="service-block__intro">{description}</p>}
-  <ul>
-    {items.map((item) => <li>{item}</li>)}
-  </ul>
+<div class:list={['service-block', { 'service-block--media': media }]} data-reveal>
+  <div class="service-block__text">
+    <h3>{title}</h3>
+    {description && <p class="service-block__intro">{description}</p>}
+    {items.length > 0 && (
+      <ul>
+        {items.map((item) => <li>{item}</li>)}
+      </ul>
+    )}
+  </div>
+  {video && (
+    <figure class="service-block__media service-block__media--video">
+      <video src={video.src} poster={video.poster} aria-label={video.titulo ?? title} controls playsinline preload="metadata"></video>
+    </figure>
+  )}
+  {image && (
+    <figure class="service-block__media">
+      <img src={image.src} alt={image.alt} loading="lazy" style={`object-position:${image.pos ?? '50% 50%'}`} />
+    </figure>
+  )}
 </div>
+
+<style>
+  .service-block--media {
+    display: grid;
+    grid-template-columns: 1fr minmax(240px, 300px);
+    gap: 36px;
+    align-items: center;
+  }
+  .service-block__media { margin: 0; border-radius: var(--radius); overflow: hidden; background: #000; }
+  .service-block__media img { width: 100%; height: 100%; max-height: 360px; object-fit: cover; display: block; }
+  .service-block__media--video { aspect-ratio: 9 / 14; max-height: 520px; }
+  .service-block__media--video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 760px) {
+    .service-block--media { grid-template-columns: 1fr; gap: 20px; }
+    .service-block__media { max-width: 320px; justify-self: center; width: 100%; }
+  }
+</style>

@@ -162,5 +162,23 @@ const schema = {
 
       document.querySelectorAll('[data-reveal], [data-reveal-group]').forEach((el) => io.observe(el));
     </script>
+    <script>
+      // Un solo video a la vez: al reproducir uno se pausan los demás,
+      // y un video se pausa solo cuando sale de la pantalla (al seguir bajando).
+      const videos = Array.from(document.querySelectorAll('video'));
+      if (videos.length) {
+        document.addEventListener('play', (e) => {
+          videos.forEach((v) => { if (v !== e.target && !v.paused) v.pause(); });
+        }, true);
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((en) => {
+              if (!en.isIntersecting && !(en.target as HTMLVideoElement).paused) (en.target as HTMLVideoElement).pause();
+            });
+          }, { threshold: 0.15 });
+          videos.forEach((v) => io.observe(v));
+        }
+      }
+    </script>
   </body>
 </html>

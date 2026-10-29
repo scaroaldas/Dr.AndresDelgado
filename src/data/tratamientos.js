@@ -16,6 +16,8 @@ export const tratamientos = [
     corto: 'Semen procesado colocado en el útero en el momento de la ovulación.',
     resumen: 'Un tratamiento sencillo en el que se coloca semen previamente procesado dentro del útero, en el momento de la ovulación, para facilitar el encuentro entre el óvulo y los espermatozoides.',
     foto: { src: '/images/team/consult-model.jpg', alt: 'Consulta de fertilidad con explicación sobre un modelo anatómico', pos: '50% 20%' },
+    // Video que reemplaza la foto del encabezado (archivo en /public/videos).
+    video: { src: '/videos/inseminacion-intrauterina.mp4', poster: '/videos/inseminacion-intrauterina.jpg', titulo: 'Cómo se realiza una inseminación intrauterina' },
     datos: [
       { k: 'Procedimiento', v: 'Unos minutos' },
       { k: 'Anestesia', v: 'No requiere' },
@@ -63,6 +65,9 @@ export const tratamientos = [
     corto: 'Fecundación en el laboratorio y transferencia del embrión al útero.',
     resumen: 'Los óvulos se fecundan en el laboratorio y los embriones resultantes se cultivan antes de transferirse al útero. Es el tratamiento de reproducción asistida con mayores probabilidades de éxito para la mayoría de los diagnósticos.',
     foto: { src: '/images/lab/lab-workstation-1.jpg', alt: 'Cabina de flujo laminar y microscopio del laboratorio de reproducción asistida', pos: '40% 55%' },
+    // Video de YouTube que reemplaza la foto (solo el código del enlace: youtu.be/CODIGO).
+    // inicio y fin están en segundos (0:09 a 0:38) para mostrar solo ese tramo del video.
+    youtube: { id: 'aL3YwiipqDs', titulo: 'Fecundación in vitro convencional', inicio: 9, fin: 38 },
     datos: [
       { k: 'Estimulación', v: '8 a 12 días' },
       { k: 'Punción de óvulos', v: 'Ambulatoria, con sedación' },
@@ -113,6 +118,7 @@ export const tratamientos = [
     corto: 'Un espermatozoide inyectado en cada óvulo maduro.',
     resumen: 'Consiste en introducir un solo espermatozoide dentro de cada óvulo maduro con instrumental de micromanipulación. Se realiza dentro de un ciclo de fecundación in vitro.',
     foto: { src: '/images/lab/lab-workstation-2.jpg', alt: 'Estación de trabajo del laboratorio con microscopio e incubador', pos: '45% 45%' },
+    video: { src: '/videos/icsi.mp4', poster: '/videos/icsi.jpg', titulo: 'Microinyección espermática (ICSI)', horizontal: true },
     datos: [
       { k: 'Dónde se realiza', v: 'En el laboratorio' },
       { k: 'Estimulación y punción', v: 'Igual que en la FIV' },
@@ -201,7 +207,7 @@ export const tratamientos = [
     descripcion: 'Congelación (criopreservación) de embriones en Cuenca: cómo se realiza, para qué sirve y cómo es la transferencia posterior. Dr. Andrés Delgado Ponce.',
     corto: 'Conserva embriones para futuros intentos sin nueva estimulación.',
     resumen: 'Vitrificamos los embriones que no se transfieren para conservarlos y utilizarlos en futuros intentos, sin repetir la estimulación ovárica.',
-    foto: { src: '/images/lab/lab-panoramica-2.jpg', alt: 'Incubadores y área de trabajo del laboratorio', pos: '55% 50%' },
+    foto: { src: '/images/team/embrion-blastocisto.jpg', alt: 'Blastocisto (embrión de 5 días) visto al microscopio', pos: '50% 50%' },
     datos: [
       { k: 'Conservación', v: 'Nitrógeno líquido, −196 °C' },
       { k: 'Se realiza en', v: 'El laboratorio de embriología' },
@@ -428,6 +434,7 @@ export const tratamientos = [
     corto: 'Exploración y tratamiento del útero con una cámara fina.',
     resumen: 'Exploración y tratamiento del interior del útero con una cámara fina, sin incisiones externas. Puede ser diagnóstica (oficinal) o quirúrgica.',
     foto: { src: '/images/team/surgery-or.jpg', alt: 'Quirófano del consultorio', pos: '50% 30%' },
+    video: { src: '/videos/histeroscopia.mp4', poster: '/videos/histeroscopia.jpg', titulo: 'Histeroscopia' },
     datos: [
       { k: 'Vía', v: 'Por el cuello uterino, sin cortes' },
       { k: 'Duración', v: 'Entre 10 y 30 minutos, aprox.' },

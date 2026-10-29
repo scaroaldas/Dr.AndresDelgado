@@ -59,9 +59,19 @@ const jsonLd = [
           <a class="btn btn--ghost" href="#proceso">Ver el proceso</a>
         </div>
       </div>
-      <figure class="tx-hero__photo" data-reveal="scale">
-        <img src={t.foto.src} alt={t.foto.alt} style={`object-position:${t.foto.pos}`} />
-      </figure>
+      {t.youtube ? (
+        <figure class="tx-hero__photo tx-hero__photo--yt" data-reveal="scale">
+          <iframe src={`https://www.youtube-nocookie.com/embed/${t.youtube.id}?rel=0${t.youtube.inicio ? `&start=${t.youtube.inicio}` : ''}${t.youtube.fin ? `&end=${t.youtube.fin}` : ''}`} title={t.youtube.titulo} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+        </figure>
+      ) : t.video ? (
+        <figure class={`tx-hero__photo tx-hero__photo--video${t.video.horizontal ? ' tx-hero__photo--wide' : ''}`} data-reveal="scale">
+          <video src={t.video.src} poster={t.video.poster} aria-label={t.video.titulo} controls playsinline preload="metadata"></video>
+        </figure>
+      ) : (
+        <figure class="tx-hero__photo" data-reveal="scale">
+          <img src={t.foto.src} alt={t.foto.alt} style={`object-position:${t.foto.pos}`} />
+        </figure>
+      )}
     </div>
   </section>
 
@@ -180,6 +190,11 @@ const jsonLd = [
   .tx-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
   .tx-hero__photo { margin: 0; aspect-ratio: 4 / 5; max-height: 520px; width: 100%; justify-self: end; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg-soft); }
   .tx-hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tx-hero__photo--video { aspect-ratio: 9 / 14; max-height: 560px; max-width: 340px; background: #000; }
+  .tx-hero__photo--video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tx-hero__photo--wide { aspect-ratio: 16 / 9; max-width: none; align-self: center; }
+  .tx-hero__photo--yt { aspect-ratio: 16 / 9; max-height: none; background: #000; align-self: center; }
+  .tx-hero__photo--yt iframe { width: 100%; height: 100%; border: 0; display: block; }
 
   .tx-facts { background: var(--bg-soft); border-bottom: 1px solid var(--line); }
   .tx-facts__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 0; background: var(--line); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
@@ -249,6 +264,9 @@ const jsonLd = [
   @media (max-width: 900px) {
     .tx-hero__grid, .tx-grid, .tx-grid--even { grid-template-columns: 1fr; gap: 32px; }
     .tx-hero__photo { aspect-ratio: 4 / 3; max-height: none; justify-self: stretch; }
+    .tx-hero__photo--video { aspect-ratio: 9 / 14; max-width: 320px; justify-self: center; }
+    .tx-hero__photo--wide { aspect-ratio: 16 / 9; max-width: none; justify-self: stretch; }
+    .tx-hero__photo--yt { aspect-ratio: 16 / 9; }
     .tx-facts__grid { grid-template-columns: 1fr 1fr; }
     .tx-related { grid-template-columns: 1fr; }
   }
