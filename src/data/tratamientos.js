@@ -64,10 +64,7 @@ export const tratamientos = [
     descripcion: 'Fecundación in vitro en Cuenca: proceso paso a paso, indicaciones, riesgos y preguntas frecuentes. Dr. Andrés Delgado Ponce, medicina reproductiva.',
     corto: 'Fecundación en el laboratorio y transferencia del embrión al útero.',
     resumen: 'Los óvulos se fecundan en el laboratorio y los embriones resultantes se cultivan antes de transferirse al útero. Es el tratamiento de reproducción asistida con mayores probabilidades de éxito para la mayoría de los diagnósticos.',
-    foto: { src: '/images/lab/lab-workstation-1.jpg', alt: 'Cabina de flujo laminar y microscopio del laboratorio de reproducción asistida', pos: '40% 55%' },
-    // Video de YouTube que reemplaza la foto (solo el código del enlace: youtu.be/CODIGO).
-    // inicio y fin están en segundos (0:09 a 0:38) para mostrar solo ese tramo del video.
-    youtube: { id: 'aL3YwiipqDs', titulo: 'Fecundación in vitro convencional', inicio: 9, fin: 38 },
+    foto: { src: '/images/lab/fiv-embriones.jpg', alt: 'Ovocitos y espermatozoides en una caja de cultivo, con un embrión en división ampliado', pos: '38% 50%' },
     datos: [
       { k: 'Estimulación', v: '8 a 12 días' },
       { k: 'Punción de óvulos', v: 'Ambulatoria, con sedación' },
@@ -162,7 +159,7 @@ export const tratamientos = [
     descripcion: 'Vitrificación de óvulos en Cuenca: conserva tu fertilidad para usarla más adelante. Proceso, indicaciones y preguntas frecuentes. Dr. Andrés Delgado Ponce.',
     corto: 'Congela tus óvulos hoy para usarlos cuando decidas.',
     resumen: 'Congelación ultrarrápida de óvulos para conservar tu fertilidad y utilizarlos más adelante, por razones médicas o personales.',
-    foto: { src: '/images/lab/lab-ivftech.jpg', alt: 'Estación de trabajo del laboratorio de reproducción asistida', pos: '50% 40%' },
+    foto: { src: '/images/lab/vitrificacion-ovulos.jpg', alt: 'Ovocitos en una caja de cultivo y un vial de criopreservación junto al tanque de nitrógeno líquido', pos: '52% 50%' },
     datos: [
       { k: 'Estimulación', v: '8 a 12 días' },
       { k: 'Punción', v: 'Ambulatoria, con sedación' },
